@@ -129,7 +129,7 @@ const travelerData = {
       location: "Bangalore", 
       color: "from-purple-400 via-indigo-400 to-blue-500",
       photos: [
-        { id: 1, title: "Lalbagh Garden", image: "/images/travel/bangalore/lalbagh.jpg", color: "from-green-500 to-emerald-500" },
+        { id: 1, title: "Lalbagh Garden", image: "../images/travel/bangalore/lalbagh.jpg", color: "from-green-500 to-emerald-500" },
         { id: 2, title: "Cubbon Park", image: "/images/travel/bangalore/cubbon-park.jpg", color: "from-teal-500 to-cyan-500" },
         { id: 3, title: "Vidhana Soudha", image: "/images/travel/bangalore/vidhana-soudha.jpg", color: "from-purple-500 to-indigo-500" },
         { id: 4, title: "Tech Parks", image: "/images/travel/bangalore/tech-parks.jpg", color: "from-blue-500 to-purple-500" }
