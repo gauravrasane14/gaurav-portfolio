@@ -74,7 +74,7 @@ const travelerData = {
       location: "Baralacha La Pass 16040ft", 
       color: "from-orange-400 via-red-400 to-pink-500",
       photos: [
-        { id: 1, title: "Gateway of India", image: "public/images/travel/demo.webp", color: "from-orange-500 to-red-500" },
+        { id: 1, title: "Gateway of India", image: "/images/travel/demo.webp", color: "from-orange-500 to-red-500" },
         { id: 2, title: "Marine Drive", image: "/images/travel/mumbai/marine-drive.jpg", color: "from-blue-500 to-cyan-500" },
         { id: 3, title: "Taj Hotel", image: "/images/travel/mumbai/taj-hotel.jpg", color: "from-yellow-500 to-orange-500" },
         { id: 4, title: "Colaba Market", image: "/images/travel/mumbai/colaba.jpg", color: "from-pink-500 to-purple-500" }
