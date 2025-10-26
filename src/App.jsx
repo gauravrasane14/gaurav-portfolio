@@ -1143,7 +1143,7 @@ const GallerySection = () => {
 
   return (
     <section id="gallery" className="min-h-screen flex items-center px-4 py-20">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto w-full">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
           initial={{ opacity: 0 }}
@@ -1155,11 +1155,11 @@ const GallerySection = () => {
           </span>
         </motion.h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {travelerData.gallery.map((item, index) => (
             <motion.div
               key={item.id}
-              className={`relative h-64 rounded-2xl overflow-hidden cursor-pointer bg-gradient-to-br ${item.color}`}
+              className={`relative h-80 md:h-72 rounded-2xl overflow-hidden cursor-pointer bg-gradient-to-br ${item.color}`}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
@@ -1176,9 +1176,9 @@ const GallerySection = () => {
                 />
               ) : null}
               <div className={`absolute inset-0 flex flex-col items-center justify-center ${item.photos[0].image && !imageError[`thumb-${item.id}`] ? 'bg-black/40 hover:bg-black/60' : 'bg-black/30'} backdrop-blur-sm transition-all`}>
-                <MapPin size={40} className="text-white mb-3" />
-                <div className="font-bold text-xl text-white">{item.location}</div>
-                <div className="text-sm text-white/80 mt-2">{item.photos.length} Photos</div>
+                <MapPin size={48} className="text-white mb-3" />
+                <div className="font-bold text-2xl text-white mb-2">{item.location}</div>
+                <div className="text-sm text-white/80">{item.photos.length} Photos</div>
               </div>
             </motion.div>
           ))}
