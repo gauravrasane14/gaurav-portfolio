@@ -36,19 +36,25 @@ const techieData = {
       title: "Pune House Price Predictor",
       description: "ML web application with Flask backend for real estate price prediction",
       tech: ["Python", "Scikit-Learn", "Flask", "JavaScript"],
-      github: "#"
+      image: "/images/projects/house-predictor.jpg",
+      github: "#",
+      live: "#"
     },
     {
       title: "Computer Department Website",
       description: "Professional departmental website with optimized performance",
       tech: ["HTML", "CSS", "JavaScript", "GitHub"],
-      link: "#"
+      image: "/images/projects/dept-website.jpg",
+      github: "#",
+      live: "#"
     },
     {
       title: "Zeal Startups Platform",
       description: "Centralized project showcase platform with responsive design",
       tech: ["HTML", "CSS", "JavaScript", "Canva"],
-      link: "#"
+      image: "/images/projects/zeal-startups.jpg",
+      github: "#",
+      live: "#"
     }
   ],
   achievements: [
@@ -71,10 +77,10 @@ const travelerData = {
   gallery: [
     { 
       id: 1, 
-      location: "Baralacha La Pass 16040ft", 
+      location: "Mumbai", 
       color: "from-orange-400 via-red-400 to-pink-500",
       photos: [
-        { id: 1, title: "Gateway of India", image: "/images/travel/demo.webp", color: "from-orange-500 to-red-500" },
+        { id: 1, title: "Gateway of India", image: "/images/travel/mumbai/gateway.jpg", color: "from-orange-500 to-red-500" },
         { id: 2, title: "Marine Drive", image: "/images/travel/mumbai/marine-drive.jpg", color: "from-blue-500 to-cyan-500" },
         { id: 3, title: "Taj Hotel", image: "/images/travel/mumbai/taj-hotel.jpg", color: "from-yellow-500 to-orange-500" },
         { id: 4, title: "Colaba Market", image: "/images/travel/mumbai/colaba.jpg", color: "from-pink-500 to-purple-500" }
@@ -129,7 +135,7 @@ const travelerData = {
       location: "Bangalore", 
       color: "from-purple-400 via-indigo-400 to-blue-500",
       photos: [
-        { id: 1, title: "Lalbagh Garden", image: "../images/travel/bangalore/lalbagh.jpg", color: "from-green-500 to-emerald-500" },
+        { id: 1, title: "Lalbagh Garden", image: "/images/travel/bangalore/lalbagh.jpg", color: "from-green-500 to-emerald-500" },
         { id: 2, title: "Cubbon Park", image: "/images/travel/bangalore/cubbon-park.jpg", color: "from-teal-500 to-cyan-500" },
         { id: 3, title: "Vidhana Soudha", image: "/images/travel/bangalore/vidhana-soudha.jpg", color: "from-purple-500 to-indigo-500" },
         { id: 4, title: "Tech Parks", image: "/images/travel/bangalore/tech-parks.jpg", color: "from-blue-500 to-purple-500" }
@@ -137,11 +143,9 @@ const travelerData = {
     }
   ],
   posts: [
-    
+    { title: "IIT Bombay Experience", date: "Jan 2025", excerpt: "Representing at National Entrepreneurship Challenge..." },
     { title: "IIT Madras Journey", date: "Apr 2024", excerpt: "Hyperloop research and presentation..." },
-    { title: "Maharashtra's Gems", date: "Dec 2024", excerpt: "Exploring diverse landscapes..." },
-    { title: "IIT Bombay Experience", date: "FEB 2025", excerpt: "I went to IIT Bombay for E-Summit 2k25, and those three days felt like stepping into another world. I stayed in Hostel 17, where every corridor buzzed with stories and laughter from people chasing big dreams. The H17 mess became our mini-hangout — simple food, but somehow it tasted better when shared with new friends. Days were packed with energy. The Lecture Hall Complex turned into a hub of inspiration — speakers, startup founders, and innovators filled the air with ideas that made me want to build something of my own. Evenings brought calm; we sat under the stars at the Open Air Theater, cheering, clapping, and soaking in the vibe that only IIT Bombay can offer. Between sessions, I explored the campus — climbed the small hill, watched the sunset over Powai Lake, and realized how beautiful this place truly is. By the end of those three days, I didn’t just attend an event — I carried back a spark, the IITB spirit that whispers, Dream bold, and make it happen." }
-    
+    { title: "Maharashtra's Gems", date: "Dec 2024", excerpt: "Exploring diverse landscapes..." }
   ]
 };
 
@@ -208,7 +212,7 @@ const WelcomeScreen = ({ onComplete }) => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-8xl font-bold mb-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-            GaRa
+            GYR
           </div>
           <motion.div
             className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl"
@@ -268,7 +272,7 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
           >
             <div className={`text-3xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-              GaRa
+              GYR
             </div>
             <motion.div
               className={`absolute -inset-2 rounded-lg opacity-0 group-hover:opacity-100 blur-lg transition-opacity ${
@@ -479,9 +483,9 @@ const HeroSection = () => {
             transition={{ delay: 0.3 }}
           >
             {mode === 'techie' ? (
-              <>Computer Engineer <Cpu className="inline" size={32} /> Tech Enthusiast</>
+              <>Computer Engineer <Cpu className="inline" size={32} /> • SGPA 9.57</>
             ) : (
-              <>Travel Enthusiast <Plane className="inline" size={32} /> Nature Explorer</>
+              <>World Explorer <Plane className="inline" size={32} /> • Culture Enthusiast</>
             )}
           </motion.h2>
 
@@ -648,8 +652,8 @@ const AboutSection = () => {
                 <>
                   <InfoCard
                     icon={<GraduationCap />}
-                    title="Education"
-                    value={techieData.education.degree}
+                    title="Current Education"
+                    value="B.E. Computer Engineering"
                     subtitle={`SGPA: ${techieData.education.sgpa}`}
                     theme={theme}
                     mode={mode}
@@ -726,6 +730,124 @@ const InfoCard = ({ icon, title, value, subtitle, theme, mode }) => (
   </motion.div>
 );
 
+// Education Section (New Separate Section)
+const EducationSection = () => {
+  const { theme } = useAppContext();
+  
+  return (
+    <section id="education" className="min-h-screen flex items-center px-4 py-20">
+      <div className="max-w-6xl mx-auto">
+        <motion.h2
+          className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <span className="bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
+            Education
+          </span>
+        </motion.h2>
+        
+        <div className="space-y-6">
+          {/* Bachelor's Degree */}
+          <motion.div
+            className={`p-8 rounded-3xl backdrop-blur-xl border ${
+              theme === 'dark'
+                ? 'bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/30'
+                : 'bg-gradient-to-br from-blue-50 to-purple-50 border-blue-300'
+            }`}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <div className="flex items-start gap-6">
+              <div className="flex-shrink-0">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center">
+                  <GraduationCap className="text-white" size={32} />
+                </div>
+              </div>
+              <div className="flex-1">
+                <h3 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                  {techieData.education.degree}
+                </h3>
+                <p className="text-blue-500 font-semibold text-lg mb-2">
+                  SGPA: {techieData.education.sgpa}
+                </p>
+                <p className={`text-lg font-medium mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                  {techieData.education.university}
+                </p>
+                <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {techieData.education.period}
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* HSC and SSC */}
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* HSC */}
+            <motion.div
+              className={`p-8 rounded-3xl backdrop-blur-xl border ${
+                theme === 'dark'
+                  ? 'bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/30'
+                  : 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-300'
+              }`}
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0">
+                  <BookOpen className="text-white" size={24} />
+                </div>
+                <div>
+                  <h3 className={`text-xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                    Higher Secondary Certificate (HSC)
+                  </h3>
+                  <p className="text-green-600 font-bold text-3xl mb-2">{techieData.education.hsc.score}</p>
+                </div>
+              </div>
+              <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                Maharashtra State Board | {techieData.education.hsc.year}
+              </p>
+            </motion.div>
+
+            {/* SSC */}
+            <motion.div
+              className={`p-8 rounded-3xl backdrop-blur-xl border ${
+                theme === 'dark'
+                  ? 'bg-gradient-to-br from-orange-500/10 to-yellow-500/10 border-orange-500/30'
+                  : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-orange-300'
+              }`}
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05 }}
+            >
+              <div className="flex items-start gap-4 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-500 to-yellow-500 flex items-center justify-center flex-shrink-0">
+                  <Award className="text-white" size={24} />
+                </div>
+                <div>
+                  <h3 className={`text-xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                    Secondary School Certificate (SSC)
+                  </h3>
+                  <p className="text-orange-600 font-bold text-3xl mb-2">{techieData.education.ssc.score}</p>
+                </div>
+              </div>
+              <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                Maharashtra State Board | {techieData.education.ssc.year}
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Skills Section with Hexagonal Grid
 const SkillsSection = () => {
   const { theme } = useAppContext();
@@ -764,20 +886,8 @@ const SkillsSection = () => {
               />
               <div className="relative z-10 text-center">
                 <div className="text-4xl mb-3">{skill.icon}</div>
-                <div className={`font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                <div className={`font-bold text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                   {skill.name}
-                </div>
-                <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-                  <motion.div
-                    className="h-full bg-gradient-to-r from-blue-500 to-purple-500"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    transition={{ duration: 1, delay: index * 0.1 }}
-                    viewport={{ once: true }}
-                  />
-                </div>
-                <div className={`text-sm mt-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                  {skill.level}%
                 </div>
               </div>
             </motion.div>
@@ -791,6 +901,7 @@ const SkillsSection = () => {
 // Projects with 3D Card Effect
 const ProjectsSection = () => {
   const { theme } = useAppContext();
+  const [imageError, setImageError] = useState({});
 
   return (
     <section id="projects" className="min-h-screen flex items-center px-4 py-20">
@@ -810,7 +921,7 @@ const ProjectsSection = () => {
           {techieData.projects.map((project, index) => (
             <motion.div
               key={project.title}
-              className={`relative p-8 rounded-3xl backdrop-blur-xl border overflow-hidden group ${
+              className={`relative rounded-3xl backdrop-blur-xl border overflow-hidden group ${
                 theme === 'dark'
                   ? 'bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-500/30'
                   : 'bg-gradient-to-br from-purple-50 to-pink-50 border-purple-300'
@@ -830,14 +941,24 @@ const ProjectsSection = () => {
                 transition={{ duration: 3, repeat: Infinity }}
               />
 
-              <div className="relative z-10">
-                <div className="flex items-center justify-between mb-4">
-                  <Code className="text-purple-500" size={32} />
-                  <a href={project.github} className="text-gray-400 hover:text-purple-500 transition-colors">
-                    <Github size={24} />
-                  </a>
-                </div>
+              {/* Project Image */}
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-purple-600 to-pink-600">
+                {project.image && !imageError[`project-${index}`] ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    onError={() => setImageError(prev => ({ ...prev, [`project-${index}`]: true }))}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <Code className="text-white/50" size={64} />
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              </div>
 
+              <div className="relative z-10 p-6">
                 <h3 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
                   {project.title}
                 </h3>
@@ -846,7 +967,7 @@ const ProjectsSection = () => {
                   {project.description}
                 </p>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-6">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
@@ -859,6 +980,40 @@ const ProjectsSection = () => {
                       {tech}
                     </span>
                   ))}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-3">
+                  <motion.a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
+                      theme === 'dark'
+                        ? 'bg-purple-500 text-white hover:bg-purple-600'
+                        : 'bg-purple-600 text-white hover:bg-purple-700'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <ExternalLink size={16} />
+                    Visit
+                  </motion.a>
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold border-2 transition-all ${
+                      theme === 'dark'
+                        ? 'border-purple-500 text-purple-400 hover:bg-purple-500/10'
+                        : 'border-purple-600 text-purple-600 hover:bg-purple-50'
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Github size={16} />
+                    Code
+                  </motion.a>
                 </div>
               </div>
             </motion.div>
@@ -956,6 +1111,7 @@ const GallerySection = () => {
   const { theme } = useAppContext();
   const [selected, setSelected] = useState(null);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
+  const [imageError, setImageError] = useState({});
 
   const handleNext = () => {
     if (selected && currentPhotoIndex < selected.photos.length - 1) {
@@ -972,15 +1128,21 @@ const GallerySection = () => {
   const openGallery = (item) => {
     setSelected(item);
     setCurrentPhotoIndex(0);
+    setImageError({});
   };
 
   const closeGallery = () => {
     setSelected(null);
     setCurrentPhotoIndex(0);
+    setImageError({});
+  };
+
+  const handleImageError = (photoId) => {
+    setImageError(prev => ({ ...prev, [photoId]: true }));
   };
 
   return (
-    <section id="projects" className="min-h-screen flex items-center px-4 py-20">
+    <section id="gallery" className="min-h-screen flex items-center px-4 py-20">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -1005,18 +1167,15 @@ const GallerySection = () => {
               whileHover={{ scale: 1.05 }}
               onClick={() => openGallery(item)}
             >
-              {item.photos[0].image ? (
+              {item.photos[0].image && !imageError[`thumb-${item.id}`] ? (
                 <img 
                   src={item.photos[0].image} 
                   alt={item.location}
                   className="w-full h-full object-cover"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextSibling.style.display = 'flex';
-                  }}
+                  onError={() => handleImageError(`thumb-${item.id}`)}
                 />
               ) : null}
-              <div className={`absolute inset-0 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm ${item.photos[0].image ? 'hover:bg-black/60 transition-all' : ''}`}>
+              <div className={`absolute inset-0 flex flex-col items-center justify-center ${item.photos[0].image && !imageError[`thumb-${item.id}`] ? 'bg-black/40 hover:bg-black/60' : 'bg-black/30'} backdrop-blur-sm transition-all`}>
                 <MapPin size={40} className="text-white mb-3" />
                 <div className="font-bold text-xl text-white">{item.location}</div>
                 <div className="text-sm text-white/80 mt-2">{item.photos.length} Photos</div>
@@ -1056,31 +1215,29 @@ const GallerySection = () => {
 
                 {/* Main Photo Display */}
                 <div className="relative w-full h-96 rounded-3xl overflow-hidden bg-black">
-                  {selected.photos[currentPhotoIndex].image ? (
-                    <img 
-                      src={selected.photos[currentPhotoIndex].image}
-                      alt={selected.photos[currentPhotoIndex].title}
-                      className="w-full h-full object-contain"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                    />
-                  ) : null}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${selected.photos[currentPhotoIndex].color} flex items-center justify-center ${selected.photos[currentPhotoIndex].image ? 'hidden' : 'flex'}`}>
-                    <div className="text-center text-white">
-                      <MapPin size={80} className="mx-auto mb-4" />
-                      <div className="font-bold text-5xl mb-2">{selected.location}</div>
-                      <div className="text-2xl opacity-80">{selected.photos[currentPhotoIndex].title}</div>
-                      <div className="text-sm mt-4 opacity-60">Image placeholder - Add your photo!</div>
-                    </div>
-                  </div>
-                  
-                  {/* Photo Title Overlay */}
-                  {selected.photos[currentPhotoIndex].image && (
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                      <div className="text-white text-2xl font-bold">{selected.photos[currentPhotoIndex].title}</div>
-                      <div className="text-white/80">{selected.location}</div>
+                  {selected.photos[currentPhotoIndex].image && !imageError[`main-${currentPhotoIndex}`] ? (
+                    <>
+                      <img 
+                        key={`photo-${currentPhotoIndex}`}
+                        src={selected.photos[currentPhotoIndex].image}
+                        alt={selected.photos[currentPhotoIndex].title}
+                        className="w-full h-full object-contain"
+                        onError={() => handleImageError(`main-${currentPhotoIndex}`)}
+                      />
+                      {/* Photo Title Overlay */}
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+                        <div className="text-white text-2xl font-bold">{selected.photos[currentPhotoIndex].title}</div>
+                        <div className="text-white/80">{selected.location}</div>
+                      </div>
+                    </>
+                  ) : (
+                    <div className={`absolute inset-0 bg-gradient-to-br ${selected.photos[currentPhotoIndex].color} flex items-center justify-center`}>
+                      <div className="text-center text-white">
+                        <MapPin size={80} className="mx-auto mb-4" />
+                        <div className="font-bold text-5xl mb-2">{selected.location}</div>
+                        <div className="text-2xl opacity-80">{selected.photos[currentPhotoIndex].title}</div>
+                        <div className="text-sm mt-4 opacity-60">Image placeholder - Add your photo!</div>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -1110,7 +1267,7 @@ const GallerySection = () => {
                   >
                     Next →
                   </button>
-                </div> */
+                </div>
 
                 {/* Thumbnail Navigation */}
                 <div className="flex gap-2 justify-center mt-6 overflow-x-auto pb-2">
@@ -1124,18 +1281,16 @@ const GallerySection = () => {
                       whileHover={{ scale: 1.1 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      {photo.image ? (
+                      {photo.image && !imageError[`thumb-${selected.id}-${index}`] ? (
                         <img 
                           src={photo.image} 
                           alt={photo.title}
                           className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            e.target.nextSibling.style.display = 'block';
-                          }}
+                          onError={() => handleImageError(`thumb-${selected.id}-${index}`)}
                         />
-                      ) : null}
-                      <div className={`w-full h-full bg-gradient-to-br ${photo.color} ${photo.image ? 'hidden' : 'block'}`} />
+                      ) : (
+                        <div className={`w-full h-full bg-gradient-to-br ${photo.color}`} />
+                      )}
                     </motion.button>
                   ))}
                 </div>
@@ -1205,9 +1360,54 @@ const StoriesSection = () => {
 const ContactSection = () => {
   const { mode, theme } = useAppContext();
 
+  const contactOptions = [
+    {
+      icon: <Mail size={32} />,
+      title: "Email",
+      value: "gauravrasane14@gmail.com",
+      link: "mailto:gauravrasane14@gmail.com",
+      highlight: mode === 'techie'
+    },
+    {
+      icon: <Phone size={32} />,
+      title: "Phone",
+      value: "+91 76209 84926",
+      link: "tel:+917620984926",
+      highlight: false
+    },
+    {
+      icon: <MapPin size={32} />,
+      title: "Location",
+      value: "Pune, Maharashtra, India",
+      link: null,
+      highlight: false
+    },
+    {
+      icon: <Github size={32} />,
+      title: "GitHub",
+      value: "@gauravrasane14",
+      link: "https://github.com/gauravrasane14",
+      highlight: false
+    },
+    {
+      icon: <Linkedin size={32} />,
+      title: "LinkedIn",
+      value: "@gauravrasane14",
+      link: "https://linkedin.com/in/gauravrasane14",
+      highlight: mode === 'techie'
+    },
+    {
+      icon: <Instagram size={32} />,
+      title: "Instagram",
+      value: "@gauravrasane14",
+      link: "https://instagram.com/gauravrasane14",
+      highlight: mode === 'traveler'
+    }
+  ];
+
   return (
     <section id="contact" className="min-h-screen flex items-center px-4 py-20">
-      <div className="max-w-4xl mx-auto w-full">
+      <div className="max-w-5xl mx-auto w-full">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
           initial={{ opacity: 0 }}
@@ -1223,107 +1423,73 @@ const ContactSection = () => {
           </span>
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          <motion.a
-            href="mailto:gauravrasane14@gmail.com"
-            className={`p-8 rounded-3xl backdrop-blur-xl border ${
-              theme === 'dark'
-                ? mode === 'techie'
-                  ? 'bg-blue-500/10 border-blue-500/30 hover:bg-blue-500/20'
-                  : 'bg-orange-500/10 border-orange-500/30 hover:bg-orange-500/20'
-                : 'bg-gradient-to-br from-blue-50 to-purple-50 border-blue-300'
-            } transition-all group`}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <Mail className={mode === 'techie' ? 'text-blue-500' : 'text-orange-500'} size={40} />
-            <h3 className={`text-xl font-bold mt-4 mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-              Email
-            </h3>
-            <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              gauravrasane14@gmail.com
-            </p>
-          </motion.a>
-
-          <motion.a
-            href="tel:+917620984926"
-            className={`p-8 rounded-3xl backdrop-blur-xl border ${
-              theme === 'dark'
-                ? mode === 'techie'
-                  ? 'bg-purple-500/10 border-purple-500/30 hover:bg-purple-500/20'
-                  : 'bg-pink-500/10 border-pink-500/30 hover:bg-pink-500/20'
-                : 'bg-gradient-to-br from-purple-50 to-pink-50 border-purple-300'
-            } transition-all group`}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            viewport={{ once: true }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <Phone className={mode === 'techie' ? 'text-purple-500' : 'text-pink-500'} size={40} />
-            <h3 className={`text-xl font-bold mt-4 mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-              Phone
-            </h3>
-            <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-              +91 76209 84926
-            </p>
-          </motion.a>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {contactOptions.map((option, index) => (
+            <motion.div
+              key={option.title}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.05 }}
+              viewport={{ once: true }}
+            >
+              {option.link ? (
+                <motion.a
+                  href={option.link}
+                  target={option.link.startsWith('http') ? '_blank' : undefined}
+                  rel={option.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                  className={`block p-5 rounded-2xl backdrop-blur-xl border transition-all group ${
+                    option.highlight
+                      ? theme === 'dark'
+                        ? mode === 'techie'
+                          ? 'bg-blue-500/20 border-blue-500/50 hover:bg-blue-500/30 hover:scale-105'
+                          : 'bg-orange-500/20 border-orange-500/50 hover:bg-orange-500/30 hover:scale-105'
+                        : mode === 'techie'
+                          ? 'bg-blue-100 border-blue-400 hover:bg-blue-200 hover:scale-105'
+                          : 'bg-orange-100 border-orange-400 hover:bg-orange-200 hover:scale-105'
+                      : theme === 'dark'
+                        ? 'bg-gray-800/30 border-gray-700/50 hover:bg-gray-800/50 hover:scale-105'
+                        : 'bg-white/80 border-gray-300 hover:bg-white hover:scale-105'
+                  }`}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <div className={`mb-3 ${
+                    option.highlight
+                      ? mode === 'techie' ? 'text-blue-500' : 'text-orange-500'
+                      : theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                  }`}>
+                    {option.icon}
+                  </div>
+                  <h3 className={`text-base font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                    {option.title}
+                  </h3>
+                  <p className={`text-xs break-all ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {option.value}
+                  </p>
+                </motion.a>
+              ) : (
+                <motion.div
+                  className={`block p-5 rounded-2xl backdrop-blur-xl border ${
+                    theme === 'dark'
+                      ? 'bg-gray-800/30 border-gray-700/50'
+                      : 'bg-white/80 border-gray-300'
+                  }`}
+                  whileHover={{ y: -4 }}
+                >
+                  <div className={`mb-3 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {option.icon}
+                  </div>
+                  <h3 className={`text-base font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                    {option.title}
+                  </h3>
+                  <p className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                    {option.value}
+                  </p>
+                </motion.div>
+              )}
+            </motion.div>
+          ))}
         </div>
-
-        <motion.div
-          className={`p-8 rounded-3xl backdrop-blur-xl border ${
-            theme === 'dark'
-              ? 'bg-gray-800/50 border-gray-700'
-              : 'bg-white border-gray-300'
-          }`}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <div className="flex justify-center gap-6 mb-6">
-            <motion.a
-              href="https://github.com/gauravrasane14"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`p-4 rounded-full ${
-                mode === 'techie' ? 'bg-blue-500' : 'bg-orange-500'
-              } text-white`}
-              whileHover={{ scale: 1.2, rotate: 360 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Github size={24} />
-            </motion.a>
-            <motion.a
-              href="https://linkedin.com/in/gauravrasane14"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`p-4 rounded-full ${
-                mode === 'techie' ? 'bg-purple-500' : 'bg-pink-500'
-              } text-white`}
-              whileHover={{ scale: 1.2, rotate: 360 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Linkedin size={24} />
-            </motion.a>
-            <motion.a
-              href="https://instagram.com/gauravrasane14"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`p-4 rounded-full ${
-                mode === 'techie' ? 'bg-pink-500' : 'bg-purple-500'
-              } text-white`}
-              whileHover={{ scale: 1.2, rotate: 360 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Instagram size={24} />
-            </motion.a>
-          </div>
-          <p className={`text-center ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-            Pune, Maharashtra, India - 411041
-          </p>
-        </motion.div>
       </div>
     </section>
   );
@@ -1364,6 +1530,7 @@ const App = () => {
                   >
                     <HeroSection />
                     <AboutSection />
+                    <EducationSection />
                     <SkillsSection />
                     <ProjectsSection />
                     <AchievementsSection />
