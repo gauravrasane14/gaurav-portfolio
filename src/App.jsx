@@ -7,7 +7,7 @@ const useAppContext = () => useContext(AppContext);
 
 // Real Resume Data
 const techieData = {
-  about: "I'm Gaurav Y. Rasane, a passionate Computer Engineering student with a stellar SGPA of 9.57 from Savitribai Phule Pune University. Ranked Top 5 at IIT Bombay's National Entrepreneurship Challenge and consistently a top-performing student across all academic years.",
+  about: "I'm Gaurav Rasane. A innovative and result-oriented Computer Engineer with a sound background in technology and full-stack development. A perennial top-performing student throughout all academic years and Advisor of E-Cell ZCOER, with national-level experience in IIT Bombay and IIT Madras. Enthusiastic about developing impactful tech solutions and mentoring innovative projects like the AI Agriculture Surveillance & Defence System and Zeal Startups.",
   education: {
     degree: "Bachelor of Engineering in Computer Engineering",
     university: "Savitribai Phule Pune University",
@@ -33,28 +33,28 @@ const techieData = {
   },
   projects: [
     {
-      title: "Pune House Price Predictor",
-      description: "ML web application with Flask backend for real estate price prediction",
+      title: "AI Agriculture Surveillance & Defence System",
+      description: "AI, IoT & YOLOv8 based application with Flask backend for real-time intruder detection and defence system.",
       tech: ["Python", "Scikit-Learn", "Flask", "JavaScript"],
-      image: "/images/projects/house-predictor.jpg",
-      github: "#",
+      image: "/images/projects/agri.png",
+      github: "https://github.com/gauravrasane14/Agriculture-Surveillance",
       live: "#"
     },
     {
       title: "Computer Department Website",
       description: "Professional departmental website with optimized performance",
       tech: ["HTML", "CSS", "JavaScript", "GitHub"],
-      image: "/images/projects/dept-website.jpg",
-      github: "#",
-      live: "#"
+      image: "/images/projects/deptweb.png",
+      github: "https://github.com/gauravrasane14/compweb",
+      live: "https://cszcoer.netlify.app/"
     },
     {
       title: "Zeal Startups Platform",
       description: "Centralized project showcase platform with responsive design",
       tech: ["HTML", "CSS", "JavaScript", "Canva"],
-      image: "/images/projects/zeal-startups.jpg",
-      github: "#",
-      live: "#"
+      image: "/images/projects/zealstartups.png",
+      github: "https://github.com/gauravrasane14/zealstartups",
+      live: "https://zealstartups.netlify.app/"
     }
   ],
   achievements: [
@@ -64,23 +64,23 @@ const techieData = {
     { title: "Subject Ranker", desc: "Engineering Physics & Chemistry", color: "green" }
   ],
   leadership: [
-    { role: "Documentation Head", org: "E-Cell ZCOER" },
+    { role: "Advisor", org: "E-Cell ZCOER" },
     { role: "Campus Ambassador", org: "E-Cell IIT Bombay" },
-    { role: "NSS Coordinator", org: "ZCOER" }
+    { role: "NSS Coordinator", org: "NSS Unit ZCOER" }
   ]
 };
 
 const travelerData = {
   bio: "When I'm not coding, you'll find me exploring new destinations, immersing myself in different cultures. Travel fuels my creativity and broadens my perspective.",
-  places: 15,
+  places: 60,
   states: 8,
   gallery: [
     { 
       id: 1, 
-      location: "Mumbai", 
+      location: "BaralachaLa Pass", 
       color: "from-orange-400 via-red-400 to-pink-500",
       photos: [
-        { id: 1, title: "Gateway of India", image: "/images/travel/mumbai/gateway.jpg", color: "from-orange-500 to-red-500" },
+        { id: 1, title: "demo", image: "/images/travel/demo.webp", color: "from-orange-500 to-red-500" },
         { id: 2, title: "Marine Drive", image: "/images/travel/mumbai/marine-drive.jpg", color: "from-blue-500 to-cyan-500" },
         { id: 3, title: "Taj Hotel", image: "/images/travel/mumbai/taj-hotel.jpg", color: "from-yellow-500 to-orange-500" },
         { id: 4, title: "Colaba Market", image: "/images/travel/mumbai/colaba.jpg", color: "from-pink-500 to-purple-500" }
@@ -143,9 +143,9 @@ const travelerData = {
     }
   ],
   posts: [
-    { title: "IIT Bombay Experience", date: "Jan 2025", excerpt: "Representing at National Entrepreneurship Challenge..." },
-    { title: "IIT Madras Journey", date: "Apr 2024", excerpt: "Hyperloop research and presentation..." },
-    { title: "Maharashtra's Gems", date: "Dec 2024", excerpt: "Exploring diverse landscapes..." }
+    //{ title: "IIT Bombay Experience", date: "Jan 2025", excerpt: "Representing at National Entrepreneurship Challenge..." },
+    //{ title: "IIT Madras Journey", date: "Apr 2024", excerpt: "Hyperloop research and presentation..." },
+    //{ title: "Maharashtra's Gems", date: "Dec 2024", excerpt: "Exploring diverse landscapes..." }
   ]
 };
 
@@ -193,7 +193,7 @@ const FloatingParticles = ({ mode }) => {
 // Welcome Screen
 const WelcomeScreen = ({ onComplete }) => {
   useEffect(() => {
-    const timer = setTimeout(onComplete, 3000);
+    const timer = setTimeout(onComplete, 800);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -212,7 +212,7 @@ const WelcomeScreen = ({ onComplete }) => {
           transition={{ duration: 0.5 }}
         >
           <div className="text-8xl font-bold mb-4 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-            GYR
+            GaRa
           </div>
           <motion.div
             className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 blur-3xl"
@@ -272,7 +272,7 @@ const Header = () => {
             whileHover={{ scale: 1.05 }}
           >
             <div className={`text-3xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-              GYR
+              GaRa
             </div>
             <motion.div
               className={`absolute -inset-2 rounded-lg opacity-0 group-hover:opacity-100 blur-lg transition-opacity ${
@@ -483,9 +483,9 @@ const HeroSection = () => {
             transition={{ delay: 0.3 }}
           >
             {mode === 'techie' ? (
-              <>Computer Engineer <Cpu className="inline" size={32} /> • SGPA 9.57</>
+              <>Computer Engineer <Cpu className="inline" size={32} /> Full-Stack Developer</>
             ) : (
-              <>World Explorer <Plane className="inline" size={32} /> • Culture Enthusiast</>
+              <>Culture Explorer <Plane className="inline" size={32} /> Travel Enthusiast</>
             )}
           </motion.h2>
 
@@ -498,8 +498,8 @@ const HeroSection = () => {
             transition={{ delay: 0.5 }}
           >
             {mode === 'techie'
-              ? 'Top 5 @ IIT Bombay • Full Stack Developer • ML Enthusiast'
-              : '15+ Places Explored • 8 States • Infinite Memories'}
+              ? 'Software Developer • AI/ML Enthusiast • Cloud'
+              : '60+ Places Explored • 8+ States • Infinite Memories'}
           </motion.p>
 
           <motion.div
@@ -554,15 +554,15 @@ const HeroSection = () => {
           >
             {mode === 'techie' ? (
               <>
-                <StatCard icon={<Trophy />} value="9.57" label="SGPA" color={mode} theme={theme} />
                 <StatCard icon={<Code />} value="8+" label="Projects" color={mode} theme={theme} />
-                <StatCard icon={<Award />} value="Top 5" label="IIT Bombay" color={mode} theme={theme} />
+                <StatCard icon={<Award />} value="10+" label="Technologies" color={mode} theme={theme} />
+                <StatCard icon={<Trophy />} value="9.57" label="SGPA" color={mode} theme={theme} />
               </>
             ) : (
               <>
                 <StatCard icon={<MapPin />} value="15+" label="Places" color={mode} theme={theme} />
-                <StatCard icon={<Plane />} value="8" label="States" color={mode} theme={theme} />
-                <StatCard icon={<Calendar />} value="32" label="Stories" color={mode} theme={theme} />
+                <StatCard icon={<Plane />} value="8+" label="States" color={mode} theme={theme} />
+                <StatCard icon={<Calendar />} value="Infinite" label="Stories" color={mode} theme={theme} />
               </>
             )}
           </motion.div>
@@ -1142,7 +1142,7 @@ const GallerySection = () => {
   };
 
   return (
-    <section id="gallery" className="min-h-screen flex items-center px-4 py-20">
+    <section id="projects" className="min-h-screen flex items-center px-4 py-20">
       <div className="max-w-7xl mx-auto w-full">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -1376,13 +1376,13 @@ const ContactSection = () => {
       highlight: false
     },
     {
-      icon: <MapPin size={32} />,
-      title: "Location",
-      value: "Pune, Maharashtra, India",
-      link: null,
-      highlight: false
+      icon: <Linkedin size={32} />,
+      title: "LinkedIn",
+      value: "@gauravrasane14",
+      link: "https://linkedin.com/in/gauravrasane14",
+      highlight: mode === 'techie'
     },
-    {
+      {
       icon: <Github size={32} />,
       title: "GitHub",
       value: "@gauravrasane14",
@@ -1390,18 +1390,18 @@ const ContactSection = () => {
       highlight: false
     },
     {
-      icon: <Linkedin size={32} />,
-      title: "LinkedIn",
-      value: "@gauravrasane14",
-      link: "https://linkedin.com/in/gauravrasane14",
-      highlight: mode === 'techie'
-    },
-    {
       icon: <Instagram size={32} />,
       title: "Instagram",
-      value: "@gauravrasane14",
-      link: "https://instagram.com/gauravrasane14",
+      value: "@gauravrasane_14",
+      link: "https://instagram.com/gauravrasane_14",
       highlight: mode === 'traveler'
+    },
+    {
+      icon: <MapPin size={32} />,
+      title: "Location",
+      value: "Pune, Maharashtra, India",
+      link: null,
+      highlight: false
     }
   ];
 
