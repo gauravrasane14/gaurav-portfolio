@@ -88,18 +88,18 @@ const travelerData = {
     },
     { 
       id: 2, 
-      location: "Goa", 
-      color: "from-blue-400 via-cyan-400 to-teal-500",
+      location: "Himachal", 
+      color: "from-green-400 via-emerald-400 to-teal-500",
       photos: [
-        { id: 1, title: "Baga Beach", image: "/images/travel/goa/baga-beach.jpg", color: "from-cyan-500 to-blue-500" },
-        { id: 2, title: "Fort Aguada", image: "/images/travel/goa/fort-aguada.jpg", color: "from-orange-500 to-red-500" },
-        { id: 3, title: "Anjuna Flea Market", image: "/images/travel/goa/anjuna.jpg", color: "from-purple-500 to-pink-500" },
-        { id: 4, title: "Dudhsagar Falls", image: "/images/travel/goa/dudhsagar.jpg", color: "from-green-500 to-teal-500" }
+        { id: 1, title: "Sinhagad Fort", image: "/images/travel/pune/sinhagad.jpg", color: "from-green-500 to-emerald-500" },
+        { id: 2, title: "Lonavala", image: "/images/travel/pune/lonavala.jpg", color: "from-teal-500 to-cyan-500" },
+        { id: 3, title: "Khandala Ghats", image: "/images/travel/pune/khandala.jpg", color: "from-blue-500 to-green-500" },
+        { id: 4, title: "Pawna Lake", image: "/images/travel/pune/pawna-lake.jpg", color: "from-cyan-500 to-blue-500" }
       ]
     },
     { 
       id: 3, 
-      location: "Rajasthan", 
+      location: "Kedarnath", 
       color: "from-yellow-400 via-orange-400 to-red-500",
       photos: [
         { id: 1, title: "Amber Fort", image: "/images/travel/rajasthan/amber-fort.jpg", color: "from-yellow-500 to-orange-500" },
@@ -110,42 +110,214 @@ const travelerData = {
     },
     { 
       id: 4, 
-      location: "Pune Hills", 
-      color: "from-green-400 via-emerald-400 to-teal-500",
+      location: "Goa", 
+      color: "from-blue-400 via-cyan-400 to-teal-500",
       photos: [
-        { id: 1, title: "Sinhagad Fort", image: "/images/travel/pune/sinhagad.jpg", color: "from-green-500 to-emerald-500" },
-        { id: 2, title: "Lonavala", image: "/images/travel/pune/lonavala.jpg", color: "from-teal-500 to-cyan-500" },
-        { id: 3, title: "Khandala Ghats", image: "/images/travel/pune/khandala.jpg", color: "from-blue-500 to-green-500" },
-        { id: 4, title: "Pawna Lake", image: "/images/travel/pune/pawna-lake.jpg", color: "from-cyan-500 to-blue-500" }
+        { id: 1, title: "Baga Beach", image: "/images/travel/goa/baga-beach.jpg", color: "from-cyan-500 to-blue-500" },
+        { id: 2, title: "Fort Aguada", image: "/images/travel/goa/fort-aguada.jpg", color: "from-orange-500 to-red-500" },
+        { id: 3, title: "Anjuna Flea Market", image: "/images/travel/goa/anjuna.jpg", color: "from-purple-500 to-pink-500" },
+        { id: 4, title: "Dudhsagar Falls", image: "/images/travel/goa/dudhsagar.jpg", color: "from-green-500 to-teal-500" }
       ]
     },
     { 
       id: 5, 
-      location: "Delhi", 
+      location: "Kalsubai Peak", 
       color: "from-red-400 via-pink-400 to-purple-500",
       photos: [
-        { id: 1, title: "India Gate", image: "/images/travel/delhi/india-gate.jpg", color: "from-orange-500 to-red-500" },
-        { id: 2, title: "Red Fort", image: "/images/travel/delhi/red-fort.jpg", color: "from-red-500 to-pink-500" },
-        { id: 3, title: "Qutub Minar", image: "/images/travel/delhi/qutub-minar.jpg", color: "from-yellow-500 to-orange-500" },
-        { id: 4, title: "Lotus Temple", image: "/images/travel/delhi/lotus-temple.jpg", color: "from-pink-500 to-purple-500" }
+        { id: 1, title: "Kalsuaai Temple", image: "/images/travel/kalsubai/k1.jpg", color: "from-orange-500 to-red-500" },
+        { id: 2, title: "Sunrise View", image: "/images/travel/kalsubai/k2.jpg", color: "from-red-500 to-pink-500" },
+        { id: 3, title: "Midnight View", image: "/images/travel/kalsubai/k3.jpg", color: "from-yellow-500 to-orange-500" },
+        { id: 4, title: "Alang-Manang View", image: "/images/travel/kalsubai/k4.jpg", color: "from-pink-500 to-purple-500" }
       ]
     },
     { 
       id: 6, 
-      location: "Bangalore", 
+      location: "IIT Madras", 
       color: "from-purple-400 via-indigo-400 to-blue-500",
       photos: [
-        { id: 1, title: "Lalbagh Garden", image: "/images/travel/bangalore/lalbagh.jpg", color: "from-green-500 to-emerald-500" },
-        { id: 2, title: "Cubbon Park", image: "/images/travel/bangalore/cubbon-park.jpg", color: "from-teal-500 to-cyan-500" },
-        { id: 3, title: "Vidhana Soudha", image: "/images/travel/bangalore/vidhana-soudha.jpg", color: "from-purple-500 to-indigo-500" },
-        { id: 4, title: "Tech Parks", image: "/images/travel/bangalore/tech-parks.jpg", color: "from-blue-500 to-purple-500" }
+        { id: 1, title: "IIT Madras", image: "/images/travel/iitm/iitm1.jpg", color: "from-green-500 to-emerald-500" },
+        { id: 2, title: "IITM Entry Gate", image: "/images/travel/iitm/iitm2.jpg", color: "from-teal-500 to-cyan-500" },
+        { id: 3, title: "Night Campus", image: "/images/travel/iitm/iitm3.jpg", color: "from-purple-500 to-indigo-500" },
+        { id: 4, title: "Hostel Complex", image: "/images/travel/iitm/iitm4.jpg", color: "from-blue-500 to-purple-500" },
+        { id: 5, title: "Open Ground", image: "/images/travel/iitm/iitm5.jpg", color: "from-blue-500 to-purple-500" }
       ]
     }
   ],
   posts: [
-    //{ title: "IIT Bombay Experience", date: "Jan 2025", excerpt: "Representing at National Entrepreneurship Challenge..." },
-    //{ title: "IIT Madras Journey", date: "Apr 2024", excerpt: "Hyperloop research and presentation..." },
-    //{ title: "Maharashtra's Gems", date: "Dec 2024", excerpt: "Exploring diverse landscapes..." }
+    {
+      id: 2,
+      title: "GOA Budget Trip",
+      date: "Mar '25",
+      category: "Unplanned Trip",
+      coverImage: "/images/stories/goatrip.png",
+      excerpt: "Experience about a unplanned GOA Trip!",
+      readTime: "5 min read",
+      content: `
+      <h2>Unplanned Goa Trip Before Exams!</h2>
+      <p>Sometimes the best trips are the ones you never plan. Just a few days before our exams, my friend and I had this random idea - “Let’s go to Goa.” Within a few hours, with budget of ₹1500 we packed our bags, grabbed a half-kilo packet of farsan, and set off on a journey that would become one of our most memorable adventures.
+      <br /><br />From Pune to Mumbai:
+      <br />The trip began from Pune. We caught a train to Mumbai for just ₹75 and started feeling like budget travel pros already. At CSMT Mumbai, we treated ourselves to the classic vadapav worth ₹25, which gave us the real Mumbai start we needed.
+      <br /><br />The Overnight Journey to Goa:
+      <br />That night, we boarded the Konkan Kanya Express from Mumbai. The rhythmic sound of the train and the cool breeze outside made it feel like a movie. By the next morning, we reached Madgaon Junction in Goa, with excitement higher than ever and still under budget.
+      <br /><br />Exploring Goa on a Scooty:
+      <br />From Madgaon, we rented a scooty for two days at ₹500 per day, which came to ₹250 per head. Fuel cost added another ₹300 per person, but it was worth every rupee. With our small backpacks, farsan packet, and unstoppable energy, we began exploring Goa’s endless charm.
+      <br />We covered more than 10 beaches across both South and North Goa. South Goa surprised us with its calmness and natural beauty, while North Goa lit up with its lively nightlife and vibrant atmosphere. From peaceful sunsets at Palolem to crowded lanes of Baga, we saw it all, laughed endlessly, and lived in the moment.
+      <br /><br />Living on Farsan and Budget Meals:
+      <br />Food was simple and affordable. One decent meal cost us around ₹150 per head, and our farsan packet became our savior during long afternoons when we were too busy exploring to stop for lunch. That farsan became legendary for us by the end of the trip!
+      <br /><br />The Beautiful Return Journey:
+      <br />For our return, we took the Goa–Delhi Express via Belagavi. The journey turned magical when we passed through Dudhsagar Waterfall, visible right from the train window. The sound of the waterfall, the mist in the air, and the greenery around made it feel like a perfect ending to our spontaneous adventure. The ticket cost only ₹190, and the view was priceless.
+      <br /><br />Memories for a Lifetime:
+      <br />With just ₹1500 and one farsan packet, we experienced an unforgettable Goa trip filled with laughter, scenic beauty, and the joy of unplanned adventures. It taught us that you don’t need a big budget to create big memories, you just need a little madness and a lot of curiosity.
+      <br />Goa wasn’t just a destination; it became a reminder that the best moments in life often come without plans.</p>
+    `
+    },
+    {
+      id: 4,
+      title: "A Divine Journey to Tirupati - Sri Venkateswara Balaji",
+      date: "Jan '25",
+      category: "Divine Journey",
+      coverImage: "/images/stories/tirupati.png",
+      excerpt: "The spiritual and divine experiences that touch your soul!",
+      readTime: "7 min read",
+      content: `
+      <h2>A Divine Journey to Tirupati — The Abode of Sri Venkateswara Balaji</h2>
+      <p>Some journeys are not just trips - they’re spiritual experiences that touch your soul. My recent visit to Tirupati, the sacred abode of Sri Venkateswara Balaji, was one such divine experience that left me with immense peace, positivity, and gratitude.
+      <br /><br />Journey with Friends to the Holy Hills
+      <br />This trip was special - not just because of the destination, but also because I went with my close group of friends. Together, we traveled to Tirupati, a place known for its divinity, devotion, and the magnetic presence of Lord Balaji. The moment we reached, there was an unmistakable spiritual aura in the air - a calmness that instantly made us feel connected to something higher.
+      <br /><br />The Divine Darshan at Tirumala
+      <br />The Tirumala Tirupati Devasthanam (TTD) is not just a temple - it’s an experience that every devotee cherishes forever. Climbing the sacred steps, chanting “Govinda! Govinda!,” and finally standing before the magnificent idol of Lord Sri Venkateswara Balaji was beyond words.
+      <br />It was a moment of pure devotion and peace, where everything else faded away. The positive energy inside the sanctum felt powerful, something that could only be experienced, not described.
+      <br /><br />Comfortable Stay & Divine Prasadam
+      <br />We were fortunate to get a comfortable accommodation provided by TTD - clean, peaceful, and close to the temple premises. Everything about the place radiated discipline and devotion.
+      <br />The Annaprasadam served at the temple was equally divine - a traditional South Indian meal served on banana leaves, simple yet fulfilling. The flavors, the hospitality, and the sense of equality while dining with fellow devotees made the experience unforgettable.
+      <br /><br />Exploring the Sacred Surroundings
+      <br />Our journey didn’t end at Tirumala; we took the opportunity to explore several spiritual and natural treasures around Tirupati. Each place carried its own significance and offered a unique divine experience:
+      <br />Padmavati Ammavari Temple (Alamelu Mangapuram): Dedicated to Goddess Padmavati, consort of Lord Venkateswara, this temple is a must-visit before heading to Tirumala. The calm atmosphere and traditional rituals make it an essential part of the Tirupati pilgrimage.
+      <br />Japali Theertham: Nestled within dense forests, this ancient temple of Lord Hanuman is believed to be the spot where he met Lord Rama. The serene forest trail and peaceful surroundings make it ideal for meditation and reflection.
+      <br />Silathoranam: A natural rock arch formation, believed to symbolize the celestial gateway of Lord Venkateswara. It’s one of the most unique geological structures in India and a great place to witness nature’s creativity.
+      <br />Akasaganga Theertham: A sacred waterfall flowing from the Tirumala hills. Devotees believe its waters are used in temple rituals. The sight and sound of the falling water amidst the forest create a deeply refreshing and spiritual atmosphere.
+      <br />Srivari Paadaalu: Known as the place where Lord Venkateswara first set foot on earth, this hilltop offers breathtaking panoramic views of the Tirumala valley. Standing there, surrounded by clouds and calm winds, feels like standing at the doorstep of heaven.
+      <br />Srikalahasti Temple: A short drive from Tirupati, this magnificent temple dedicated to Lord Shiva is known as the Kashi of the South. Its powerful energy and intricate architecture make it a must-visit for every pilgrim.
+      <br />Sripuram Golden Temple (Vellore): On our way back, we also visited this stunning gold-plated temple dedicated to Goddess Mahalakshmi. The temple complex glows in sunlight, and its divine aura, combined with the golden beauty, makes it an unforgettable stop on the journey.
+      <br /><br />A Journey of Peace and Positivity
+      <br />From start to end, the Tirupati trip was filled with moments of faith, laughter, and divine energy. Whether it was the echoing chants at the temple, the peaceful stay, the delicious prasadam, or the scenic surroundings - every bit of it added to the experience of inner peace.
+      <br />As we returned home, all of us carried a sense of spiritual fulfillment and positivity that words can hardly capture. Truly, a visit to Sri Venkateswara Balaji at Tirupati is not just a trip — it’s a divine calling that stays in your heart forever.</p>
+    `
+    },
+    {
+      id: 6,
+      title: "The Timeless Vibe of Banaras - City of Ghats, Gods & Ganga",
+      date: "Jan '25",
+      category: "Divine Journey",
+      coverImage: "/images/stories/banaras.png",
+      excerpt: "Banaras (Varanasi), a city that feels alive with divinity!",
+      readTime: "5 min read",
+      content: `
+      <p>Some cities are just places on the map - and then there’s Banaras (Varanasi), a city that feels alive with divinity. My journey to this ancient city was a deep dive into spirituality, history, culture, and flavor - all wrapped into one unforgettable experience.
+      <br /><br />Exploring the 84 Ghats - The Soul of Banaras:
+      <br />We began our exploration early in the morning, walking along the 84 ghats of the Ganga. Each ghat had its own rhythm — saints meditating, pilgrims bathing, boats gently floating, and the fragrance of incense mingling with the misty morning air.
+      <br />From the lively Assi Ghat to the sacred Dashashwamedh Ghat, and the hauntingly peaceful Manikarnika Ghat, every step along the riverbank felt like walking through centuries of devotion and stories.
+      <br />The Sacred Darshan of Kashi Vishwanath
+      <br />No trip to Banaras is complete without visiting the Kashi Vishwanath Temple - one of the twelve Jyotirlingas of Lord Shiva. The moment I entered the temple, surrounded by chants of “Har Har Mahadev!”, I felt a surge of divine energy that words can hardly capture.
+      <br />The temple’s golden dome glistened under the sunlight, and the atmosphere was filled with devotion and reverence. It truly felt like the beating heart of Banaras.
+      <br /><br />Boat Ride on the Ganga:
+      <br />As evening approached, we took a boat ride on the Ganga, gliding past the ancient ghats as the sun began to set. The view from the water was surreal - old palaces, flickering lamps, and the golden reflection of the sky dancing on the river’s surface.
+      <br />The boat ride was more than sightseeing - it was an experience of tranquility and timelessness, where the river seemed to whisper the stories of countless generations.
+      <br /><br />Silence at Manikarnika Ghat:
+      <br />Among all the ghats, Manikarnika Ghat stood out in silence. It is where life and death meet - a place of deep spiritual meaning. Watching the eternal flames, I felt a strange calmness; it wasn’t sorrowful, but peaceful - as if reminding us of the cycle of life, where every end is also a beginning.
+      <br />The silence of that moment said more than a thousand words ever could.
+      <br /><br />Evening Ganga Aarti at Dashashwamedh Ghat:
+      <br />As night descended, the city transformed. We gathered at Dashashwamedh Ghat for the evening Ganga Aarti - one of the most mesmerizing sights I’ve ever witnessed.
+      <br />The rhythmic chants, the synchronized movements of priests holding flaming lamps, the ringing of bells, and the reflection of fire on the river - it was pure magic. The atmosphere was electric yet peaceful, filled with divine vibration and spiritual warmth.
+      <br /><br />The Flavors of Banaras - A Food Lover’s Heaven
+      <br />Banaras is not just about temples and ghats - it’s also a food paradise! We roamed through the narrow gallis of Banaras, trying every local delicacy we could find - chaat, malaiyo, rabadi, jalebi, sweets, and the famous Banarasi lassi served in clay cups.
+      <br />Every bite carried the flavor of tradition and love. The crowded lanes, laughter of vendors, and aroma of freshly made snacks created an energy that only Banaras can offer.
+      <br /><br />The Vibe That Stays With You:
+      <br />Banaras isn’t just a city - it’s a feeling. A blend of spirituality, simplicity, chaos, and peace. From the divine presence of Kashi Vishwanath, the eternal flames of Manikarnika, to the vibrant evenings by the Ganga Aarti, every moment felt alive and eternal.
+      <br /><br />It’s a place where time pauses, where life feels sacred, and where every traveler leaves with a piece of peace.
+      <br /><br />Truly, Banaras is not just visited - it’s experienced. 💫
+</p>
+    `
+    },
+    {
+      id: 3,
+      title: "A Thrilling Night at Kalsubai Shikhar",
+      date: "Dec '24",
+      category: "Thrilling Trek",
+      coverImage: "/images/stories/kalsubai.png",
+      excerpt: "My night at Kalsubai Peak, the highest point in Maharashtra (5,400 ft)",
+      readTime: "5 min read",
+      content: `
+      <h2>A Thrilling Night at Maharashtra’s Highest Peak - Kalsubai Shikhar</h2>
+      <p>Trekking has always been about chasing experiences - and my night at Kalsubai Peak, the highest point in Maharashtra (5,400 ft), was truly one of a kind. This wasn’t just another hike; it was a journey into stillness, stars, and solitude.
+      <br /><br />Journey from Pune to Bari Village
+      <br />The adventure began early from Pune, catching a local train to Kalyan and then another towards Kasara. The rhythmic sound of the local train, fading city lights, and the growing silence hinted at the mountain calling. From Kasara, I hopped onto a State Transport (ST) bus heading toward Bari Village, the base point for the Kalsubai trek.
+      <br />By the time I reached Bari, the air had already turned crisp and cool - a perfect prelude to the climb that awaited.
+      <br /><br />The Ascent - Into the Twilight
+      <br />At 4:00 PM, I began my trek. The initial path was gentle, with lush greenery around and the setting sun painting everything in warm hues. But as dusk deepened, the climb grew steeper, and silence slowly took over the forest trail.
+      <br />By the time I reached the top at 8:30 PM, darkness had fully embraced the peak. The temperature had dropped, and a gentle wind whispered through the night - it was both chilling and enchanting.
+      <br /><br />Camping Alone at the Top
+      <br />There was no one else around. No lights. No network. No sound - except the occasional rustle of the wind and my own heartbeat. My tent stood alone under the vast night sky, lit only by the moonlight and stars scattered like diamonds.
+      <br />Looking down, the faint glimmer of distant city lights reminded me how far I was from everything - and how beautiful that felt. The moon hung bright, bathing the peak in a silver glow, while the chilly air carried the scent of wilderness.
+      <br />It was a night of complete disconnect - yet total connection with nature.
+      <br /><br />Sunrise from the Summit
+      <br />As dawn approached, a soft orange hue began to bloom on the horizon. The sunrise from Kalsubai was pure magic - the clouds below glowing golden, the mountain peaks slowly emerging from the mist. I sat there, sipping on warm tea, soaking in every second of that peaceful moment.
+      <br />The view was breathtaking, the experience soul-refreshing.
+      <br /><br />The Descent and Reflection
+      <br />After spending some time admiring the morning beauty, I began the descent back to Bari village. The return was smooth, with sunlight revealing the trail I had conquered in darkness.
+      <br />That trek wasn’t just about reaching the top - it was about embracing solitude, feeling alive amidst silence, and realizing how nature can both humble and heal you.
+      <br /><br />Final Thoughts
+      <br />If you ever wish to experience a thrilling, peaceful, and unforgettable escape, pack your backpack and head toward Kalsubai Peak. Spend a night under the stars, away from networks and noise - and you’ll discover something rare: the beauty of absolute stillness.</p>
+    `
+    },
+    {
+      id: 5,
+      title: "A Solo Journey Through Konkan - Aarware, Ratnagiri & Ganpatipule",
+      date: "Sept '24",
+      category: "Solo Travel",
+      coverImage: "/images/stories/aareware.png",
+      excerpt: "My solo trip to Konkan, covering Ratnagiri, Aarware, and Ganpatipule.",
+      readTime: "5 min read",
+      content: `
+      <h2>A Solo Journey Through Konkan - Aarware, Ratnagiri & Ganpatipule</h2>
+      <p>Sometimes, the best journeys are those taken alone - where every moment becomes a conversation between you and nature. My solo trip to Konkan, covering Ratnagiri, Aarware, and Ganpatipule, turned out to be a peaceful escape into the heart of coastal Maharashtra - full of greenery, sea breeze, and soulful moments.
+      <br/><br/>The Coastal Road Begins - Pune to Ratnagiri via Kolhapur
+      <br/>I started my journey by catching a State Transport (ST) bus from Pune, heading towards Ratnagiri via Kolhapur. The long coastal route, with winding ghats and glimpses of the Western Ghats, set the perfect tone for what lay ahead.
+      <br/>The roads were calm, the air fresh, and the views - breathtaking. As the bus rolled through small villages and coconut-laden landscapes, I could already feel the charm of Konkan embracing me.
+      <br/><br/>Exploring Ratnagiri - A Coastal Gem
+      <br/>Ratnagiri welcomed me with its serene beaches, calm atmosphere, and authentic coastal vibe. Walking along the shores, I came across something rare - an abandoned ship stranded near the coast. Its silent presence against the vast Arabian Sea was both haunting and fascinating, as if holding stories from another time.
+      <br/>Ratnagiri’s coastal beauty, mixed with its slow-paced life, made me realize how peaceful simplicity can be.
+      <br/>Through Aarware - The Hidden Paradise of Konkan
+      <br/>From Ratnagiri, I boarded another ST bus towards Ganpatipule, taking the scenic route via Aare Ware. The stretch between Aare and Ware beaches is one of the most beautiful coastal drives in Maharashtra - lush green hills on one side and the endless blue sea on the other.
+      <br/>I stopped at Aare Ware Beach, and for a while, it felt like time stood still. The sound of waves, golden sand, and untouched beauty of the place made it one of the most peaceful moments of the trip. Standing there alone, watching the sunset melt into the sea, was nothing short of magical.
+      <br/><br/>Ganpatipule - The Divine Coastal Town
+      <br/>Reaching Ganpatipule, the first thing I did was take darshan of Lord Ganpati Bappa at the famous Swayambhu Ganpati Temple. The temple, situated right beside the beach, holds immense spiritual energy. Listening to the waves while offering prayers felt like connecting with nature and divinity at once.
+      <br/>After the darshan, I spent time exploring Ganpatipule Beach, known for its clean sands and peaceful aura. Unlike commercial beaches, Ganpatipule still holds its traditional Konkan charm - quiet, pure, and soul-refreshing.
+      <br/><br/>Prachin Konkan - A Journey into the Past
+      <br/>Before returning, I visited the Prachin Konkan Museum, a unique open-air museum that beautifully showcases the traditional Konkan lifestyle, culture, and history. Walking through life-sized models of old Konkan homes, markets, and occupations gave me a deep appreciation for the region’s heritage.
+      <br/>The entire environment was natural, green, and full of life - coconut trees swaying with the sea breeze, the earthy smell of soil after a drizzle, and the endless sound of waves in the distance.
+      <br/><br/>Reflections of a Solo Traveller
+      <br/>This solo journey through Ratnagiri, Aarware, and Ganpatipule wasn’t just about places - it was about finding peace in simplicity. The lush greenery, the sound of the sea, and the divine presence of Ganpati Bappa made it an unforgettable experience.
+      <br/><br/>Traveling alone gave me the chance to slow down, reflect, and truly connect with the world around me. Konkan, with its untouched beauty and warm soul, reminded me that sometimes, solitude is the best companion.</p>
+    `
+    },
+    {
+      id: 1,
+      title: "IIT Bombay Experience",
+      date: "Jan '25",
+      category: "Hackathon",
+      coverImage: "/images/stories/iitb.png",
+      excerpt: "Representing ECell team at National Entrepreneurship Challenge IIT Bombay...",
+      readTime: "2 min read",
+      content: `
+      <h2>My IIT Bombay Experience</h2>
+      <p>It was an unforgettable journey to IIT Bombay, one of the most inspiring places I’ve ever been to. Our team had qualified for the National Entrepreneurship Challenge (NEC) finals, and we proudly secured All India Rank 5 among more than 650 teams. Alongside this, I was also selected as the Campus Ambassador, achieving a spot in the Top 10 Campus Ambassadors across the nation, a truly proud moment.
+      <br />We stayed in Hostel 17, which soon became our little home for those memorable days. The H17 Mess served as our go-to place for food, laughter, and random late-night discussions. During the day, we explored the sprawling IIT Bombay campus, from the Lecture Hall Complex to the Open Air Theatre, every corner had its own vibe.
+      <br />One evening, after all the sessions and presentations, our team took a walk to the serene Powai Lake, just beside the campus. The calm water reflected the glittering lights of the city, and we talked for hours about our dreams, startups, and the journey ahead. That night became one of the most peaceful yet motivating moments of the entire trip.
+      <br />As the days passed, IIT Bombay felt less like a campus and more like a world full of innovation, ideas, and friendships. The experience not only gave us recognition but also strengthened our belief in what teamwork and passion can achieve.
+      <br />When we finally packed our bags to leave Hostel 17, it wasn’t just memories we carried, it was inspiration, confidence, and a drive to keep building and achieving more.</p>
+    `
+    }
   ]
 };
 
@@ -383,7 +555,7 @@ const Sidebar = () => {
   const travelerItems = [
     { id: 'hero', label: 'Home', icon: <Rocket size={20} /> },
     { id: 'about', label: 'About', icon: <Lightbulb size={20} /> },
-    { id: 'gallery', label: 'Gallery', icon: <Plane size={20} /> },
+    { id: 'projects', label: 'Gallery', icon: <Plane size={20} /> },
     { id: 'stories', label: 'Stories', icon: <Calendar size={20} /> },
     { id: 'contact', label: 'Contact', icon: <Mail size={20} /> }
   ];
@@ -1303,13 +1475,24 @@ const GallerySection = () => {
   );
 };
 
-// Stories Section
+// Stories Section with Blog Preview and Full View
 const StoriesSection = () => {
   const { theme } = useAppContext();
+  const [selectedBlog, setSelectedBlog] = useState(null);
+
+  const openBlog = (blog) => {
+    setSelectedBlog(blog);
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
+  };
+
+  const closeBlog = () => {
+    setSelectedBlog(null);
+    document.body.style.overflow = 'unset';
+  };
 
   return (
     <section id="stories" className="min-h-screen flex items-center px-4 py-20">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto w-full">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
           initial={{ opacity: 0 }}
@@ -1321,36 +1504,184 @@ const StoriesSection = () => {
           </span>
         </motion.h2>
 
-        <div className="space-y-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {travelerData.posts.map((post, index) => (
             <motion.div
-              key={post.title}
-              className={`p-8 rounded-3xl backdrop-blur-xl border ${
+              key={post.id}
+              className={`rounded-3xl backdrop-blur-xl border overflow-hidden cursor-pointer group ${
                 theme === 'dark'
-                  ? 'bg-pink-500/10 border-pink-500/30'
-                  : 'bg-pink-50 border-pink-300'
+                  ? 'bg-pink-500/10 border-pink-500/30 hover:border-pink-500/50'
+                  : 'bg-pink-50 border-pink-300 hover:border-pink-400'
               }`}
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
-              whileHover={{ x: 10 }}
+              whileHover={{ y: -10 }}
+              onClick={() => openBlog(post)}
             >
-              <div className="flex items-start gap-4">
-                <Calendar className="text-pink-500 flex-shrink-0" size={32} />
-                <div>
-                  <h3 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                    {post.title}
-                  </h3>
-                  <p className="text-pink-500 text-sm mb-3">{post.date}</p>
-                  <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>
-                    {post.excerpt}
-                  </p>
+              {/* Cover Image */}
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-pink-500 to-purple-500">
+                {post.coverImage ? (
+                  <img
+                    src={post.coverImage}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <Calendar className="text-white/50" size={64} />
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                
+                {/* Category Badge */}
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/90 text-pink-600">
+                    {post.category}
+                  </span>
                 </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
+                <div className="flex items-center gap-4 mb-3 text-sm">
+                  <span className="text-pink-500 flex items-center gap-1">
+                    <Calendar size={14} />
+                    {post.date}
+                  </span>
+                  <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                    {post.readTime}
+                  </span>
+                </div>
+
+                <h3 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                  {post.title}
+                </h3>
+
+                <p className={`text-sm mb-4 line-clamp-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {post.excerpt}
+                </p>
+
+                <button className="text-pink-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
+                  Read More <ChevronRight size={16} />
+                </button>
               </div>
             </motion.div>
           ))}
         </div>
+
+        {/* Full Blog Modal */}
+        <AnimatePresence>
+          {selectedBlog && (
+            <motion.div
+              className="fixed inset-0 bg-black/90 z-50 overflow-y-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeBlog}
+            >
+              <div className="min-h-screen flex items-start justify-center p-4 py-20">
+                <motion.article
+                  className={`relative w-full max-w-4xl rounded-3xl overflow-hidden ${
+                    theme === 'dark'
+                      ? 'bg-gray-900 border border-gray-800'
+                      : 'bg-white border border-gray-200'
+                  }`}
+                  initial={{ scale: 0.9, y: 50 }}
+                  animate={{ scale: 1, y: 0 }}
+                  exit={{ scale: 0.9, y: 50 }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Close Button */}
+                  <button
+                    onClick={closeBlog}
+                    className={`absolute top-6 right-6 z-20 p-3 rounded-full backdrop-blur-xl border transition-all ${
+                      theme === 'dark'
+                        ? 'bg-gray-800/80 border-gray-700 text-white hover:bg-gray-700'
+                        : 'bg-white/80 border-gray-300 text-gray-900 hover:bg-gray-100'
+                    }`}
+                  >
+                    <X size={24} />
+                  </button>
+
+                  {/* Cover Image */}
+                  <div className="relative h-96 overflow-hidden bg-gradient-to-br from-pink-500 to-purple-500">
+                    {selectedBlog.coverImage ? (
+                      <img
+                        src={selectedBlog.coverImage}
+                        alt={selectedBlog.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Calendar className="text-white/30" size={120} />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    
+                    {/* Title Overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-8">
+                      <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold bg-white/90 text-pink-600 mb-4">
+                        {selectedBlog.category}
+                      </span>
+                      <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
+                        {selectedBlog.title}
+                      </h1>
+                      <div className="flex items-center gap-6 text-white/80">
+                        <span className="flex items-center gap-2">
+                          <Calendar size={16} />
+                          {selectedBlog.date}
+                        </span>
+                        <span>{selectedBlog.readTime}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Blog Content */}
+                  <div
+                    className={`p-8 md:p-12 max-w-none ${theme === 'dark'
+                        ? 'text-white'
+                        : 'text-gray-900'
+                      }`}
+                    dangerouslySetInnerHTML={{
+                      __html: selectedBlog.content
+                        .replace(/<h2[^>]*>/g, '<p class="text-white font-bold text-2xl mt-6 mb-3">')
+                        .replace(/<\/h2>/g, '</p>')
+                        .replace(/<h3[^>]*>/g, '<p class="text-white font-semibold text-xl mt-4 mb-2">')
+                        .replace(/<\/h3>/g, '</p>')
+                        .replace(/<ul[^>]*>/g, '<ul class="list-disc pl-6 mt-3 mb-3 text-white">')
+                        .replace(/<li[^>]*>/g, '<li class="mb-1 text-white">')
+                        .replace(/<p[^>]*>/g, '<p class="text-white leading-relaxed mb-3">')
+                    }}
+                  />
+
+                  {/* Footer */}
+                  <div className={`p-8 border-t ${
+                    theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
+                  }`}>
+                    <button
+                      onClick={closeBlog}
+                      className={`w-full md:w-auto px-8 py-3 rounded-full font-bold transition-all ${
+                        theme === 'dark'
+                          ? 'bg-pink-500 text-white hover:bg-pink-600'
+                          : 'bg-pink-600 text-white hover:bg-pink-700'
+                      }`}
+                    >
+                      Close Article
+                    </button>
+                  </div>
+                </motion.article>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
