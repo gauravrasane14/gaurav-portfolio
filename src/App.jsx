@@ -15,7 +15,7 @@ const techieData = {
     degree: "Bachelor of Engineering in Computer Engineering",
     university: "Savitribai Phule Pune University",
     sgpa: "9.57",
-    period: "Nov 2022 - Ongoing",
+    period: "Nov 2022 - May 2026",
     location: "Pune, Maharashtra, India",
     hsc: { score: "84.00%", year: "2022" },
     ssc: { score: "94.80%", year: "2020" }
@@ -191,7 +191,13 @@ const travelerData = {
       coordinates: [80.2300, 12.9863],
       type: "Educational",
       color: "from-indigo-500 to-purple-500",
-      photos: [{ image: "/images/travel/iitm/iitm1.jpg", title: "IIT Madras Campus" }],
+      photos: [
+        { image: "/images/travel/iitm/iitm1.jpg", title: "IIT Madras" },
+        { image: "/images/travel/iitm/iitm2.jpg", title: "IITM Entry Gate" },
+        { image: "/images/travel/iitm/iitm3.jpg", title: "IITM Night Campus" },
+        { image: "/images/travel/iitm/iitm4.jpg", title: "IITM Hostel" },
+        { image: "/images/travel/iitm/iitm5.jpg", title: "IITM Ground" }
+      ],
       stats: {
         type: "Competition",
         budget: "Sponsored",
@@ -204,7 +210,6 @@ const travelerData = {
         text: "Dream big, work hard, and the universe conspires to make it happen ✨"
       }
     },
-    // ===================== ADDING NEW DESTINATIONS ============================
     {
       id: 7,
       name: "Kedarnath",
@@ -512,6 +517,103 @@ const travelerData = {
 
   posts: [
     {
+      id: 7,
+      title: "Baralacha La Bike Expedition",
+      date: "Jun '24",
+      category: "Adventure Ride",
+      coverImage: "/images/stories/baralacha.png",
+      excerpt: "A thrilling motorbike ride to Baralacha La Pass - 16,040 ft above sea level!",
+      readTime: "6 min read",
+      itinerary: [
+        {
+          day: 1,
+          title: "Delhi to Manali",
+          activities: [
+            "Train to Chandigarh (₹240)",
+            "Bus from Chandigarh to Manali (₹700)",
+            "Arrived & checked-in to budget stay"
+          ]
+        },
+        {
+          day: 2,
+          title: "Exploring Manali",
+          activities: [
+            "Visited Hidimba Devi Temple",
+            "Explored Buddhist Monastery",
+            "Old Manali walk & cafe hopping",
+            "Tried local food - Siddhu"
+          ]
+        },
+        {
+          day: 3,
+          title: "Ride to Baralacha La",
+          activities: [
+            "Rented bike (₹1200/day)",
+            "Rohtang → Atal Tunnel → Sissu",
+            "Reached Baralacha La at 16,040 ft",
+            "Breathtaking views at the Pass"
+          ]
+        },
+        {
+          day: 4,
+          title: "Return Journey",
+          activities: [
+            "Rode back to Manali",
+            "Bus to Chandigarh",
+            "Train return to Delhi"
+          ]
+        }
+      ],
+      packingList: [
+        "Thermal wear",
+        "Gloves",
+        "Headlight torch",
+        "Power bank",
+        "Snacks & dry fruits",
+        "Waterproof bag cover"
+      ],
+      budget: {
+        total: "₹3,340",
+        breakdown: [
+          { item: "Train ticket (Delhi–Chandigarh)", cost: "₹240" },
+          { item: "Bus (Chandigarh–Manali)", cost: "₹700" },
+          { item: "Stay in Manali (2 nights)", cost: "₹400" },
+          { item: "Bike rental (1 day)", cost: "₹1200" },
+          { item: "Fuel", cost: "₹600" },
+          { item: "Food + Misc", cost: "₹200" }
+        ]
+      },
+      mapRoute: "Delhi → Chandigarh → Manali → Atal Tunnel → Sissu → Keylong → Baralacha La → Return",
+      content: `
+  <h2>Conquering Baralacha La: A Ride of Courage at 16,040 Feet</h2>
+  <p>Travel is often romanticized, snow-capped peaks, cozy retreats, and scenic selfies. But sometimes, travel is pure guts. This is the story of two friends, ₹240 train tickets, a rented bike, and the fearless ride to <strong>Baralacha La Pass</strong> - 16,040 feet above sea level.</p>
+  
+  <h3>🚆 From Delhi to Manali via Chandigarh</h3>
+  <p>The adventure kicked off with a modest ₹240 train ride to Chandigarh. From there, we boarded a bus to Manali (₹700), climbing through misty mountains toward Himachal's heartland.</p>
+  
+  <h3>🏡 Budget Stay in Manali</h3>
+  <p>We scored accommodation for ₹400 total for two nights. We visited:</p>
+  <ul>
+    <li><strong>Hidimba Devi Temple</strong> - An ancient cave temple surrounded by forests</li>
+    <li><strong>Old Manali</strong> - Café-lined lanes and hippie charm</li>
+    <li><strong>Buddhist Monastery</strong> - Calm amidst colorful prayer flags</li>
+  </ul>
+  
+  <h3>🏍️ Baralacha La – The Ride of Pure Thrill</h3>
+  <p>With just basic helmets and sheer madness, we rented a motorbike (₹1200/day) and set out for Baralacha La. The bike groaned under cold winds and rugged terrain as we passed the towering <strong>Atal Tunnel</strong>, frozen rivers, and snowy ridges.</p>
+  
+  <p>At the summit - 16,040 ft - we were breathless. Partly due to altitude... and partly because we’d made it - without fancy gear, just grit and adventure.</p>
+  
+  <h3>❄️ Frozen. Fearless. Free.</h3>
+  <p>Our gloves froze. Our faces numbed. But the view from the pass made every degree of cold worth it. It was just us, the mountains, and boundless silence.</p>
+  
+  <h3>🏁 The Return Journey</h3>
+  <p>We rode back to Manali the same day - tired but overflowing with stories. Traveling back by bus and train, we knew this was more than a trip; it was a bold declaration to the world - <em>we lived.</em></p>
+  
+  <blockquote>You don’t need a fortune to travel - just a will to wander.</blockquote>
+  `
+    },
+    {
       id: 2,
       title: "GOA Budget Trip",
       date: "Mar '25",
@@ -774,7 +876,7 @@ const travelerData = {
       <br />One evening, after all the sessions and presentations, our team took a walk to the serene Powai Lake, just beside the campus. The calm water reflected the glittering lights of the city, and we talked for hours about our dreams, startups, and the journey ahead. That night became one of the most peaceful yet motivating moments of the entire trip.
       <br />As the days passed, IIT Bombay felt less like a campus and more like a world full of innovation, ideas, and friendships. The experience not only gave us recognition but also strengthened our belief in what teamwork and passion can achieve.
       <br />When we finally packed our bags to leave Hostel 17, it wasn’t just memories we carried, it was inspiration, confidence, and a drive to keep building and achieving more.</p>`
-    }
+    },
   ]
 };
 
@@ -925,7 +1027,7 @@ const Header = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Code size={18} />
-              <span className="hidden sm:inline">Techie</span>
+              <span className="hidden sm:inline">Techie Gaurav</span>
             </motion.button>
 
             <div className={`w-px h-8 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'}`} />
@@ -944,7 +1046,7 @@ const Header = () => {
               whileTap={{ scale: 0.95 }}
             >
               <Plane size={18} />
-              <span className="hidden sm:inline">Traveler</span>
+              <span className="hidden sm:inline">Traveler Gaurav</span>
             </motion.button>
           </div>
 
@@ -1404,13 +1506,32 @@ const InteractiveTravelMap = () => {
                   ))
                 }
               </Geographies>
-
+              {hoveredDestination && (
+                <foreignObject
+                  x={hoveredDestination.x - 50}
+                  y={hoveredDestination.y - 50}
+                  width={120}
+                  height={60}
+                  style={{ pointerEvents: "none" }}
+                >
+                  <div className="p-2 rounded-lg bg-black/70 text-white text-xs shadow-lg">
+                    <p className="font-semibold">{hoveredDestination.name}</p>
+                    <p className="opacity-80">{hoveredDestination.state || "Unknown"}</p>
+                  </div>
+                </foreignObject>
+              )}
               {travelerData.destinations.map((dest) => (
                 <Marker
                   key={dest.id}
                   coordinates={dest.coordinates}
                   onClick={() => setSelectedDestination(dest)} // click still opens modal
-                  onMouseEnter={() => setHoveredDestination(dest)} // show tooltip
+                  onMouseEnter={() =>
+                    setHoveredDestination({
+                      ...dest,
+                      x: projection(dest.coordinates)[0],
+                      y: projection(dest.coordinates)[1],
+                    })
+                  }
                   onMouseLeave={() => setHoveredDestination(null)} // hide tooltip
                   style={{ cursor: "pointer" }}
                 >
@@ -1419,18 +1540,18 @@ const InteractiveTravelMap = () => {
               ))}
             </ComposableMap>
             {hoveredDestination && (
-              <div
-                className="absolute left-1/2 -translate-x-1/2 p-3 rounded-xl bg-black/70 text-white text-xs shadow-lg pointer-events-none"
-                style={{ top: "85%" }} // adjust this if needed
+              <foreignObject
+                x={hoveredDestination.x - 50}
+                y={hoveredDestination.y - 50}
+                width={120}
+                height={60}
+                style={{ pointerEvents: "none" }}
               >
-                <p className="font-semibold">{hoveredDestination.name}</p>
-                <p className="text-[10px] opacity-80">
-                  {hoveredDestination.type || "Destination"}
-                </p>
-                {hoveredDestination.stats?.budget && (
-                  <p className="text-[10px]">{hoveredDestination.stats.budget}</p>
-                )}
-              </div>
+                <div className="p-2 rounded-lg bg-black/70 text-white text-xs shadow-lg">
+                  <p className="font-semibold">{hoveredDestination.name}</p>
+                  <p className="opacity-80">{hoveredDestination.state}</p>
+                </div>
+              </foreignObject>
             )}
           </motion.div>
         </div>
@@ -1565,7 +1686,7 @@ const InteractiveTravelMap = () => {
                       </h3>
                       <div className="grid grid-cols-2 gap-4">
                         {selectedDestination.photos.map((photo, idx) => (
-                          <div key={idx} className="aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-gray-700 to-gray-800">
+                          <div key={idx} className="aspect-auto rounded-xl overflow-hidden bg-gradient-to-br from-gray-700 to-gray-800">
                             <img
                               src={photo.image}
                               alt={photo.title}
@@ -2308,12 +2429,19 @@ const ProjectsSection = () => {
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
             >
-              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-purple-600 to-pink-600">
-                <div className="w-full h-full flex items-center justify-center">
-                  <Code className="text-white/50" size={64} />
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  onError={(e) => {
+                    e.target.src = ""; // fallback: hide broken images
+                    e.target.style.display = "none";
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               </div>
+
 
               <div className="relative z-10 p-6">
                 <h3 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
