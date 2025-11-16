@@ -1321,7 +1321,7 @@ const HeroSection = () => {
             transition={{ delay: 0.5 }}
           >
             {mode === 'techie'
-              ? 'Software Developer • AI/ML Enthusiast • Cloud'
+              ? 'Software Developer • Cloud Enthusiast • DevOps'
               : '60+ Places Explored • 8+ States • Infinite Memories'}
           </motion.p>
 
@@ -1414,7 +1414,7 @@ const AboutSection = () => {
   const { mode, theme } = useAppContext();
 
   return (
-    <section id="about" className="min-h-screen flex items-center px-4 py-20">
+    <section id="about" className="min-h-screen flex items-center px-4 py-4">
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
@@ -1552,7 +1552,7 @@ const InteractiveTravelMap = () => {
   };
 
   return (
-    <section id="map" className="min-h-screen flex items-center px-4 py-20">
+    <section id="map" className="min-h-screen flex items-center px-4 py-4">
       <div className="max-w-7xl mx-auto w-full">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -1828,7 +1828,7 @@ const TripHighlights = () => {
   };
 
   return (
-    <section id="highlights" className="min-h-screen flex items-center px-4 py-20">
+    <section id="highlights" className="min-h-screen flex items-center px-4 py-4">
       <div className="max-w-7xl mx-auto w-full">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -2012,7 +2012,7 @@ const StoriesSection = () => {
   };
 
   return (
-    <section id="stories" className="min-h-screen flex items-center px-4 py-20">
+    <section id="stories" className="min-h-screen flex items-center px-4 py-4">
       <div className="max-w-6xl mx-auto w-full">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -2099,7 +2099,7 @@ const StoriesSection = () => {
               exit={{ opacity: 0 }}
               onClick={closeBlog}
             >
-              <div className="min-h-screen flex items-start justify-center p-4 py-20">
+              <div className="min-h-screen flex items-start justify-center p-4 py-4">
                 <motion.article
                   className={`relative w-full max-w-4xl rounded-3xl overflow-hidden ${theme === 'dark'
                     ? 'bg-gray-900 border border-gray-800'
@@ -2334,7 +2334,7 @@ const EducationSection = () => {
   const { theme } = useAppContext();
 
   return (
-    <section id="education" className="min-h-screen flex items-center px-4 py-20">
+    <section id="education" className="min-h-screen flex items-center px-4 py-4">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -2444,7 +2444,7 @@ const SkillsSection = () => {
   const { theme } = useAppContext();
 
   return (
-    <section id="skills" className="min-h-screen flex items-center px-4 py-20">
+    <section id="skills" className="min-h-screen flex items-center px-4 py-4">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -2489,7 +2489,7 @@ const ProjectsSection = () => {
   const { theme } = useAppContext();
 
   return (
-    <section id="projects" className="min-h-screen flex items-center px-4 py-20">
+    <section id="projects" className="min-h-screen flex items-center px-4 py-4">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -2624,7 +2624,7 @@ const AchievementsSection = () => {
   };
 
   return (
-    <section id="achievements" className="min-h-screen flex items-center px-4 py-20">
+    <section id="achievements" className="min-h-screen flex items-center px-4 py-4">
       <div className="max-w-6xl mx-auto">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
@@ -2722,7 +2722,7 @@ const ContactSection = () => {
   ];
 
   return (
-    <section id="contact" className="min-h-screen flex items-center px-4 py-20">
+    <section id="contact" className="min-h-screen flex items-center px-4 py-4">
       <div className="max-w-5xl mx-auto w-full">
         <motion.h2
           className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
