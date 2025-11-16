@@ -302,7 +302,7 @@ const travelerData = {
         "A thrilling ride through Atal Tunnel, Keylong, and Darcha on a rented bike. The journey to Baralacha La at 16,040ft was cold, intense, and unforgettable.",
       lesson: {
         type: "practical",
-        text: "Prep for the cold — high-altitude rides are as brutal as they are beautiful ❄️🏍️"
+        text: "Prep for the cold - high-altitude rides are as brutal as they are beautiful ❄️🏍️"
       }
     },
     {
@@ -323,7 +323,7 @@ const travelerData = {
         travelers: "Solo"
       },
       story:
-        "Exploring Old Delhi’s chaos, historical monuments, and street food was like walking through a living museum — with samosas and jalebi in hand.",
+        "Exploring Old Delhi’s chaos, historical monuments, and street food was like walking through a living museum - with samosas and jalebi in hand.",
       lesson: {
         type: "practical",
         text: "Always head to Chandni Chowk with an empty stomach and a curious heart ❤️"
@@ -372,7 +372,7 @@ const travelerData = {
         "A quiet night at Ayodhya Junction led to a divine morning at the Sarayu river. Darshan at Ram Mandir, Hanuman Garhi, Kanak Bhavan and Dashrath Mahal completed the holy circuit.",
       lesson: {
         type: "emotional",
-        text: "True devotion doesn’t need grandeur — just a sincere heart 🌅🙏"
+        text: "True devotion doesn’t need grandeur - just a sincere heart 🌅🙏"
       }
     },
     {
@@ -427,89 +427,179 @@ const travelerData = {
   tripHighlights: [
     {
       id: 1,
-      title: "Budget Travel",
-      icon: "💰",
-      color: "from-green-400 to-emerald-500",
-      stories: [
-        {
-          title: "Goa on ₹1500",
-          image: "/images/stories/goatrip.png",
-          text: "Trains, scooty rides, and farsan packets - the ultimate budget adventure!",
-          tips: ["Local trains for intercity", "Rent scooty instead of car", "Carry snacks from home"]
-        },
-        {
-          title: "Konkan Coastal",
-          image: "/images/stories/aareware.png",
-          text: "State Transport buses and local food kept costs under ₹2000",
-          tips: ["ST buses are cheap & scenic", "Stay at local guesthouses", "Try local eateries"]
-        }
-      ]
-    },
-    {
-      id: 2,
-      title: "Night Treks",
-      icon: "🌙",
-      color: "from-purple-400 to-indigo-500",
-      stories: [
-        {
-          title: "Kalsubai Night",
-          image: "/images/stories/kalsubai.png",
-          text: "Camping alone at 5,400ft under a blanket of stars",
-          tips: ["Start at 4 PM to reach by sunset", "Carry warm clothes", "Headlamp is essential"]
-        }
-      ]
-    },
-    {
-      id: 3,
-      title: "Divine Journeys",
-      icon: "🙏",
-      color: "from-orange-400 to-amber-500",
-      stories: [
-        {
-          title: "Tirupati Darshan",
-          image: "/images/stories/tirupati.png",
-          text: "A spiritual journey to Lord Venkateswara's abode",
-          tips: ["Book accommodation early", "Start darshan early morning", "Visit nearby temples"]
-        },
-        {
-          title: "Banaras Vibes",
-          image: "/images/stories/banaras.png",
-          text: "Ganga Aarti at Dashashwamedh Ghat - pure magic!",
-          tips: ["Stay near the ghats", "Attend evening aarti", "Boat ride at sunrise"]
-        }
-      ]
-    },
-    {
-      id: 4,
-      title: "City Vibes",
+      title: "Pune Vibes",
       icon: "🏙️",
       color: "from-blue-400 to-cyan-500",
       stories: [
         {
-          title: "IIT Bombay NEC",
-          image: "/images/stories/iitb.png",
-          text: "Top 5 finish at National Entrepreneurship Challenge among 650+ teams!",
-          tips: ["Network with fellow innovators", "Attend all workshops", "Explore campus"]
+          title: "Okayama Garden",
+          image: "/images/travel/pune/pune1.jpeg",
+          text: "A serene and lesser-known Japanese-style garden located in the heart of Pune.",
+          tips: ["Visit during sunset for great photos", "Carry a book and relax by the lake", "Respect the quiet environment"]
+        },
+        {
+          title: "Jambhulwadi Lake",
+          image: "/images/travel/pune/pune2.jpeg",
+          text: "A peaceful lakeside spot offering scenic views, perfect for unwinding away from city chaos.",
+          tips: ["Best visited early morning", "Ideal spot for photography", "Avoid visiting during monsoon"]
+        },
+        {
+          title: "Phoenix Mall of the Millennium",
+          image: "/images/travel/pune/pune3.jpeg",
+          text: "One of Pune’s biggest malls, showcasing global brands, entertainment zones, and eateries.",
+          tips: ["Visit on weekdays to avoid crowds", "Check out seasonal décor", "Explore food court for variety"]
+        },
+        {
+          title: "Bike Show",
+          image: "/images/travel/pune/pune4.jpeg",
+          text: "Showcase of iconic bikes and superbikes, offering a peek into biking culture in Pune.",
+          tips: ["Talk to the owners for insights", "Don’t touch the bikes without permission", "Take great photos from all angles"]
+        },
+        {
+          title: "Aagakhan Palace",
+          image: "/images/travel/pune/pune5.jpeg",
+          text: "An ancient fort with rustic charm and scenic surroundings, perfect for history lovers.",
+          tips: ["Wear comfortable shoes", "Carry water and snacks", "Ideal for drones and 360 shots"]
+        },
+        {
+          title: "Swaminarayan Tekadi",
+          image: "/images/travel/pune/pune6.jpeg",
+          text: "A spiritual and tranquil place with lush greenery and temple architecture.",
+          tips: ["Maintain silence in temple areas", "Catch the sunset from the hilltop", "Great spot for meditation"]
+        },
+        {
+          title: "Katraj Ghat – Bengaluru Highway",
+          image: "/images/travel/pune/pune7.jpeg",
+          text: "A scenic drive through the hills that offers views of the city at night.",
+          tips: ["Ideal for late-night drives", "Be cautious of sharp turns", "Avoid weekends due to traffic"]
+        },
+        {
+          title: "Khadakwasla Lake",
+          image: "/images/travel/pune/pune8.jpeg",
+          text: "A popular picnic spot with stunning sunsets and calm waters.",
+          tips: ["Plan a picnic by the lakeside", "Watch out for sudden showers", "Visit during golden hour"]
+        },
+        {
+          title: "Osho Garden",
+          image: "/images/travel/pune/pune9.jpeg",
+          text: "A tranquil garden with dense greenery, popular among meditators and nature lovers.",
+          tips: ["Photography might be restricted", "Wear comfy walking shoes", "Take time to meditate"]
+        },
+        {
+          title: "Phoenix Mall of the Millennium",
+          image: "/images/travel/pune/pune10.jpeg",
+          text: "A landmark destination for fashion, food, and entertainment in Pune.",
+          tips: ["Check showtimes at PVR", "Explore everything floor-wise", "Try out the new pop-up stalls"]
+        },
+        {
+          title: "Sky Walk Pune",
+          image: "/images/travel/pune/pune11.jpeg",
+          text: "A unique elevated pedestrian bridge offering city views and great architecture.",
+          tips: ["Go at night to see the city lights", "Wear comfortable shoes", "Great for long exposure photography"]
+        },
+        {
+          title: "Swaminarayan Tekdi",
+          image: "/images/travel/pune/pune12.jpeg",
+          text: "Another visit to the tranquil Swaminarayan hill, a great spot for peace and greenery.",
+          tips: ["Walk all the way to the top", "Best visited early morning", "Respect temple customs"]
+        },
+        {
+          title: "Taljai Tekdi",
+          image: "/images/travel/pune/pune13.jpeg",
+          text: "A lush hilltop known for its nature trails and panoramic city views.",
+          tips: ["Best for early morning trekking", "Carry water", "Watch out for monkeys"]
+        },
+        {
+          title: "Mahadji Shinde Chatri",
+          image: "/images/travel/pune/pune14.jpeg",
+          text: "A stunning memorial with detailed Maratha architecture and intricate carvings.",
+          tips: ["Great for history and architecture lovers", "Visit in daylight for better detail", "Respect the heritage site"]
         }
       ]
     },
     {
       id: 5,
-      title: "Solo Adventures",
-      icon: "🎒",
-      color: "from-pink-400 to-rose-500",
+      title: "Night Vibes",
+      icon: "🌃",
+      color: "from-purple-500 to-indigo-600",
       stories: [
         {
-          title: "Solo Konkan",
-          image: "/images/stories/aareware.png",
-          text: "Sometimes the best companion is yourself and the open road",
-          tips: ["Inform family of itinerary", "Stay flexible with plans", "Talk to locals"]
+          title: "Pune Laxmi Road",
+          image: "/images/travel/pune/punen1.jpeg",
+          text: "A bustling market street that transforms into a lively nightlife hub with food stalls and late-night shopping.",
+          tips: ["Visit post 9 PM for night markets", "Try street food from popular stalls", "Be cautious with belongings"]
         },
         {
-          title: "Kalsubai Solo",
-          image: "/images/stories/kalsubai.png",
-          text: "Solo camping taught me self-reliance and peace",
-          tips: ["Know your limits", "Carry emergency contacts", "Trust your instincts"]
+          title: "Jambhulwadi Lake",
+          image: "/images/travel/pune/punen2.jpeg",
+          text: "Beautifully quiet at night with moonlight reflecting off the lake — a hidden night-time gem.",
+          tips: ["Carry a flashlight", "Avoid going alone", "Enjoy the peaceful atmosphere"]
+        },
+        {
+          title: "Pune Buildings",
+          image: "/images/travel/pune/punen3.jpeg",
+          text: "The city’s skyline glows at night — perfect backdrop for long exposure photography.",
+          tips: ["Use a tripod for better shots", "Find rooftops for great views", "Avoid isolated areas"]
+        },
+        {
+          title: "Swaminarayan Temple",
+          image: "/images/travel/pune/punen4.jpeg",
+          text: "The Swaminarayan temple glows at night with its peaceful ambiance and spiritual atmosphere.",
+          tips: ["Maintain silence inside", "Respect temple decorum", "Ideal for night photography"]
+        },
+        {
+          title: "Swaminarayan Tekadi",
+          image: "/images/travel/pune/punen5.jpeg",
+          text: "A serene hill with temple lights offering a glowing view of the city and stars above.",
+          tips: ["Click photos of illuminated architecture", "Wear warm clothes", "Avoid wandering off trails"]
+        },
+        {
+          title: "Khadakwasla Dam",
+          image: "/images/travel/pune/punen6.jpeg",
+          text: "Night view of the dam with calm waters and occasional cool breeze — a perfect night escape.",
+          tips: ["Go with a group", "Stay safe near water", "Watch for late-night fog"]
+        },
+        {
+          title: "Swaminarayan Tekadi",
+          image: "/images/travel/pune/punen7.jpeg",
+          text: "Another night adventure at Tekadi, offering a great spot to relax under moonlight.",
+          tips: ["Bring light snacks", "Best for calm conversations", "Carry a light jacket"]
+        },
+        {
+          title: "Narhe Water Tank",
+          image: "/images/travel/pune/punen8.jpeg",
+          text: "An urban lookout point with views of Pune's skyline glowing under the night sky.",
+          tips: ["Ideal for drone footage", "Avoid peak traffic times", "Preferably visit before midnight"]
+        },
+        {
+          title: "Kumar Pacific Mall",
+          image: "/images/travel/pune/punen9.jpeg",
+          text: "A quiet yet modern mall at night, with lights reflecting off shiny glass exteriors.",
+          tips: ["Check mall timings", "Include a quick dessert stop", "Great spot for urban photography"]
+        },
+        {
+          title: "Taljai Tekadi",
+          image: "/images/travel/pune/punen10.jpeg",
+          text: "A refreshing nighttime trek spot with glowing cityscapes seen in the distance.",
+          tips: ["Carry a torch", "Watch out for wildlife", "Wear sturdy shoes"]
+        },
+        {
+          title: "Seasons Mall",
+          image: "/images/travel/pune/punen11.jpeg",
+          text: "One of Pune’s premium malls, glowing with neon signage and vibrant nightlife vibes.",
+          tips: ["Try rooftop dining", "Choose weekdays for less rush", "Spot the LED fountains outside"]
+        },
+        {
+          title: "Swaminarayan Tekadi",
+          image: "/images/travel/pune/punen12.jpeg",
+          text: "Another night visit to this beautiful spot — quiet, spiritual, and perfect for contemplation.",
+          tips: ["Great for evening meditation", "Avoid disturbing temple prayer times", "Carry a water bottle"]
+        },
+        {
+          title: "Jambhukwadi Bridge",
+          image: "/images/travel/pune/punen13.jpeg",
+          text: "A scenic bridge offering peaceful lake reflections and cool breezes at night.",
+          tips: ["Stay safe on the roadside", "Prefer group visits", "Great for long exposure photography"]
         }
       ]
     }
@@ -682,7 +772,7 @@ const travelerData = {
         ]
       },
       mapRoute: "Pune → Tirupati → Tirumala → Nearby temples → Vellore → Pune",
-      content: `<h2>A Divine Journey to Tirupati — The Abode of Sri Venkateswara Balaji</h2>
+      content: `<h2>A Divine Journey to Tirupati - The Abode of Sri Venkateswara Balaji</h2>
       <p>Some journeys are not just trips - they’re spiritual experiences that touch your soul. My recent visit to Tirupati, the sacred abode of Sri Venkateswara Balaji, was one such divine experience that left me with immense peace, positivity, and gratitude.
       <br /><br />Journey with Friends to the Holy Hills
       <br />This trip was special - not just because of the destination, but also because I went with my close group of friends. Together, we traveled to Tirupati, a place known for its divinity, devotion, and the magnetic presence of Lord Balaji. The moment we reached, there was an unmistakable spiritual aura in the air - a calmness that instantly made us feel connected to something higher.
@@ -703,7 +793,7 @@ const travelerData = {
       <br />Sripuram Golden Temple (Vellore): On our way back, we also visited this stunning gold-plated temple dedicated to Goddess Mahalakshmi. The temple complex glows in sunlight, and its divine aura, combined with the golden beauty, makes it an unforgettable stop on the journey.
       <br /><br />A Journey of Peace and Positivity
       <br />From start to end, the Tirupati trip was filled with moments of faith, laughter, and divine energy. Whether it was the echoing chants at the temple, the peaceful stay, the delicious prasadam, or the scenic surroundings - every bit of it added to the experience of inner peace.
-      <br />As we returned home, all of us carried a sense of spiritual fulfillment and positivity that words can hardly capture. Truly, a visit to Sri Venkateswara Balaji at Tirupati is not just a trip — it’s a divine calling that stays in your heart forever.</p>`
+      <br />As we returned home, all of us carried a sense of spiritual fulfillment and positivity that words can hardly capture. Truly, a visit to Sri Venkateswara Balaji at Tirupati is not just a trip - it’s a divine calling that stays in your heart forever.</p>`
     },
     {
       id: 6,
@@ -731,7 +821,7 @@ const travelerData = {
       mapRoute: "Pune → Varanasi → Ghats → Food Tour → Pune",
       content: `<p>Some cities are just places on the map - and then there’s Banaras (Varanasi), a city that feels alive with divinity. My journey to this ancient city was a deep dive into spirituality, history, culture, and flavor - all wrapped into one unforgettable experience.
       <br /><br />Exploring the 84 Ghats - The Soul of Banaras:
-      <br />We began our exploration early in the morning, walking along the 84 ghats of the Ganga. Each ghat had its own rhythm — saints meditating, pilgrims bathing, boats gently floating, and the fragrance of incense mingling with the misty morning air.
+      <br />We began our exploration early in the morning, walking along the 84 ghats of the Ganga. Each ghat had its own rhythm - saints meditating, pilgrims bathing, boats gently floating, and the fragrance of incense mingling with the misty morning air.
       <br />From the lively Assi Ghat to the sacred Dashashwamedh Ghat, and the hauntingly peaceful Manikarnika Ghat, every step along the riverbank felt like walking through centuries of devotion and stories.
       <br />The Sacred Darshan of Kashi Vishwanath
       <br />No trip to Banaras is complete without visiting the Kashi Vishwanath Temple - one of the twelve Jyotirlingas of Lord Shiva. The moment I entered the temple, surrounded by chants of “Har Har Mahadev!”, I felt a surge of divine energy that words can hardly capture.
@@ -1284,7 +1374,7 @@ const HeroSection = () => {
               </>
             ) : (
               <>
-                <StatCard icon={<MapPin />} value="6" label="Destinations" color={mode} theme={theme} />
+                <StatCard icon={<MapPin />} value="60+" label="Destinations" color={mode} theme={theme} />
                 <StatCard icon={<Plane />} value="8+" label="States" color={mode} theme={theme} />
                 <StatCard icon={<Heart />} value="∞" label="Memories" color={mode} theme={theme} />
               </>
@@ -1471,27 +1561,24 @@ const InteractiveTravelMap = () => {
           viewport={{ once: true }}
         >
           <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
-            🗺️ My Travel Map
+            My Travel Map
           </span>
         </motion.h2>
 
         {/* Interactive India Map */}
         <div className="relative w-full max-w-4xl mx-auto mb-12">
           <motion.div
-            className={`relative rounded-3xl backdrop-blur-xl border overflow-hidden ${theme === 'dark'
+            className={`relative rounded-3xl backdrop-blur-xl border overflow-hidden p-4 ${theme === 'dark'
               ? 'bg-gradient-to-br from-orange-500/10 to-pink-500/10 border-orange-500/30'
               : 'bg-gradient-to-br from-orange-50 to-pink-50 border-orange-300'
               }`}
             style={{ aspectRatio: '4 / 3' }}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
           >
             <ComposableMap
               projection="geoMercator"
               projectionConfig={{ center: [80, 22], scale: 1150 }}
               width={800}
-              height={600}
+              height={720}
               style={{ width: '100%', height: '100%' }}
             >
               <Geographies geography={indiaGeo}>
@@ -1750,7 +1837,7 @@ const TripHighlights = () => {
           viewport={{ once: true }}
         >
           <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-            📸 Trip Highlights
+            Trip Highlights
           </span>
         </motion.h2>
 
@@ -1934,7 +2021,7 @@ const StoriesSection = () => {
           viewport={{ once: true }}
         >
           <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
-            ✍️ Travel Blogs
+            Travel Blogs
           </span>
         </motion.h2>
 
@@ -2782,7 +2869,7 @@ const App = () => {
               ? 'bg-black/50 border-gray-800 text-gray-500'
               : 'bg-white/50 border-gray-200 text-gray-600'
               } backdrop-blur-xl`}>
-              <p className="mb-2">© 2025 Gaurav Y. Rasane</p>
+              <p className="mb-2">© 2025 Designed, Developed & Maintained By Gaurav Y. Rasane</p>
               <p className="text-sm">Crafted with React + Framer Motion</p>
             </footer>
           </>
