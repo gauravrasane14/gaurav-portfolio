@@ -1,6 +1,9 @@
 import React, { useState, createContext, useContext, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Sun, Moon, Code, Plane, Mail, Phone, MapPin, Github, Linkedin, Instagram, Calendar, Award, Briefcase, GraduationCap, Lightbulb, ExternalLink, ChevronRight, Trophy, Users, BookOpen, FileText, Brain, Terminal, Cpu, Zap, Rocket, Camera } from 'lucide-react';
+import { Menu, X, Sun, Moon, Code, Plane, Mail, Phone, MapPin, Github, Linkedin, Instagram, Calendar, Award, Briefcase, GraduationCap, Lightbulb, ExternalLink, ChevronRight, Trophy, Users, BookOpen, FileText, Brain, Terminal, Cpu, Zap, Rocket, Camera, Map as MapIcon, Navigation, Package, DollarSign, Clock, Heart, Smile, AlertCircle, Copy, Download, Share2 } from 'lucide-react';
+import { ComposableMap, Geographies, Geography, Marker } from "react-simple-maps";
+import indiaGeo from "../data/maps/india.json";
+import { geoMercator } from "d3-geo";
 
 const AppContext = createContext();
 const useAppContext = () => useContext(AppContext);
@@ -74,75 +77,439 @@ const travelerData = {
   bio: "When I'm not coding, you'll find me exploring new destinations, immersing myself in different cultures. Travel fuels my creativity and broadens my perspective.",
   places: 60,
   states: 8,
-  gallery: [
-    { 
-      id: 1, 
-      location: "BaralachaLa Pass", 
-      color: "from-orange-400 via-red-400 to-pink-500",
+
+  // Interactive Map Destinations
+  destinations: [
+    {
+      id: 1,
+      name: "Goa",
+      state: "Goa",
+      coordinates: [74.1240, 15.2993],
+      type: "Beach Paradise",
+      color: "from-cyan-500 to-blue-500",
       photos: [
-        { id: 1, title: "demo", image: "/images/travel/demo.webp", color: "from-orange-500 to-red-500" },
-        { id: 2, title: "Marine Drive", image: "/images/travel/mumbai/marine-drive.jpg", color: "from-blue-500 to-cyan-500" },
-        { id: 3, title: "Taj Hotel", image: "/images/travel/mumbai/taj-hotel.jpg", color: "from-yellow-500 to-orange-500" },
-        { id: 4, title: "Colaba Market", image: "/images/travel/mumbai/colaba.jpg", color: "from-pink-500 to-purple-500" }
+        { image: "/images/travel/goa/baga-beach.jpg", title: "Baga Beach Sunset" },
+        { image: "/images/travel/goa/fort-aguada.jpg", title: "Fort Aguada" }
+      ],
+      stats: {
+        type: "Unplanned Trip",
+        budget: "₹1,500",
+        duration: "3 Days",
+        travelers: "2 Friends"
+      },
+      story:
+        "An unplanned adventure before exams turned into one of the most memorable trips!",
+      lesson: {
+        type: "practical",
+        text: "Budget travel doesn't mean compromising on experiences - it's about smart choices!"
+      }
+    },
+    {
+      id: 2,
+      name: "Tirupati",
+      state: "Andhra Pradesh",
+      coordinates: [79.4192, 13.6288],
+      type: "Spiritual Journey",
+      color: "from-orange-500 to-yellow-500",
+      photos: [{ image: "/images/stories/tirupati.png", title: "Tirupati Temple" }],
+      stats: {
+        type: "Divine Trip",
+        budget: "₹3,000",
+        duration: "4 Days",
+        travelers: "Friends"
+      },
+      story: "A spiritual journey that brought peace and positivity to the soul.",
+      lesson: {
+        type: "emotional",
+        text: "Sometimes the best journeys are those that connect you with something higher 🙏"
+      }
+    },
+    {
+      id: 3,
+      name: "Kalsubai Peak",
+      state: "Maharashtra",
+      coordinates: [73.7095, 19.6037],
+      type: "Night Trek",
+      color: "from-purple-500 to-pink-500",
+      photos: [
+        { image: "/images/travel/kalsubai/k1.jpg", title: "Summit View" },
+        { image: "/images/travel/kalsubai/k2.jpg", title: "Sunrise Magic" }
+      ],
+      stats: { type: "Solo Trek", budget: "₹800", duration: "2 Days", travelers: "Solo" },
+      story: "A thrilling night at Maharashtra's highest peak - 5,400 ft of pure adventure!",
+      lesson: {
+        type: "emotional",
+        text: "Solitude at 5,400ft teaches you that peace isn't found, it's felt 🏔️"
+      }
+    },
+    {
+      id: 4,
+      name: "Banaras",
+      state: "Uttar Pradesh",
+      coordinates: [82.9739, 25.3176],
+      type: "Cultural Experience",
+      color: "from-amber-500 to-orange-500",
+      photos: [{ image: "/images/stories/banaras.png", title: "Ganga Aarti" }],
+      stats: {
+        type: "Cultural Trip",
+        budget: "₹2,500",
+        duration: "3 Days",
+        travelers: "Solo"
+      },
+      story:
+        "The timeless vibe of Banaras - where spirituality meets culture on the ghats.",
+      lesson: {
+        type: "emotional",
+        text: "Banaras teaches you that life and death are just two sides of the same coin 🕉️"
+      }
+    },
+    {
+      id: 5,
+      name: "Konkan",
+      state: "Maharashtra",
+      coordinates: [73.2743, 17.1537],
+      type: "Coastal Escape",
+      color: "from-green-500 to-teal-500",
+      photos: [{ image: "/images/stories/aareware.png", title: "Aareware Beach" }],
+      stats: {
+        type: "Solo Trip",
+        budget: "₹2,000",
+        duration: "4 Days",
+        travelers: "Solo"
+      },
+      story:
+        "A peaceful solo journey through the hidden paradise of coastal Maharashtra.",
+      lesson: {
+        type: "practical",
+        text: "State Transport buses are the best way to explore Konkan's hidden gems 🚌"
+      }
+    },
+    {
+      id: 6,
+      name: "IIT Madras",
+      state: "Tamil Nadu",
+      coordinates: [80.2300, 12.9863],
+      type: "Educational",
+      color: "from-indigo-500 to-purple-500",
+      photos: [{ image: "/images/travel/iitm/iitm1.jpg", title: "IIT Madras Campus" }],
+      stats: {
+        type: "Competition",
+        budget: "Sponsored",
+        duration: "5 Days",
+        travelers: "Team"
+      },
+      story: "Selected for Global Hyperloop Competition at IIT Madras.",
+      lesson: {
+        type: "emotional",
+        text: "Dream big, work hard, and the universe conspires to make it happen ✨"
+      }
+    },
+    // ===================== ADDING NEW DESTINATIONS ============================
+    {
+      id: 7,
+      name: "Kedarnath",
+      state: "Uttarakhand",
+      coordinates: [79.0669, 30.7346],
+      type: "Pilgrimage & Trek",
+      color: "from-blue-500 to-indigo-700",
+      photos: [
+        { image: "/images/travel/kedarnath/temple.jpg", title: "Kedarnath Temple" },
+        { image: "/images/travel/kedarnath/trek.jpg", title: "22km Trek to Kedarnath" }
+      ],
+      stats: {
+        type: "Spiritual Trek",
+        budget: "₹1,800",
+        duration: "4 Days",
+        travelers: "Friends"
+      },
+      story:
+        "A challenging 22km night trek to Kedarnath, with a holy dip at Gaurikund and a powerful darshan of Lord Shiva. We set out with just faith, farsan, and fire in our hearts.",
+      lesson: {
+        type: "emotional",
+        text: "Faith moves mountains – and sometimes, it takes you across them 🚶‍♂️🕉️"
+      }
+    },
+    {
+      id: 8,
+      name: "Rishikesh",
+      state: "Uttarakhand",
+      coordinates: [78.2676, 30.0869],
+      type: "Spiritual Escape",
+      color: "from-teal-500 to-blue-600",
+      photos: [
+        { image: "/images/travel/rishikesh/bridge.jpg", title: "Ram Jhula" },
+        { image: "/images/travel/rishikesh/aarti.jpg", title: "Ganga Aarti" }
+      ],
+      stats: {
+        type: "Cultural Getaway",
+        budget: "₹1,500",
+        duration: "2 Days",
+        travelers: "Friends"
+      },
+      story:
+        "From peaceful dips in the Ganga at sunrise to the mesmerizing evening Aarti, Rishikesh was a soulful escape blessed by nature and culture.",
+      lesson: {
+        type: "emotional",
+        text: "Let the river wash away your worries and fill your soul with peace 🌊🙏"
+      }
+    },
+    {
+      id: 9,
+      name: "Manali",
+      state: "Himachal Pradesh",
+      coordinates: [77.1734, 32.2396],
+      type: "Mountain Escape",
+      color: "from-green-500 to-cyan-600",
+      photos: [
+        { image: "/images/travel/manali/hidimba.jpg", title: "Hidimba Temple" },
+        { image: "/images/travel/manali/mall-road.jpg", title: "Mall Road" }
+      ],
+      stats: {
+        type: "Budget Adventure",
+        budget: "₹1,400",
+        duration: "4 Days",
+        travelers: "Solo"
+      },
+      story:
+        "Manali welcomed me with snow-capped peaks, local flavors like Siddhu and ancient temples like Hidimba Devi. Perfect blend of nature, culture, and adventure.",
+      lesson: {
+        type: "practical",
+        text: "Take that bus instead – the journey is just as beautiful as the destination 🚌"
+      }
+    },
+    {
+      id: 10,
+      name: "Baralacha La Pass",
+      state: "Himachal Pradesh",
+      coordinates: [77.4638, 32.7630],
+      type: "Bike Adventure",
+      color: "from-slate-500 to-zinc-700",
+      photos: [
+        { image: "/images/travel/baralacha/pass.jpg", title: "Baralacha La at 16,040ft" }
+      ],
+      stats: {
+        type: "Bike Expedition",
+        budget: "₹2,400",
+        duration: "2 Days",
+        travelers: "Friends"
+      },
+      story:
+        "A thrilling ride through Atal Tunnel, Keylong, and Darcha on a rented bike. The journey to Baralacha La at 16,040ft was cold, intense, and unforgettable.",
+      lesson: {
+        type: "practical",
+        text: "Prep for the cold — high-altitude rides are as brutal as they are beautiful ❄️🏍️"
+      }
+    },
+    {
+      id: 11,
+      name: "Delhi",
+      state: "Delhi",
+      coordinates: [77.2090, 28.6139],
+      type: "City Exploration",
+      color: "from-red-500 to-rose-600",
+      photos: [
+        { image: "/images/travel/delhi/redfort.jpg", title: "Red Fort" },
+        { image: "/images/travel/delhi/india-gate.jpg", title: "India Gate" }
+      ],
+      stats: {
+        type: "Solo Exploration",
+        budget: "₹800",
+        duration: "2 Days",
+        travelers: "Solo"
+      },
+      story:
+        "Exploring Old Delhi’s chaos, historical monuments, and street food was like walking through a living museum — with samosas and jalebi in hand.",
+      lesson: {
+        type: "practical",
+        text: "Always head to Chandni Chowk with an empty stomach and a curious heart ❤️"
+      }
+    },
+    {
+      id: 12,
+      name: "Prayagraj Mahakumbh",
+      state: "Uttar Pradesh",
+      coordinates: [81.8463, 25.4358],
+      type: "Mass Pilgrimage",
+      color: "from-yellow-500 to-red-600",
+      photos: [
+        { image: "/images/travel/prayagraj/kumbh.jpg", title: "Holy Dip at Mahakumbh" }
+      ],
+      stats: {
+        type: "Spiritual Gathering",
+        budget: "₹1,200",
+        duration: "3 Days",
+        travelers: "Friends"
+      },
+      story:
+        "Amidst millions at the Mahakumbh, we took a holy bath, visited Juna Akhada, and soaked in chaotic devotion and deep peace all at once.",
+      lesson: {
+        type: "emotional",
+        text: "In the crowd of millions, I found a rare stillness within ✨🌊"
+      }
+    },
+    {
+      id: 13,
+      name: "Ayodhya",
+      state: "Uttar Pradesh",
+      coordinates: [82.1945, 26.7796],
+      type: "Holy City",
+      color: "from-orange-500 to-red-500",
+      photos: [
+        { image: "/images/travel/ayodhya/rammandir.jpg", title: "Shri Ram Mandir" }
+      ],
+      stats: {
+        type: "Spiritual Trip",
+        budget: "₹900",
+        duration: "2 Days",
+        travelers: "Friends"
+      },
+      story:
+        "A quiet night at Ayodhya Junction led to a divine morning at the Sarayu river. Darshan at Ram Mandir, Hanuman Garhi, Kanak Bhavan and Dashrath Mahal completed the holy circuit.",
+      lesson: {
+        type: "emotional",
+        text: "True devotion doesn’t need grandeur — just a sincere heart 🌅🙏"
+      }
+    },
+    {
+      id: 14,
+      name: "Ujjain",
+      state: "Madhya Pradesh",
+      coordinates: [75.7804, 23.1765],
+      type: "Sacred City",
+      color: "from-indigo-600 to-purple-700",
+      photos: [
+        { image: "/images/travel/ujjain/mahakaleshwar.jpg", title: "Mahakaleshwar Temple" }
+      ],
+      stats: {
+        type: "Divine Trip",
+        budget: "₹240",
+        duration: "1 Day",
+        travelers: "Solo"
+      },
+      story:
+        "A short but powerful journey to the city of Mahakaleshwar, marked by temples, prasadam, and spiritual comfort.",
+      lesson: {
+        type: "emotional",
+        text: "Even the shortest journeys can touch the deepest parts of your soul 🛕"
+      }
+    },
+    {
+      id: 15,
+      name: "Omkareshwar",
+      state: "Madhya Pradesh",
+      coordinates: [76.1521, 22.2411],
+      type: "Island Temple",
+      color: "from-green-700 to-gray-600",
+      photos: [
+        { image: "/images/travel/omkareshwar/bridge.jpg", title: "Omkareshwar Bridge" }
+      ],
+      stats: {
+        type: "Divine Trip",
+        budget: "₹580",
+        duration: "2 Days",
+        travelers: "Solo"
+      },
+      story:
+        "On a temple island shaped like the Om symbol, I stayed at the Gajanan Maharaj Trust Nivas and experienced the serenity only found in sacred silence.",
+      lesson: {
+        type: "practical",
+        text: "Sometimes the smallest detours lead to the most peaceful destinations 🕉️"
+      }
+    }
+  ],
+
+  // Animated Trip Stories (Instagram Highlights Style)
+  tripHighlights: [
+    {
+      id: 1,
+      title: "Budget Travel",
+      icon: "💰",
+      color: "from-green-400 to-emerald-500",
+      stories: [
+        {
+          title: "Goa on ₹1500",
+          image: "/images/stories/goatrip.png",
+          text: "Trains, scooty rides, and farsan packets - the ultimate budget adventure!",
+          tips: ["Local trains for intercity", "Rent scooty instead of car", "Carry snacks from home"]
+        },
+        {
+          title: "Konkan Coastal",
+          image: "/images/stories/aareware.png",
+          text: "State Transport buses and local food kept costs under ₹2000",
+          tips: ["ST buses are cheap & scenic", "Stay at local guesthouses", "Try local eateries"]
+        }
       ]
     },
-    { 
-      id: 2, 
-      location: "Himachal", 
-      color: "from-green-400 via-emerald-400 to-teal-500",
-      photos: [
-        { id: 1, title: "Sinhagad Fort", image: "/images/travel/pune/sinhagad.jpg", color: "from-green-500 to-emerald-500" },
-        { id: 2, title: "Lonavala", image: "/images/travel/pune/lonavala.jpg", color: "from-teal-500 to-cyan-500" },
-        { id: 3, title: "Khandala Ghats", image: "/images/travel/pune/khandala.jpg", color: "from-blue-500 to-green-500" },
-        { id: 4, title: "Pawna Lake", image: "/images/travel/pune/pawna-lake.jpg", color: "from-cyan-500 to-blue-500" }
+    {
+      id: 2,
+      title: "Night Treks",
+      icon: "🌙",
+      color: "from-purple-400 to-indigo-500",
+      stories: [
+        {
+          title: "Kalsubai Night",
+          image: "/images/stories/kalsubai.png",
+          text: "Camping alone at 5,400ft under a blanket of stars",
+          tips: ["Start at 4 PM to reach by sunset", "Carry warm clothes", "Headlamp is essential"]
+        }
       ]
     },
-    { 
-      id: 3, 
-      location: "Kedarnath", 
-      color: "from-yellow-400 via-orange-400 to-red-500",
-      photos: [
-        { id: 1, title: "Amber Fort", image: "/images/travel/rajasthan/amber-fort.jpg", color: "from-yellow-500 to-orange-500" },
-        { id: 2, title: "Hawa Mahal", image: "/images/travel/rajasthan/hawa-mahal.jpg", color: "from-pink-500 to-red-500" },
-        { id: 3, title: "Jal Mahal", image: "/images/travel/rajasthan/jal-mahal.jpg", color: "from-blue-500 to-purple-500" },
-        { id: 4, title: "City Palace", image: "/images/travel/rajasthan/city-palace.jpg", color: "from-orange-500 to-pink-500" }
+    {
+      id: 3,
+      title: "Divine Journeys",
+      icon: "🙏",
+      color: "from-orange-400 to-amber-500",
+      stories: [
+        {
+          title: "Tirupati Darshan",
+          image: "/images/stories/tirupati.png",
+          text: "A spiritual journey to Lord Venkateswara's abode",
+          tips: ["Book accommodation early", "Start darshan early morning", "Visit nearby temples"]
+        },
+        {
+          title: "Banaras Vibes",
+          image: "/images/stories/banaras.png",
+          text: "Ganga Aarti at Dashashwamedh Ghat - pure magic!",
+          tips: ["Stay near the ghats", "Attend evening aarti", "Boat ride at sunrise"]
+        }
       ]
     },
-    { 
-      id: 4, 
-      location: "Goa", 
-      color: "from-blue-400 via-cyan-400 to-teal-500",
-      photos: [
-        { id: 1, title: "Baga Beach", image: "/images/travel/goa/baga-beach.jpg", color: "from-cyan-500 to-blue-500" },
-        { id: 2, title: "Fort Aguada", image: "/images/travel/goa/fort-aguada.jpg", color: "from-orange-500 to-red-500" },
-        { id: 3, title: "Anjuna Flea Market", image: "/images/travel/goa/anjuna.jpg", color: "from-purple-500 to-pink-500" },
-        { id: 4, title: "Dudhsagar Falls", image: "/images/travel/goa/dudhsagar.jpg", color: "from-green-500 to-teal-500" }
+    {
+      id: 4,
+      title: "City Vibes",
+      icon: "🏙️",
+      color: "from-blue-400 to-cyan-500",
+      stories: [
+        {
+          title: "IIT Bombay NEC",
+          image: "/images/stories/iitb.png",
+          text: "Top 5 finish at National Entrepreneurship Challenge among 650+ teams!",
+          tips: ["Network with fellow innovators", "Attend all workshops", "Explore campus"]
+        }
       ]
     },
-    { 
-      id: 5, 
-      location: "Kalsubai Peak", 
-      color: "from-red-400 via-pink-400 to-purple-500",
-      photos: [
-        { id: 1, title: "Kalsuaai Temple", image: "/images/travel/kalsubai/k1.jpg", color: "from-orange-500 to-red-500" },
-        { id: 2, title: "Sunrise View", image: "/images/travel/kalsubai/k2.jpg", color: "from-red-500 to-pink-500" },
-        { id: 3, title: "Midnight View", image: "/images/travel/kalsubai/k3.jpg", color: "from-yellow-500 to-orange-500" },
-        { id: 4, title: "Alang-Manang View", image: "/images/travel/kalsubai/k4.jpg", color: "from-pink-500 to-purple-500" }
-      ]
-    },
-    { 
-      id: 6, 
-      location: "IIT Madras", 
-      color: "from-purple-400 via-indigo-400 to-blue-500",
-      photos: [
-        { id: 1, title: "IIT Madras", image: "/images/travel/iitm/iitm1.jpg", color: "from-green-500 to-emerald-500" },
-        { id: 2, title: "IITM Entry Gate", image: "/images/travel/iitm/iitm2.jpg", color: "from-teal-500 to-cyan-500" },
-        { id: 3, title: "Night Campus", image: "/images/travel/iitm/iitm3.jpg", color: "from-purple-500 to-indigo-500" },
-        { id: 4, title: "Hostel Complex", image: "/images/travel/iitm/iitm4.jpg", color: "from-blue-500 to-purple-500" },
-        { id: 5, title: "Open Ground", image: "/images/travel/iitm/iitm5.jpg", color: "from-blue-500 to-purple-500" }
+    {
+      id: 5,
+      title: "Solo Adventures",
+      icon: "🎒",
+      color: "from-pink-400 to-rose-500",
+      stories: [
+        {
+          title: "Solo Konkan",
+          image: "/images/stories/aareware.png",
+          text: "Sometimes the best companion is yourself and the open road",
+          tips: ["Inform family of itinerary", "Stay flexible with plans", "Talk to locals"]
+        },
+        {
+          title: "Kalsubai Solo",
+          image: "/images/stories/kalsubai.png",
+          text: "Solo camping taught me self-reliance and peace",
+          tips: ["Know your limits", "Carry emergency contacts", "Trust your instincts"]
+        }
       ]
     }
   ],
+
   posts: [
     {
       id: 2,
@@ -152,8 +519,25 @@ const travelerData = {
       coverImage: "/images/stories/goatrip.png",
       excerpt: "Experience about a unplanned GOA Trip!",
       readTime: "5 min read",
-      content: `
-      <h2>Unplanned Goa Trip Before Exams!</h2>
+      itinerary: [
+        { day: 1, title: "Pune to Goa", activities: ["Train to Mumbai (₹75)", "Mumbai to Goa overnight train", "Reached Madgaon morning"] },
+        { day: 2, title: "South Goa Beaches", activities: ["Rented scooty (₹250/day)", "Palolem Beach", "Agonda Beach", "Local meals"] },
+        { day: 3, title: "North Goa Party", activities: ["Baga Beach", "Anjuna Flea Market", "Fort Aguada", "Nightlife"] },
+        { day: 4, title: "Return Journey", activities: ["Dudhsagar waterfall view from train", "Goa to Pune via Belagavi"] }
+      ],
+      packingList: ["Light clothes", "Sunscreen", "Farsan packet 😄", "Portable charger", "Water bottle", "Basic medicines"],
+      budget: {
+        total: "₹1,500",
+        breakdown: [
+          { item: "Train tickets", cost: "₹340" },
+          { item: "Scooty rental (2 days)", cost: "₹500" },
+          { item: "Fuel", cost: "₹300" },
+          { item: "Food", cost: "₹300" },
+          { item: "Misc", cost: "₹60" }
+        ]
+      },
+      mapRoute: "Pune → Mumbai → Goa (Madgaon) → South Goa → North Goa → Belagavi → Pune",
+      content: `<h2>Unplanned Goa Trip Before Exams!</h2>
       <p>Sometimes the best trips are the ones you never plan. Just a few days before our exams, my friend and I had this random idea - “Let’s go to Goa.” Within a few hours, with budget of ₹1500 we packed our bags, grabbed a half-kilo packet of farsan, and set off on a journey that would become one of our most memorable adventures.
       <br /><br />From Pune to Mumbai:
       <br />The trip began from Pune. We caught a train to Mumbai for just ₹75 and started feeling like budget travel pros already. At CSMT Mumbai, we treated ourselves to the classic vadapav worth ₹25, which gave us the real Mumbai start we needed.
@@ -168,8 +552,7 @@ const travelerData = {
       <br />For our return, we took the Goa–Delhi Express via Belagavi. The journey turned magical when we passed through Dudhsagar Waterfall, visible right from the train window. The sound of the waterfall, the mist in the air, and the greenery around made it feel like a perfect ending to our spontaneous adventure. The ticket cost only ₹190, and the view was priceless.
       <br /><br />Memories for a Lifetime:
       <br />With just ₹1500 and one farsan packet, we experienced an unforgettable Goa trip filled with laughter, scenic beauty, and the joy of unplanned adventures. It taught us that you don’t need a big budget to create big memories, you just need a little madness and a lot of curiosity.
-      <br />Goa wasn’t just a destination; it became a reminder that the best moments in life often come without plans.</p>
-    `
+      <br />Goa wasn’t just a destination; it became a reminder that the best moments in life often come without plans.</p>`
     },
     {
       id: 4,
@@ -179,8 +562,25 @@ const travelerData = {
       coverImage: "/images/stories/tirupati.png",
       excerpt: "The spiritual and divine experiences that touch your soul!",
       readTime: "7 min read",
-      content: `
-      <h2>A Divine Journey to Tirupati — The Abode of Sri Venkateswara Balaji</h2>
+      itinerary: [
+        { day: 1, title: "Journey to Tirupati", activities: ["Travel from Pune", "Check-in at TTD accommodation", "Evening rest"] },
+        { day: 2, title: "Tirumala Darshan", activities: ["Early morning climb", "Sri Venkateswara Temple darshan", "Annaprasadam", "Explore temple premises"] },
+        { day: 3, title: "Nearby Temples", activities: ["Padmavati Temple", "Japali Theertham", "Silathoranam", "Akasaganga Theertham"] },
+        { day: 4, title: "Return Journey", activities: ["Sripuram Golden Temple (Vellore)", "Journey back home"] }
+      ],
+      packingList: ["Traditional clothes", "Comfortable walking shoes", "Water bottle", "Small towel", "Offerings for temple"],
+      budget: {
+        total: "₹2,300",
+        breakdown: [
+          { item: "Travel", cost: "₹1,200" },
+          { item: "Accommodation (TTD)", cost: "₹100" },
+          { item: "Food & Prasadam", cost: "₹500" },
+          { item: "Local transport", cost: "₹400" },
+          { item: "Misc", cost: "₹100" }
+        ]
+      },
+      mapRoute: "Pune → Tirupati → Tirumala → Nearby temples → Vellore → Pune",
+      content: `<h2>A Divine Journey to Tirupati — The Abode of Sri Venkateswara Balaji</h2>
       <p>Some journeys are not just trips - they’re spiritual experiences that touch your soul. My recent visit to Tirupati, the sacred abode of Sri Venkateswara Balaji, was one such divine experience that left me with immense peace, positivity, and gratitude.
       <br /><br />Journey with Friends to the Holy Hills
       <br />This trip was special - not just because of the destination, but also because I went with my close group of friends. Together, we traveled to Tirupati, a place known for its divinity, devotion, and the magnetic presence of Lord Balaji. The moment we reached, there was an unmistakable spiritual aura in the air - a calmness that instantly made us feel connected to something higher.
@@ -201,8 +601,7 @@ const travelerData = {
       <br />Sripuram Golden Temple (Vellore): On our way back, we also visited this stunning gold-plated temple dedicated to Goddess Mahalakshmi. The temple complex glows in sunlight, and its divine aura, combined with the golden beauty, makes it an unforgettable stop on the journey.
       <br /><br />A Journey of Peace and Positivity
       <br />From start to end, the Tirupati trip was filled with moments of faith, laughter, and divine energy. Whether it was the echoing chants at the temple, the peaceful stay, the delicious prasadam, or the scenic surroundings - every bit of it added to the experience of inner peace.
-      <br />As we returned home, all of us carried a sense of spiritual fulfillment and positivity that words can hardly capture. Truly, a visit to Sri Venkateswara Balaji at Tirupati is not just a trip — it’s a divine calling that stays in your heart forever.</p>
-    `
+      <br />As we returned home, all of us carried a sense of spiritual fulfillment and positivity that words can hardly capture. Truly, a visit to Sri Venkateswara Balaji at Tirupati is not just a trip — it’s a divine calling that stays in your heart forever.</p>`
     },
     {
       id: 6,
@@ -212,8 +611,23 @@ const travelerData = {
       coverImage: "/images/stories/banaras.png",
       excerpt: "Banaras (Varanasi), a city that feels alive with divinity!",
       readTime: "5 min read",
-      content: `
-      <p>Some cities are just places on the map - and then there’s Banaras (Varanasi), a city that feels alive with divinity. My journey to this ancient city was a deep dive into spirituality, history, culture, and flavor - all wrapped into one unforgettable experience.
+      itinerary: [
+        { day: 1, title: "Arrival & Ghats Tour", activities: ["Walk Along 84 Ghats", "Assi, Manikarnika, Dashashwamedh Ghats", "Sunset by Ganga"] },
+        { day: 2, title: "Kashi Vishwanath & Boat Ride", activities: ["Visit Kashi Vishwanath Temple", "Boat Ride at Sunset", "Explore Local Markets"] },
+        { day: 3, title: "Food Tour", activities: ["Banarasi Lassi", "Street food spree", "Visit to local sweet shops", "Evening Ganga Aarti"] }
+      ],
+      packingList: ["Comfortable footwear", "Cotton clothes", "Scarf/Cap", "Reusable water bottle", "Camera/Phone"],
+      budget: {
+        total: "₹3,000",
+        breakdown: [
+          { item: "Travel", cost: "₹1,800" },
+          { item: "Food", cost: "₹700" },
+          { item: "Boats & Local tours", cost: "₹300" },
+          { item: "Misc", cost: "₹200" }
+        ]
+      },
+      mapRoute: "Pune → Varanasi → Ghats → Food Tour → Pune",
+      content: `<p>Some cities are just places on the map - and then there’s Banaras (Varanasi), a city that feels alive with divinity. My journey to this ancient city was a deep dive into spirituality, history, culture, and flavor - all wrapped into one unforgettable experience.
       <br /><br />Exploring the 84 Ghats - The Soul of Banaras:
       <br />We began our exploration early in the morning, walking along the 84 ghats of the Ganga. Each ghat had its own rhythm — saints meditating, pilgrims bathing, boats gently floating, and the fragrance of incense mingling with the misty morning air.
       <br />From the lively Assi Ghat to the sacred Dashashwamedh Ghat, and the hauntingly peaceful Manikarnika Ghat, every step along the riverbank felt like walking through centuries of devotion and stories.
@@ -236,8 +650,7 @@ const travelerData = {
       <br />Banaras isn’t just a city - it’s a feeling. A blend of spirituality, simplicity, chaos, and peace. From the divine presence of Kashi Vishwanath, the eternal flames of Manikarnika, to the vibrant evenings by the Ganga Aarti, every moment felt alive and eternal.
       <br /><br />It’s a place where time pauses, where life feels sacred, and where every traveler leaves with a piece of peace.
       <br /><br />Truly, Banaras is not just visited - it’s experienced. 💫
-</p>
-    `
+</p>`
     },
     {
       id: 3,
@@ -247,8 +660,23 @@ const travelerData = {
       coverImage: "/images/stories/kalsubai.png",
       excerpt: "My night at Kalsubai Peak, the highest point in Maharashtra (5,400 ft)",
       readTime: "5 min read",
-      content: `
-      <h2>A Thrilling Night at Maharashtra’s Highest Peak - Kalsubai Shikhar</h2>
+      itinerary: [
+        { day: 1, title: "Pune to Bari Village", activities: ["Train to Kalyan", "Bus to Kasara", "Reach Bari Village"] },
+        { day: 2, title: "Night Trek to Summit", activities: ["Start trek at 4 PM", "Reach Summit at 8:30 PM", "Solo camping under stars"] },
+        { day: 3, title: "Sunrise & Descent", activities: ["Witness sunrise", "Start descent", "Return to Pune"] }
+      ],
+      packingList: ["Trekking shoes", "Warm clothes", "Tent", "Torch", "Water & snacks", "Power bank"],
+      budget: {
+        total: "₹1,200",
+        breakdown: [
+          { item: "Train & Bus", cost: "₹400" },
+          { item: "Food", cost: "₹300" },
+          { item: "Trek essentials", cost: "₹200" },
+          { item: "Misc", cost: "₹300" }
+        ]
+      },
+      mapRoute: "Pune → Kalyan → Kasara → Bari → Kalsubai Summit → Pune",
+      content: `<h2>A Thrilling Night at Maharashtra’s Highest Peak - Kalsubai Shikhar</h2>
       <p>Trekking has always been about chasing experiences - and my night at Kalsubai Peak, the highest point in Maharashtra (5,400 ft), was truly one of a kind. This wasn’t just another hike; it was a journey into stillness, stars, and solitude.
       <br /><br />Journey from Pune to Bari Village
       <br />The adventure began early from Pune, catching a local train to Kalyan and then another towards Kasara. The rhythmic sound of the local train, fading city lights, and the growing silence hinted at the mountain calling. From Kasara, I hopped onto a State Transport (ST) bus heading toward Bari Village, the base point for the Kalsubai trek.
@@ -267,8 +695,7 @@ const travelerData = {
       <br />After spending some time admiring the morning beauty, I began the descent back to Bari village. The return was smooth, with sunlight revealing the trail I had conquered in darkness.
       <br />That trek wasn’t just about reaching the top - it was about embracing solitude, feeling alive amidst silence, and realizing how nature can both humble and heal you.
       <br /><br />Final Thoughts
-      <br />If you ever wish to experience a thrilling, peaceful, and unforgettable escape, pack your backpack and head toward Kalsubai Peak. Spend a night under the stars, away from networks and noise - and you’ll discover something rare: the beauty of absolute stillness.</p>
-    `
+      <br />If you ever wish to experience a thrilling, peaceful, and unforgettable escape, pack your backpack and head toward Kalsubai Peak. Spend a night under the stars, away from networks and noise - and you’ll discover something rare: the beauty of absolute stillness.</p>`
     },
     {
       id: 5,
@@ -278,8 +705,24 @@ const travelerData = {
       coverImage: "/images/stories/aareware.png",
       excerpt: "My solo trip to Konkan, covering Ratnagiri, Aarware, and Ganpatipule.",
       readTime: "5 min read",
-      content: `
-      <h2>A Solo Journey Through Konkan - Aarware, Ratnagiri & Ganpatipule</h2>
+      itinerary: [
+        { day: 1, title: "Pune to Ratnagiri", activities: ["ST Bus via Kolhapur", "Explore Ratnagiri", "Visit abandoned ship"] },
+        { day: 2, title: "Aare Ware Beach", activities: ["Scenic coastal ride", "Sunset at Aare Ware"] },
+        { day: 3, title: "Ganpatipule", activities: ["Temple Darshan", "Explore beach", "Prachin Konkan Museum"] }
+      ],
+      packingList: ["Casual clothes", "Hat", "Water bottle", "Basic toiletries", "Camera", "Power bank"],
+      budget: {
+        total: "₹1,800",
+        breakdown: [
+          { item: "Travel", cost: "₹1,000" },
+          { item: "Stay", cost: "₹100" },
+          { item: "Food", cost: "₹400" },
+          { item: "Local transport", cost: "₹100" },
+          { item: "Museum entry", cost: "₹100" }
+        ]
+      },
+      mapRoute: "Pune → Ratnagiri → Aare Ware → Ganpatipule → Pune",
+      content: `<h2>A Solo Journey Through Konkan - Aarware, Ratnagiri & Ganpatipule</h2>
       <p>Sometimes, the best journeys are those taken alone - where every moment becomes a conversation between you and nature. My solo trip to Konkan, covering Ratnagiri, Aarware, and Ganpatipule, turned out to be a peaceful escape into the heart of coastal Maharashtra - full of greenery, sea breeze, and soulful moments.
       <br/><br/>The Coastal Road Begins - Pune to Ratnagiri via Kolhapur
       <br/>I started my journey by catching a State Transport (ST) bus from Pune, heading towards Ratnagiri via Kolhapur. The long coastal route, with winding ghats and glimpses of the Western Ghats, set the perfect tone for what lay ahead.
@@ -309,31 +752,43 @@ const travelerData = {
       coverImage: "/images/stories/iitb.png",
       excerpt: "Representing ECell team at National Entrepreneurship Challenge IIT Bombay...",
       readTime: "2 min read",
-      content: `
-      <h2>My IIT Bombay Experience</h2>
+      itinerary: [
+        { day: 1, title: "Arrival at IIT Bombay", activities: ["Check-in Hostel 17", "Campus exploration", "Team meet"] },
+        { day: 2, title: "NEC Finals", activities: ["Presentations", "Networking", "Team discussions"] },
+        { day: 3, title: "Campus Life", activities: ["Visit Powai Lake", "Night walk & reflections"] }
+      ],
+      packingList: ["Formal attire", "Laptop", "Notebook", "ID cards", "Snacks", "Water bottle"],
+      budget: {
+        total: "₹3,800",
+        breakdown: [
+          { item: "Travel", cost: "₹300" },
+          { item: "Stay", cost: "₹2800" },
+          { item: "Food", cost: "₹500" },
+          { item: "Misc", cost: "₹200" }
+        ]
+      },
+      mapRoute: "Pune → Mumbai → IIT Bombay → Pune",
+      content: `<h2>My IIT Bombay Experience</h2>
       <p>It was an unforgettable journey to IIT Bombay, one of the most inspiring places I’ve ever been to. Our team had qualified for the National Entrepreneurship Challenge (NEC) finals, and we proudly secured All India Rank 5 among more than 650 teams. Alongside this, I was also selected as the Campus Ambassador, achieving a spot in the Top 10 Campus Ambassadors across the nation, a truly proud moment.
       <br />We stayed in Hostel 17, which soon became our little home for those memorable days. The H17 Mess served as our go-to place for food, laughter, and random late-night discussions. During the day, we explored the sprawling IIT Bombay campus, from the Lecture Hall Complex to the Open Air Theatre, every corner had its own vibe.
       <br />One evening, after all the sessions and presentations, our team took a walk to the serene Powai Lake, just beside the campus. The calm water reflected the glittering lights of the city, and we talked for hours about our dreams, startups, and the journey ahead. That night became one of the most peaceful yet motivating moments of the entire trip.
       <br />As the days passed, IIT Bombay felt less like a campus and more like a world full of innovation, ideas, and friendships. The experience not only gave us recognition but also strengthened our belief in what teamwork and passion can achieve.
-      <br />When we finally packed our bags to leave Hostel 17, it wasn’t just memories we carried, it was inspiration, confidence, and a drive to keep building and achieving more.</p>
-    `
+      <br />When we finally packed our bags to leave Hostel 17, it wasn’t just memories we carried, it was inspiration, confidence, and a drive to keep building and achieving more.</p>`
     }
   ]
 };
 
-// Animated Grid Background
-const GridBackground = ({ mode }) => {
-  return (
-    <div className="fixed inset-0 pointer-events-none opacity-20">
-      <div className="absolute inset-0" style={{
-        backgroundImage: `linear-gradient(${mode === 'techie' ? '#3b82f6' : '#f97316'} 1px, transparent 1px), linear-gradient(90deg, ${mode === 'techie' ? '#3b82f6' : '#f97316'} 1px, transparent 1px)`,
-        backgroundSize: '50px 50px'
-      }} />
-    </div>
-  );
-};
+// Helper Components
+const GridBackground = ({ mode }) => (
+  <div className="fixed inset-0 pointer-events-none opacity-20">
+    <div className="absolute inset-0" style={{
+      backgroundImage: `linear-gradient(${mode === 'techie' ? '#3b82f6' : '#f97316'} 1px, transparent 1px), linear-gradient(90deg, ${mode === 'techie' ? '#3b82f6' : '#f97316'} 1px, transparent 1px)`,
+      backgroundSize: '50px 50px'
+    }} />
+  </div>
+);
 
-// Floating Particles
+
 const FloatingParticles = ({ mode }) => {
   const particles = Array.from({ length: 20 });
   return (
@@ -362,7 +817,6 @@ const FloatingParticles = ({ mode }) => {
   );
 };
 
-// Welcome Screen
 const WelcomeScreen = ({ onComplete }) => {
   useEffect(() => {
     const timer = setTimeout(onComplete, 800);
@@ -417,28 +871,25 @@ const WelcomeScreen = ({ onComplete }) => {
   );
 };
 
-// Header with Toggle
 const Header = () => {
   const { mode, setMode, theme, setTheme, menuOpen, setMenuOpen } = useAppContext();
 
   return (
     <motion.header
-      className={`fixed top-0 left-0 right-0 z-40 backdrop-blur-xl border-b ${
-        theme === 'dark' 
-          ? mode === 'techie' 
-            ? 'bg-black/80 border-blue-500/30' 
-            : 'bg-black/80 border-orange-500/30'
-          : mode === 'techie'
-            ? 'bg-white/80 border-blue-500/30'
-            : 'bg-white/80 border-orange-500/30'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-40 backdrop-blur-xl border-b ${theme === 'dark'
+        ? mode === 'techie'
+          ? 'bg-black/80 border-blue-500/30'
+          : 'bg-black/80 border-orange-500/30'
+        : mode === 'techie'
+          ? 'bg-white/80 border-blue-500/30'
+          : 'bg-white/80 border-orange-500/30'
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ type: 'spring', stiffness: 100 }}
     >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          {/* Logo */}
           <motion.div
             className="relative group cursor-pointer"
             whileHover={{ scale: 1.05 }}
@@ -447,70 +898,63 @@ const Header = () => {
               GaRa
             </div>
             <motion.div
-              className={`absolute -inset-2 rounded-lg opacity-0 group-hover:opacity-100 blur-lg transition-opacity ${
-                mode === 'techie' ? 'bg-blue-500/30' : 'bg-orange-500/30'
-              }`}
+              className={`absolute -inset-2 rounded-lg opacity-0 group-hover:opacity-100 blur-lg transition-opacity ${mode === 'techie' ? 'bg-blue-500/30' : 'bg-orange-500/30'
+                }`}
             />
           </motion.div>
 
-          {/* Main Toggle Switch */}
-          <div className={`flex items-center gap-3 px-6 py-3 rounded-full backdrop-blur-xl border ${
-            theme === 'dark'
-              ? mode === 'techie'
-                ? 'bg-blue-500/10 border-blue-500/30'
-                : 'bg-orange-500/10 border-orange-500/30'
-              : mode === 'techie'
-                ? 'bg-blue-50 border-blue-300'
-                : 'bg-orange-50 border-orange-300'
-          }`}>
+          <div className={`flex items-center gap-3 px-6 py-3 rounded-full backdrop-blur-xl border ${theme === 'dark'
+            ? mode === 'techie'
+              ? 'bg-blue-500/10 border-blue-500/30'
+              : 'bg-orange-500/10 border-orange-500/30'
+            : mode === 'techie'
+              ? 'bg-blue-50 border-blue-300'
+              : 'bg-orange-50 border-orange-300'
+            }`}>
             <motion.button
               onClick={() => setMode('techie')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all ${
-                mode === 'techie'
-                  ? theme === 'dark'
-                    ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/50'
-                    : 'bg-blue-500 text-white'
-                  : theme === 'dark'
-                    ? 'text-gray-400 hover:text-white'
-                    : 'text-gray-600 hover:text-gray-900'
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all ${mode === 'techie'
+                ? theme === 'dark'
+                  ? 'bg-blue-500 text-white shadow-lg shadow-blue-500/50'
+                  : 'bg-blue-500 text-white'
+                : theme === 'dark'
+                  ? 'text-gray-400 hover:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
+                }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Code size={18} />
-              <span className="hidden sm:inline">Techie Gaurav</span>
+              <span className="hidden sm:inline">Techie</span>
             </motion.button>
 
             <div className={`w-px h-8 ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-300'}`} />
 
             <motion.button
               onClick={() => setMode('traveler')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all ${
-                mode === 'traveler'
-                  ? theme === 'dark'
-                    ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/50'
-                    : 'bg-orange-500 text-white'
-                  : theme === 'dark'
-                    ? 'text-gray-400 hover:text-white'
-                    : 'text-gray-600 hover:text-gray-900'
-              }`}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full font-semibold transition-all ${mode === 'traveler'
+                ? theme === 'dark'
+                  ? 'bg-orange-500 text-white shadow-lg shadow-orange-500/50'
+                  : 'bg-orange-500 text-white'
+                : theme === 'dark'
+                  ? 'text-gray-400 hover:text-white'
+                  : 'text-gray-600 hover:text-gray-900'
+                }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <Plane size={18} />
-              <span className="hidden sm:inline">Traveler Gaurav</span>
+              <span className="hidden sm:inline">Traveler</span>
             </motion.button>
           </div>
 
-          {/* Right Actions */}
           <div className="flex items-center gap-3">
             <motion.button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className={`p-3 rounded-full backdrop-blur-xl border ${
-                theme === 'dark'
-                  ? 'bg-white/5 border-white/10 text-yellow-400'
-                  : 'bg-black/5 border-black/10 text-gray-700'
-              }`}
+              className={`p-3 rounded-full backdrop-blur-xl border ${theme === 'dark'
+                ? 'bg-white/5 border-white/10 text-yellow-400'
+                : 'bg-black/5 border-black/10 text-gray-700'
+                }`}
               whileHover={{ scale: 1.1, rotate: 180 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -519,13 +963,10 @@ const Header = () => {
 
             <motion.button
               onClick={() => setMenuOpen(!menuOpen)}
-              className={`lg:hidden p-3 rounded-full backdrop-blur-xl border ${
-                theme === 'dark'
-                  ? mode === 'techie'
-                    ? 'bg-blue-500/10 border-blue-500/30 text-blue-400'
-                    : 'bg-orange-500/10 border-orange-500/30 text-orange-400'
-                  : 'bg-gray-100 border-gray-300 text-gray-700'
-              }`}
+              className={`p-3 rounded-full backdrop-blur-xl border ${theme === 'dark'
+                ? 'bg-white/5 border-white/10 text-white'
+                : 'bg-black/5 border-black/10 text-gray-900'
+                }`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -538,7 +979,6 @@ const Header = () => {
   );
 };
 
-// Sidebar with Neon Effect
 const Sidebar = () => {
   const { mode, theme, menuOpen, setMenuOpen } = useAppContext();
 
@@ -555,68 +995,94 @@ const Sidebar = () => {
   const travelerItems = [
     { id: 'hero', label: 'Home', icon: <Rocket size={20} /> },
     { id: 'about', label: 'About', icon: <Lightbulb size={20} /> },
-    { id: 'projects', label: 'Gallery', icon: <Plane size={20} /> },
-    { id: 'stories', label: 'Stories', icon: <Calendar size={20} /> },
+    { id: 'map', label: 'Travel Map', icon: <MapIcon size={20} /> },
+    { id: 'highlights', label: 'Trip Stories', icon: <Camera size={20} /> },
+    { id: 'stories', label: 'Travel Blogs', icon: <BookOpen size={20} /> },
     { id: 'contact', label: 'Contact', icon: <Mail size={20} /> }
   ];
 
   const items = mode === 'techie' ? techieItems : travelerItems;
 
   return (
-    <motion.aside
-      className={`fixed left-0 top-20 bottom-0 w-64 backdrop-blur-xl border-r z-30 ${
-        menuOpen ? 'block' : 'hidden'
-      } lg:block ${
-        theme === 'dark'
-          ? mode === 'techie'
-            ? 'bg-black/80 border-blue-500/20'
-            : 'bg-black/80 border-orange-500/20'
-          : mode === 'techie'
-            ? 'bg-white/80 border-blue-300'
-            : 'bg-white/80 border-orange-300'
-      } overflow-y-auto`}
-      initial={{ x: -300 }}
-      animate={{ x: 0 }}
-      transition={{ type: 'spring', stiffness: 100 }}
-    >
-      <nav className="p-4 space-y-2">
-        {items.map((item, index) => (
-          <motion.button
-            key={item.id}
-            onClick={() => {
-              setMenuOpen(false);
-              document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
-            }}
-            className={`w-full group relative flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
-              theme === 'dark'
-                ? 'text-gray-300 hover:text-white'
-                : 'text-gray-700 hover:text-gray-900'
-            }`}
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 }}
-            whileHover={{ x: 10 }}
-          >
-            <motion.div
-              className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity ${
-                mode === 'techie'
-                  ? 'bg-gradient-to-r from-blue-500/20 to-purple-500/20'
-                  : 'bg-gradient-to-r from-orange-500/20 to-pink-500/20'
+    <>
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMenuOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.aside
+            className={`fixed left-0 top-0 bottom-0 w-64 backdrop-blur-xl border-r z-50 ${theme === 'dark'
+              ? mode === 'techie'
+                ? 'bg-black/95 border-blue-500/20'
+                : 'bg-black/95 border-orange-500/20'
+              : mode === 'techie'
+                ? 'bg-white/95 border-blue-300'
+                : 'bg-white/95 border-orange-300'
               }`}
-            />
-            <span className="relative z-10">{item.icon}</span>
-            <span className="relative z-10">{item.label}</span>
-            <motion.div
-              className={`absolute right-4 w-1 h-1 rounded-full ${
-                mode === 'techie' ? 'bg-blue-500' : 'bg-orange-500'
-              } opacity-0 group-hover:opacity-100`}
-              animate={{ scale: [1, 1.5, 1] }}
-              transition={{ duration: 1, repeat: Infinity }}
-            />
-          </motion.button>
-        ))}
-      </nav>
-    </motion.aside>
+            initial={{ x: -300 }}
+            animate={{ x: 0 }}
+            exit={{ x: -300 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          >
+            <div className="p-6 border-b border-current border-opacity-20">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className={`text-2xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                  GaRa
+                </h2>
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  className={`p-2 rounded-full ${theme === 'dark' ? 'hover:bg-white/10' : 'hover:bg-black/10'
+                    }`}
+                >
+                  <X size={20} className={theme === 'dark' ? 'text-white' : 'text-gray-900'} />
+                </button>
+              </div>
+              <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                {mode === 'techie' ? 'Computer Engineer' : 'Travel Enthusiast'}
+              </p>
+            </div>
+
+            <nav className="p-4 space-y-2">
+              {items.map((item, index) => (
+                <motion.button
+                  key={item.id}
+                  onClick={() => {
+                    setMenuOpen(false);
+                    document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className={`w-full group relative flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${theme === 'dark'
+                    ? 'text-gray-300 hover:text-white'
+                    : 'text-gray-700 hover:text-gray-900'
+                    }`}
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ x: 10 }}
+                >
+                  <motion.div
+                    className={`absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity ${mode === 'techie'
+                      ? 'bg-gradient-to-r from-blue-500/20 to-purple-500/20'
+                      : 'bg-gradient-to-r from-orange-500/20 to-pink-500/20'
+                      }`}
+                  />
+                  <span className="relative z-10">{item.icon}</span>
+                  <span className="relative z-10">{item.label}</span>
+                </motion.button>
+              ))}
+            </nav>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
@@ -633,23 +1099,17 @@ const HeroSection = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.div
-            className={`text-7xl md:text-9xl font-black mb-6 bg-gradient-to-r ${
-              mode === 'techie'
-                ? 'from-blue-500 via-purple-500 to-pink-500'
-                : 'from-orange-500 via-pink-500 to-purple-500'
-            } bg-clip-text text-transparent`}
-            animate={{
-              backgroundPosition: ['0%', '100%', '0%']
-            }}
-            transition={{ duration: 5, repeat: Infinity }}
+            className={`text-7xl md:text-9xl font-black mb-6 bg-gradient-to-r ${mode === 'techie'
+              ? 'from-blue-500 via-purple-500 to-pink-500'
+              : 'from-orange-500 via-pink-500 to-purple-500'
+              } bg-clip-text text-transparent`}
           >
             GAURAV
           </motion.div>
 
           <motion.h2
-            className={`text-2xl md:text-4xl font-bold mb-4 ${
-              theme === 'dark' ? 'text-white' : 'text-gray-900'
-            }`}
+            className={`text-2xl md:text-4xl font-bold mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+              }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
@@ -662,9 +1122,8 @@ const HeroSection = () => {
           </motion.h2>
 
           <motion.p
-            className={`text-lg md:text-xl mb-8 ${
-              theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-            }`}
+            className={`text-lg md:text-xl mb-8 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+              }`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -682,42 +1141,33 @@ const HeroSection = () => {
           >
             <motion.button
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className={`px-8 py-4 rounded-full font-bold text-white backdrop-blur-xl relative overflow-hidden group ${
-                mode === 'techie'
-                  ? 'bg-gradient-to-r from-blue-500 to-purple-500'
-                  : 'bg-gradient-to-r from-orange-500 to-pink-500'
-              }`}
+              className={`px-8 py-4 rounded-full font-bold text-white backdrop-blur-xl relative overflow-hidden group ${mode === 'techie'
+                ? 'bg-gradient-to-r from-blue-500 to-purple-500'
+                : 'bg-gradient-to-r from-orange-500 to-pink-500'
+                }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10">Get In Touch</span>
-              <motion.div
-                className="absolute inset-0 bg-white/20"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: '100%' }}
-                transition={{ duration: 0.5 }}
-              />
             </motion.button>
 
             <motion.a
-              href="#projects"
-              className={`px-8 py-4 rounded-full font-bold backdrop-blur-xl border-2 ${
-                theme === 'dark'
-                  ? mode === 'techie'
-                    ? 'border-blue-500 text-blue-400 hover:bg-blue-500/10'
-                    : 'border-orange-500 text-orange-400 hover:bg-orange-500/10'
-                  : mode === 'techie'
-                    ? 'border-blue-500 text-blue-600 hover:bg-blue-50'
-                    : 'border-orange-500 text-orange-600 hover:bg-orange-50'
-              }`}
+              href={mode === 'techie' ? '#projects' : '#map'}
+              className={`px-8 py-4 rounded-full font-bold backdrop-blur-xl border-2 ${theme === 'dark'
+                ? mode === 'techie'
+                  ? 'border-blue-500 text-blue-400 hover:bg-blue-500/10'
+                  : 'border-orange-500 text-orange-400 hover:bg-orange-500/10'
+                : mode === 'techie'
+                  ? 'border-blue-500 text-blue-600 hover:bg-blue-50'
+                  : 'border-orange-500 text-orange-600 hover:bg-orange-50'
+                }`}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              {mode === 'techie' ? 'View Projects' : 'Explore Gallery'}
+              {mode === 'techie' ? 'View Projects' : 'Explore Map'}
             </motion.a>
           </motion.div>
 
-          {/* Floating Stats */}
           <motion.div
             className="grid grid-cols-3 gap-4 mt-16 max-w-3xl mx-auto"
             initial={{ opacity: 0 }}
@@ -732,9 +1182,9 @@ const HeroSection = () => {
               </>
             ) : (
               <>
-                <StatCard icon={<MapPin />} value="15+" label="Places" color={mode} theme={theme} />
+                <StatCard icon={<MapPin />} value="6" label="Destinations" color={mode} theme={theme} />
                 <StatCard icon={<Plane />} value="8+" label="States" color={mode} theme={theme} />
-                <StatCard icon={<Calendar />} value="Infinite" label="Stories" color={mode} theme={theme} />
+                <StatCard icon={<Heart />} value="∞" label="Memories" color={mode} theme={theme} />
               </>
             )}
           </motion.div>
@@ -746,15 +1196,14 @@ const HeroSection = () => {
 
 const StatCard = ({ icon, value, label, color, theme }) => (
   <motion.div
-    className={`p-6 rounded-2xl backdrop-blur-xl border ${
-      theme === 'dark'
-        ? color === 'techie'
-          ? 'bg-blue-500/10 border-blue-500/30'
-          : 'bg-orange-500/10 border-orange-500/30'
-        : color === 'techie'
-          ? 'bg-blue-50 border-blue-300'
-          : 'bg-orange-50 border-orange-300'
-    }`}
+    className={`p-6 rounded-2xl backdrop-blur-xl border ${theme === 'dark'
+      ? color === 'techie'
+        ? 'bg-blue-500/10 border-blue-500/30'
+        : 'bg-orange-500/10 border-orange-500/30'
+      : color === 'techie'
+        ? 'bg-blue-50 border-blue-300'
+        : 'bg-orange-50 border-orange-300'
+      }`}
     whileHover={{ y: -5, scale: 1.05 }}
   >
     <div className={`${color === 'techie' ? 'text-blue-500' : 'text-orange-500'} mb-2`}>
@@ -769,7 +1218,6 @@ const StatCard = ({ icon, value, label, color, theme }) => (
   </motion.div>
 );
 
-// About Section with Glassmorphism
 const AboutSection = () => {
   const { mode, theme } = useAppContext();
 
@@ -781,29 +1229,26 @@ const AboutSection = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <h2 className={`text-5xl md:text-6xl font-black mb-12 ${
-            theme === 'dark' ? 'text-white' : 'text-gray-900'
-          }`}>
-            <span className={`bg-gradient-to-r ${
-              mode === 'techie'
-                ? 'from-blue-500 to-purple-500'
-                : 'from-orange-500 to-pink-500'
-            } bg-clip-text text-transparent`}>
+          <h2 className={`text-5xl md:text-6xl font-black mb-12 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+            }`}>
+            <span className={`bg-gradient-to-r ${mode === 'techie'
+              ? 'from-blue-500 to-purple-500'
+              : 'from-orange-500 to-pink-500'
+              } bg-clip-text text-transparent`}>
               About Me
             </span>
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8">
             <motion.div
-              className={`p-8 rounded-3xl backdrop-blur-xl border ${
-                theme === 'dark'
-                  ? mode === 'techie'
-                    ? 'bg-blue-500/5 border-blue-500/20'
-                    : 'bg-orange-500/5 border-orange-500/20'
-                  : mode === 'techie'
-                    ? 'bg-blue-50/50 border-blue-200'
-                    : 'bg-orange-50/50 border-orange-200'
-              }`}
+              className={`p-8 rounded-3xl backdrop-blur-xl border ${theme === 'dark'
+                ? mode === 'techie'
+                  ? 'bg-blue-500/5 border-blue-500/20'
+                  : 'bg-orange-500/5 border-orange-500/20'
+                : mode === 'techie'
+                  ? 'bg-blue-50/50 border-blue-200'
+                  : 'bg-orange-50/50 border-orange-200'
+                }`}
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -851,9 +1296,9 @@ const AboutSection = () => {
                   />
                   <InfoCard
                     icon={<Camera />}
-                    title="Memories"
-                    value="Countless"
-                    subtitle="Photos & Stories"
+                    title="Travel Style"
+                    value="Budget & Solo"
+                    subtitle="Authentic Experiences"
                     theme={theme}
                     mode={mode}
                   />
@@ -869,15 +1314,14 @@ const AboutSection = () => {
 
 const InfoCard = ({ icon, title, value, subtitle, theme, mode }) => (
   <motion.div
-    className={`p-6 rounded-2xl backdrop-blur-xl border ${
-      theme === 'dark'
-        ? mode === 'techie'
-          ? 'bg-purple-500/10 border-purple-500/30'
-          : 'bg-pink-500/10 border-pink-500/30'
-        : mode === 'techie'
-          ? 'bg-purple-50 border-purple-200'
-          : 'bg-pink-50 border-pink-200'
-    }`}
+    className={`p-6 rounded-2xl backdrop-blur-xl border ${theme === 'dark'
+      ? mode === 'techie'
+        ? 'bg-purple-500/10 border-purple-500/30'
+        : 'bg-pink-500/10 border-pink-500/30'
+      : mode === 'techie'
+        ? 'bg-purple-50 border-purple-200'
+        : 'bg-pink-50 border-pink-200'
+      }`}
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
@@ -902,10 +1346,785 @@ const InfoCard = ({ icon, title, value, subtitle, theme, mode }) => (
   </motion.div>
 );
 
-// Education Section (New Separate Section)
+// Interactive Travel Map Section
+const InteractiveTravelMap = () => {
+  const { theme } = useAppContext();
+  const [selectedDestination, setSelectedDestination] = useState(null);
+  const [hoveredDestination, setHoveredDestination] = useState(null);
+  const projection = geoMercator().center([78, 22]).scale(1000).translate([400, 300]);
+  const convertRelativeToProjection = ({ x, y }) => {
+    // First convert relative XY to approximate lat/long manually
+    const lon = (x / 100) * (97 - 68) + 68;  // India longitude range: ~68–97°
+    const lat = (1 - y / 100) * (36 - 8) + 8; // India latitude range: ~8–36°, flipped Y
+    return projection([lon, lat]);
+  };
+
+  return (
+    <section id="map" className="min-h-screen flex items-center px-4 py-20">
+      <div className="max-w-7xl mx-auto w-full">
+        <motion.h2
+          className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
+            🗺️ My Travel Map
+          </span>
+        </motion.h2>
+
+        {/* Interactive India Map */}
+        <div className="relative w-full max-w-4xl mx-auto mb-12">
+          <motion.div
+            className={`relative rounded-3xl backdrop-blur-xl border overflow-hidden ${theme === 'dark'
+              ? 'bg-gradient-to-br from-orange-500/10 to-pink-500/10 border-orange-500/30'
+              : 'bg-gradient-to-br from-orange-50 to-pink-50 border-orange-300'
+              }`}
+            style={{ aspectRatio: '4 / 3' }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+          >
+            <ComposableMap
+              projection="geoMercator"
+              projectionConfig={{ center: [80, 22], scale: 1150 }}
+              width={800}
+              height={600}
+              style={{ width: '100%', height: '100%' }}
+            >
+              <Geographies geography={indiaGeo}>
+                {({ geographies }) =>
+                  geographies.map((geo) => (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill={theme === "dark" ? "#1F2937" : "#E5E7EB"}
+                      stroke="#9CA3AF"
+                    />
+                  ))
+                }
+              </Geographies>
+
+              {travelerData.destinations.map((dest) => (
+                <Marker
+                  key={dest.id}
+                  coordinates={dest.coordinates}
+                  onClick={() => setSelectedDestination(dest)} // click still opens modal
+                  onMouseEnter={() => setHoveredDestination(dest)} // show tooltip
+                  onMouseLeave={() => setHoveredDestination(null)} // hide tooltip
+                  style={{ cursor: "pointer" }}
+                >
+                  <circle r={6} fill="#F97316" stroke="#fff" strokeWidth={2} />
+                </Marker>
+              ))}
+            </ComposableMap>
+            {hoveredDestination && (
+              <div
+                className="absolute left-1/2 -translate-x-1/2 p-3 rounded-xl bg-black/70 text-white text-xs shadow-lg pointer-events-none"
+                style={{ top: "85%" }} // adjust this if needed
+              >
+                <p className="font-semibold">{hoveredDestination.name}</p>
+                <p className="text-[10px] opacity-80">
+                  {hoveredDestination.type || "Destination"}
+                </p>
+                {hoveredDestination.stats?.budget && (
+                  <p className="text-[10px]">{hoveredDestination.stats.budget}</p>
+                )}
+              </div>
+            )}
+          </motion.div>
+        </div>
+
+        {/* Destination Details Modal */}
+        <AnimatePresence>
+          {selectedDestination && (
+            <motion.div
+              className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedDestination(null)}
+            >
+              <motion.div
+                className={`relative w-full max-w-4xl max-h-[90vh] rounded-3xl overflow-y-auto ${theme === 'dark'
+                  ? 'bg-gray-900 border border-gray-800'
+                  : 'bg-white border border-gray-200'
+                  }`}
+                initial={{ scale: 0.9, y: 50 }}
+                animate={{ scale: 1, y: 0 }}
+                exit={{ scale: 0.9, y: 50 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  onClick={() => setSelectedDestination(null)}
+                  className="absolute top-6 right-6 z-20 p-3 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                >
+                  <X size={24} />
+                </button>
+
+                {/* Header with gradient */}
+                <div className={`relative h-48 bg-gradient-to-r ${selectedDestination.color} flex items-center justify-center`}>
+                  <div className="text-center text-white">
+                    <h2 className="text-4xl font-black mb-2">{selectedDestination.name}</h2>
+                    <p className="text-xl opacity-90">{selectedDestination.type}</p>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-8">
+                  {/* Travel Stats */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <Calendar className="text-orange-500" size={20} />
+                        <span className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Type</span>
+                      </div>
+                      <div className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                        {selectedDestination.stats.type}
+                      </div>
+                    </div>
+                    <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <DollarSign className="text-green-500" size={20} />
+                        <span className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Budget</span>
+                      </div>
+                      <div className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                        {selectedDestination.stats.budget}
+                      </div>
+                    </div>
+                    <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <Clock className="text-blue-500" size={20} />
+                        <span className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Duration</span>
+                      </div>
+                      <div className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                        {selectedDestination.stats.duration}
+                      </div>
+                    </div>
+                    <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-100'}`}>
+                      <div className="flex items-center gap-2 mb-1">
+                        <Users className="text-purple-500" size={20} />
+                        <span className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Travelers</span>
+                      </div>
+                      <div className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                        {selectedDestination.stats.travelers}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Story */}
+                  <div className="mb-6">
+                    <h3 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                      Story
+                    </h3>
+                    <p className={`text-lg leading-relaxed ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                      {selectedDestination.story}
+                    </p>
+                  </div>
+
+                  {/* Lesson Learned */}
+                  <motion.div
+                    className={`p-6 rounded-2xl ${selectedDestination.lesson.type === 'emotional'
+                      ? theme === 'dark'
+                        ? 'bg-pink-500/10 border border-pink-500/30'
+                        : 'bg-pink-50 border border-pink-200'
+                      : selectedDestination.lesson.type === 'practical'
+                        ? theme === 'dark'
+                          ? 'bg-blue-500/10 border border-blue-500/30'
+                          : 'bg-blue-50 border border-blue-200'
+                        : theme === 'dark'
+                          ? 'bg-yellow-500/10 border border-yellow-500/30'
+                          : 'bg-yellow-50 border border-yellow-200'
+                      }`}
+                    whileHover={{ scale: 1.02 }}
+                  >
+                    <div className="flex items-start gap-3">
+                      {selectedDestination.lesson.type === 'emotional' ? (
+                        <Heart className="text-pink-500 flex-shrink-0" size={24} />
+                      ) : selectedDestination.lesson.type === 'practical' ? (
+                        <Lightbulb className="text-blue-500 flex-shrink-0" size={24} />
+                      ) : (
+                        <Smile className="text-yellow-500 flex-shrink-0" size={24} />
+                      )}
+                      <div>
+                        <h4 className={`font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                          💡 Lesson Learned
+                        </h4>
+                        <p className={`${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
+                          {selectedDestination.lesson.text}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Photos */}
+                  {selectedDestination.photos.length > 0 && (
+                    <div className="mt-6">
+                      <h3 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                        Photos
+                      </h3>
+                      <div className="grid grid-cols-2 gap-4">
+                        {selectedDestination.photos.map((photo, idx) => (
+                          <div key={idx} className="aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-gray-700 to-gray-800">
+                            <img
+                              src={photo.image}
+                              alt={photo.title}
+                              className="w-full h-full object-cover"
+                              onError={(e) => {
+                                e.target.style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+};
+
+// Animated Trip Highlights (Instagram Style)
+const TripHighlights = () => {
+  const { theme } = useAppContext();
+  const [selectedHighlight, setSelectedHighlight] = useState(null);
+  const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+
+  const openHighlight = (highlight) => {
+    setSelectedHighlight(highlight);
+    setCurrentStoryIndex(0);
+  };
+
+  const closeHighlight = () => {
+    setSelectedHighlight(null);
+    setCurrentStoryIndex(0);
+  };
+
+  const nextStory = () => {
+    if (selectedHighlight && currentStoryIndex < selectedHighlight.stories.length - 1) {
+      setCurrentStoryIndex(currentStoryIndex + 1);
+    } else {
+      closeHighlight();
+    }
+  };
+
+  const prevStory = () => {
+    if (currentStoryIndex > 0) {
+      setCurrentStoryIndex(currentStoryIndex - 1);
+    }
+  };
+
+  return (
+    <section id="highlights" className="min-h-screen flex items-center px-4 py-20">
+      <div className="max-w-7xl mx-auto w-full">
+        <motion.h2
+          className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+            📸 Trip Highlights
+          </span>
+        </motion.h2>
+
+        {/* Highlights Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 justify-items-center">
+          {travelerData.tripHighlights.map((highlight, index) => (
+            <motion.button
+              key={highlight.id}
+              className="flex flex-col items-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+              onClick={() => openHighlight(highlight)}
+            >
+              <motion.div
+                className={`w-34 h-34 rounded-full bg-gradient-to-r ${highlight.color} p-1 cursor-pointer`}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <div
+                  className={`w-full h-full rounded-full ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'
+                    } flex items-center justify-center text-4xl`}
+                >
+                  {highlight.icon}
+                </div>
+              </motion.div>
+              <span
+                className={`mt-3 text-sm font-semibold max-w-[100px] text-center ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'
+                  }`}
+              >
+                {highlight.title}
+              </span>
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Story Viewer (Instagram Style) */}
+        <AnimatePresence>
+          {selectedHighlight && (
+            <motion.div
+              className="fixed inset-0 bg-black z-50 flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeHighlight}
+            >
+              {/* Progress bars */}
+              <div className="absolute top-4 left-4 right-4 flex gap-2 z-10">
+                {selectedHighlight.stories.map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="flex-1 h-1 bg-white/30 rounded-full overflow-hidden"
+                  >
+                    <motion.div
+                      className="h-full bg-white"
+                      initial={{ width: '0%' }}
+                      animate={{
+                        width: idx === currentStoryIndex ? '100%' : idx < currentStoryIndex ? '100%' : '0%'
+                      }}
+                      transition={{ duration: idx === currentStoryIndex ? 5 : 0 }}
+                    />
+                  </div>
+                ))}
+              </div>
+
+              {/* Close button */}
+              <button
+                onClick={closeHighlight}
+                className="absolute top-6 right-6 z-10 text-white"
+              >
+                <X size={32} />
+              </button>
+
+              {/* Story Content */}
+              <motion.div
+                key={currentStoryIndex}
+                className="relative w-full max-w-md aspect-[9/16] rounded-2xl overflow-hidden"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <img
+                    src={selectedHighlight.stories[currentStoryIndex].image}
+                    alt={selectedHighlight.stories[currentStoryIndex].title}
+                    className="w-full h-full object-cover"
+                    onError={(e) => {
+                      e.target.src = '';
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-transparent to-black/80" />
+                </div>
+
+                {/* Navigation areas */}
+                <div className="absolute inset-0 flex">
+                  <button
+                    onClick={prevStory}
+                    className="flex-1"
+                    disabled={currentStoryIndex === 0}
+                  />
+                  <button
+                    onClick={nextStory}
+                    className="flex-1"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-black mb-2">
+                    {selectedHighlight.stories[currentStoryIndex].title}
+                  </h3>
+                  <p className="text-base mb-4 opacity-90">
+                    {selectedHighlight.stories[currentStoryIndex].text}
+                  </p>
+
+                  {/* Tips */}
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold opacity-80">💡 Tips:</p>
+                    {selectedHighlight.stories[currentStoryIndex].tips.map((tip, idx) => (
+                      <div key={idx} className="flex items-start gap-2">
+                        <span className="text-orange-400">•</span>
+                        <span className="text-sm opacity-80">{tip}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Category badge */}
+                <div className="absolute top-20 left-6">
+                  <div className={`px-4 py-2 rounded-full bg-gradient-to-r ${selectedHighlight.color} text-white font-bold text-sm`}>
+                    {selectedHighlight.icon} {selectedHighlight.title}
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+};
+
+// Enhanced Stories Section with "Recreate This Trip" Button
+const StoriesSection = () => {
+  const { theme } = useAppContext();
+  const [selectedBlog, setSelectedBlog] = useState(null);
+  const [showItinerary, setShowItinerary] = useState(false);
+
+  const openBlog = (blog) => {
+    setSelectedBlog(blog);
+    setShowItinerary(false);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeBlog = () => {
+    setSelectedBlog(null);
+    setShowItinerary(false);
+    document.body.style.overflow = 'unset';
+  };
+
+  const copyItinerary = () => {
+    const text = `${selectedBlog.title}\n\nItinerary:\n${selectedBlog.itinerary.map(day =>
+      `Day ${day.day}: ${day.title}\n${day.activities.map(a => `- ${a}`).join('\n')}`
+    ).join('\n\n')}\n\nBudget: ${selectedBlog.budget.total}\n${selectedBlog.budget.breakdown.map(b => `${b.item}: ${b.cost}`).join('\n')}\n\nPacking List:\n${selectedBlog.packingList.map(item => `- ${item}`).join('\n')}`;
+
+    navigator.clipboard.writeText(text);
+    alert('Itinerary copied to clipboard! 📋');
+  };
+
+  return (
+    <section id="stories" className="min-h-screen flex items-center px-4 py-20">
+      <div className="max-w-6xl mx-auto w-full">
+        <motion.h2
+          className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+        >
+          <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
+            ✍️ Travel Blogs
+          </span>
+        </motion.h2>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {travelerData.posts.map((post, index) => (
+            <motion.div
+              key={post.id}
+              className={`rounded-3xl backdrop-blur-xl border overflow-hidden cursor-pointer group ${theme === 'dark'
+                ? 'bg-amber-500/10 border-amber-500/30 hover:border-amber-500/50'
+                : 'bg-amber-50 border-amber-300 hover:border-amber-400'
+                }`}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -10 }}
+              onClick={() => openBlog(post)}
+            >
+              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-amber-500 to-orange-500">
+                {post.coverImage ? (
+                  <img
+                    src={post.coverImage}
+                    alt={post.title}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                ) : null}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+
+                <div className="absolute top-4 left-4">
+                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/90 text-amber-600">
+                    {post.category}
+                  </span>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="flex items-center gap-4 mb-3 text-sm">
+                  <span className="text-amber-500 flex items-center gap-1">
+                    <Calendar size={14} />
+                    {post.date}
+                  </span>
+                  <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                    {post.readTime}
+                  </span>
+                </div>
+
+                <h3 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                  {post.title}
+                </h3>
+
+                <p className={`text-sm mb-4 line-clamp-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                  {post.excerpt}
+                </p>
+
+                <div className="flex gap-2">
+                  <button className="flex-1 text-amber-500 font-semibold flex items-center justify-center gap-2 group-hover:gap-3 transition-all">
+                    Read Story <ChevronRight size={16} />
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Enhanced Blog Modal with Recreate Trip Feature */}
+        <AnimatePresence>
+          {selectedBlog && (
+            <motion.div
+              className="fixed inset-0 bg-black/90 z-50 overflow-y-auto"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeBlog}
+            >
+              <div className="min-h-screen flex items-start justify-center p-4 py-20">
+                <motion.article
+                  className={`relative w-full max-w-4xl rounded-3xl overflow-hidden ${theme === 'dark'
+                    ? 'bg-gray-900 border border-gray-800'
+                    : 'bg-white border border-gray-200'
+                    }`}
+                  initial={{ scale: 0.9, y: 50 }}
+                  animate={{ scale: 1, y: 0 }}
+                  exit={{ scale: 0.9, y: 50 }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    onClick={closeBlog}
+                    className={`absolute top-6 right-6 z-20 p-3 rounded-full backdrop-blur-xl border transition-all ${theme === 'dark'
+                      ? 'bg-gray-800/80 border-gray-700 text-white hover:bg-gray-700'
+                      : 'bg-white/80 border-gray-300 text-gray-900 hover:bg-gray-100'
+                      }`}
+                  >
+                    <X size={24} />
+                  </button>
+
+                  {/* "Recreate This Trip" Button */}
+                  <motion.button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setShowItinerary(!showItinerary);
+                    }}
+                    className="absolute top-6 left-6 z-20 px-6 py-3 rounded-full font-bold bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg hover:shadow-xl transition-all"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <span className="flex items-center gap-2">
+                      <MapIcon size={20} />
+                      Recreate This Trip
+                    </span>
+                  </motion.button>
+
+                  <div className="relative h-96 overflow-hidden bg-gradient-to-br from-amber-500 to-orange-500">
+                    {selectedBlog.coverImage ? (
+                      <img
+                        src={selectedBlog.coverImage}
+                        alt={selectedBlog.title}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    ) : null}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+
+                    <div className="absolute bottom-0 left-0 right-0 p-8">
+                      <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold bg-white/90 text-amber-600 mb-4">
+                        {selectedBlog.category}
+                      </span>
+                      <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
+                        {selectedBlog.title}
+                      </h1>
+                      <div className="flex items-center gap-6 text-white/80">
+                        <span className="flex items-center gap-2">
+                          <Calendar size={16} />
+                          {selectedBlog.date}
+                        </span>
+                        <span>{selectedBlog.readTime}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Itinerary Panel (Slide-in) */}
+                  <AnimatePresence>
+                    {showItinerary && (
+                      <motion.div
+                        className={`absolute top-0 right-0 bottom-0 w-full md:w-96 overflow-y-auto ${theme === 'dark' ? 'bg-gray-800' : 'bg-gray-50'
+                          } border-l ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'} z-30`}
+                        initial={{ x: '100%' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '100%' }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                      >
+                        <div className="p-6">
+                          <div className="flex items-center justify-between mb-6">
+                            <h2 className={`text-2xl font-black ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                              Trip Guide
+                            </h2>
+                            <button
+                              onClick={() => setShowItinerary(false)}
+                              className={`p-2 rounded-full ${theme === 'dark' ? 'hover:bg-gray-700' : 'hover:bg-gray-200'
+                                }`}
+                            >
+                              <X size={20} />
+                            </button>
+                          </div>
+
+                          {/* Action Buttons */}
+                          <div className="flex gap-2 mb-6">
+                            <motion.button
+                              onClick={copyItinerary}
+                              className="flex-1 px-4 py-3 rounded-xl bg-blue-500 text-white font-semibold flex items-center justify-center gap-2"
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              <Copy size={18} />
+                              Copy
+                            </motion.button>
+                            <motion.button
+                              className="flex-1 px-4 py-3 rounded-xl bg-green-500 text-white font-semibold flex items-center justify-center gap-2"
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
+                            >
+                              <Share2 size={18} />
+                              Share
+                            </motion.button>
+                          </div>
+
+                          {/* Budget Breakdown */}
+                          <div className={`p-4 rounded-xl mb-6 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'
+                            }`}>
+                            <h3 className={`font-bold mb-3 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                              }`}>
+                              <DollarSign className="text-green-500" size={20} />
+                              Total Budget: {selectedBlog.budget.total}
+                            </h3>
+                            <div className="space-y-2">
+                              {selectedBlog.budget.breakdown.map((item, idx) => (
+                                <div key={idx} className="flex justify-between text-sm">
+                                  <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
+                                    {item.item}
+                                  </span>
+                                  <span className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                                    {item.cost}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Itinerary */}
+                          <div className="mb-6">
+                            <h3 className={`font-bold mb-3 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                              }`}>
+                              <Navigation className="text-blue-500" size={20} />
+                              Day-by-Day Itinerary
+                            </h3>
+                            <div className="space-y-4">
+                              {selectedBlog.itinerary.map((day, idx) => (
+                                <div key={idx} className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'
+                                  }`}>
+                                  <div className="flex items-center gap-2 mb-2">
+                                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 flex items-center justify-center text-white font-bold text-sm">
+                                      {day.day}
+                                    </div>
+                                    <h4 className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
+                                      {day.title}
+                                    </h4>
+                                  </div>
+                                  <ul className="space-y-1 ml-10">
+                                    {day.activities.map((activity, aidx) => (
+                                      <li key={aidx} className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                                        }`}>
+                                        • {activity}
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Map Route */}
+                          <div className={`p-4 rounded-xl mb-6 ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'
+                            }`}>
+                            <h3 className={`font-bold mb-2 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                              }`}>
+                              <MapIcon className="text-red-500" size={20} />
+                              Route
+                            </h3>
+                            <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
+                              {selectedBlog.mapRoute}
+                            </p>
+                          </div>
+
+                          {/* Packing List */}
+                          <div className={`p-4 rounded-xl ${theme === 'dark' ? 'bg-gray-900' : 'bg-white'
+                            }`}>
+                            <h3 className={`font-bold mb-3 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-900'
+                              }`}>
+                              <Package className="text-purple-500" size={20} />
+                              Packing List
+                            </h3>
+                            <ul className="space-y-2">
+                              {selectedBlog.packingList.map((item, idx) => (
+                                <li key={idx} className={`text-sm flex items-center gap-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                                  }`}>
+                                  <div className="w-4 h-4 rounded border-2 border-gray-400" />
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div
+                    className={`p-8 md:p-12 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}
+                    dangerouslySetInnerHTML={{ __html: selectedBlog.content }}
+                  />
+
+                  <div className={`p-8 border-t ${theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
+                    }`}>
+                    <button
+                      onClick={closeBlog}
+                      className={`w-full md:w-auto px-8 py-3 rounded-full font-bold transition-all ${theme === 'dark'
+                        ? 'bg-amber-500 text-white hover:bg-amber-600'
+                        : 'bg-amber-600 text-white hover:bg-amber-700'
+                        }`}
+                    >
+                      Close Article
+                    </button>
+                  </div>
+                </motion.article>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+};
+
+// Techie sections remain the same
 const EducationSection = () => {
   const { theme } = useAppContext();
-  
+
   return (
     <section id="education" className="min-h-screen flex items-center px-4 py-20">
       <div className="max-w-6xl mx-auto">
@@ -919,15 +2138,13 @@ const EducationSection = () => {
             Education
           </span>
         </motion.h2>
-        
+
         <div className="space-y-6">
-          {/* Bachelor's Degree */}
           <motion.div
-            className={`p-8 rounded-3xl backdrop-blur-xl border ${
-              theme === 'dark'
-                ? 'bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/30'
-                : 'bg-gradient-to-br from-blue-50 to-purple-50 border-blue-300'
-            }`}
+            className={`p-8 rounded-3xl backdrop-blur-xl border ${theme === 'dark'
+              ? 'bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/30'
+              : 'bg-gradient-to-br from-blue-50 to-purple-50 border-blue-300'
+              }`}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -956,15 +2173,12 @@ const EducationSection = () => {
             </div>
           </motion.div>
 
-          {/* HSC and SSC */}
           <div className="grid md:grid-cols-2 gap-6">
-            {/* HSC */}
             <motion.div
-              className={`p-8 rounded-3xl backdrop-blur-xl border ${
-                theme === 'dark'
-                  ? 'bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/30'
-                  : 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-300'
-              }`}
+              className={`p-8 rounded-3xl backdrop-blur-xl border ${theme === 'dark'
+                ? 'bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-green-500/30'
+                : 'bg-gradient-to-br from-green-50 to-emerald-50 border-green-300'
+                }`}
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -986,13 +2200,11 @@ const EducationSection = () => {
               </p>
             </motion.div>
 
-            {/* SSC */}
             <motion.div
-              className={`p-8 rounded-3xl backdrop-blur-xl border ${
-                theme === 'dark'
-                  ? 'bg-gradient-to-br from-orange-500/10 to-yellow-500/10 border-orange-500/30'
-                  : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-orange-300'
-              }`}
+              className={`p-8 rounded-3xl backdrop-blur-xl border ${theme === 'dark'
+                ? 'bg-gradient-to-br from-orange-500/10 to-yellow-500/10 border-orange-500/30'
+                : 'bg-gradient-to-br from-orange-50 to-yellow-50 border-orange-300'
+                }`}
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -1020,7 +2232,6 @@ const EducationSection = () => {
   );
 };
 
-// Skills Section with Hexagonal Grid
 const SkillsSection = () => {
   const { theme } = useAppContext();
 
@@ -1042,20 +2253,16 @@ const SkillsSection = () => {
           {techieData.skills.technical.map((skill, index) => (
             <motion.div
               key={skill.name}
-              className={`relative p-6 rounded-2xl backdrop-blur-xl border ${
-                theme === 'dark'
-                  ? 'bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/30'
-                  : 'bg-gradient-to-br from-blue-50 to-purple-50 border-blue-300'
-              } overflow-hidden group`}
+              className={`relative p-6 rounded-2xl backdrop-blur-xl border ${theme === 'dark'
+                ? 'bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/30'
+                : 'bg-gradient-to-br from-blue-50 to-purple-50 border-blue-300'
+                } overflow-hidden group`}
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.1 }}
               viewport={{ once: true }}
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity"
-              />
               <div className="relative z-10 text-center">
                 <div className="text-4xl mb-3">{skill.icon}</div>
                 <div className={`font-bold text-lg ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
@@ -1070,10 +2277,8 @@ const SkillsSection = () => {
   );
 };
 
-// Projects with 3D Card Effect
 const ProjectsSection = () => {
   const { theme } = useAppContext();
-  const [imageError, setImageError] = useState({});
 
   return (
     <section id="projects" className="min-h-screen flex items-center px-4 py-20">
@@ -1093,40 +2298,20 @@ const ProjectsSection = () => {
           {techieData.projects.map((project, index) => (
             <motion.div
               key={project.title}
-              className={`relative rounded-3xl backdrop-blur-xl border overflow-hidden group ${
-                theme === 'dark'
-                  ? 'bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-500/30'
-                  : 'bg-gradient-to-br from-purple-50 to-pink-50 border-purple-300'
-              }`}
+              className={`relative rounded-3xl backdrop-blur-xl border overflow-hidden group ${theme === 'dark'
+                ? 'bg-gradient-to-br from-purple-500/10 to-pink-500/10 border-purple-500/30'
+                : 'bg-gradient-to-br from-purple-50 to-pink-50 border-purple-300'
+                }`}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
               viewport={{ once: true }}
               whileHover={{ y: -10 }}
             >
-              <motion.div
-                className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/30 to-pink-500/30 rounded-full blur-3xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.3, 0.6, 0.3]
-                }}
-                transition={{ duration: 3, repeat: Infinity }}
-              />
-
-              {/* Project Image */}
               <div className="relative h-48 overflow-hidden bg-gradient-to-br from-purple-600 to-pink-600">
-                {project.image && !imageError[`project-${index}`] ? (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                    onError={() => setImageError(prev => ({ ...prev, [`project-${index}`]: true }))}
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Code className="text-white/50" size={64} />
-                  </div>
-                )}
+                <div className="w-full h-full flex items-center justify-center">
+                  <Code className="text-white/50" size={64} />
+                </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </div>
 
@@ -1143,28 +2328,25 @@ const ProjectsSection = () => {
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
-                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        theme === 'dark'
-                          ? 'bg-purple-500/20 text-purple-300'
-                          : 'bg-purple-100 text-purple-700'
-                      }`}
+                      className={`px-3 py-1 rounded-full text-xs font-semibold ${theme === 'dark'
+                        ? 'bg-purple-500/20 text-purple-300'
+                        : 'bg-purple-100 text-purple-700'
+                        }`}
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
 
-                {/* Action Buttons */}
                 <div className="flex gap-3">
                   <motion.a
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${
-                      theme === 'dark'
-                        ? 'bg-purple-500 text-white hover:bg-purple-600'
-                        : 'bg-purple-600 text-white hover:bg-purple-700'
-                    }`}
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all ${theme === 'dark'
+                      ? 'bg-purple-500 text-white hover:bg-purple-600'
+                      : 'bg-purple-600 text-white hover:bg-purple-700'
+                      }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -1175,11 +2357,10 @@ const ProjectsSection = () => {
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold border-2 transition-all ${
-                      theme === 'dark'
-                        ? 'border-purple-500 text-purple-400 hover:bg-purple-500/10'
-                        : 'border-purple-600 text-purple-600 hover:bg-purple-50'
-                    }`}
+                    className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold border-2 transition-all ${theme === 'dark'
+                      ? 'border-purple-500 text-purple-400 hover:bg-purple-500/10'
+                      : 'border-purple-600 text-purple-600 hover:bg-purple-50'
+                      }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -1196,14 +2377,13 @@ const ProjectsSection = () => {
   );
 };
 
-// Achievements with Trophy Cards
 const AchievementsSection = () => {
   const { theme } = useAppContext();
 
   const getColorClasses = (color) => {
     const colors = {
-      yellow: theme === 'dark' 
-        ? 'bg-yellow-500/10 border-yellow-500/30 hover:bg-yellow-500/20' 
+      yellow: theme === 'dark'
+        ? 'bg-yellow-500/10 border-yellow-500/30 hover:bg-yellow-500/20'
         : 'bg-yellow-50 border-yellow-200 hover:bg-yellow-100',
       blue: theme === 'dark'
         ? 'bg-blue-500/10 border-blue-500/30 hover:bg-blue-500/20'
@@ -1278,416 +2458,6 @@ const AchievementsSection = () => {
   );
 };
 
-// Travel Gallery
-const GallerySection = () => {
-  const { theme } = useAppContext();
-  const [selected, setSelected] = useState(null);
-  const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
-  const [imageError, setImageError] = useState({});
-
-  const handleNext = () => {
-    if (selected && currentPhotoIndex < selected.photos.length - 1) {
-      setCurrentPhotoIndex(currentPhotoIndex + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentPhotoIndex > 0) {
-      setCurrentPhotoIndex(currentPhotoIndex - 1);
-    }
-  };
-
-  const openGallery = (item) => {
-    setSelected(item);
-    setCurrentPhotoIndex(0);
-    setImageError({});
-  };
-
-  const closeGallery = () => {
-    setSelected(null);
-    setCurrentPhotoIndex(0);
-    setImageError({});
-  };
-
-  const handleImageError = (photoId) => {
-    setImageError(prev => ({ ...prev, [photoId]: true }));
-  };
-
-  return (
-    <section id="projects" className="min-h-screen flex items-center px-4 py-20">
-      <div className="max-w-7xl mx-auto w-full">
-        <motion.h2
-          className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
-            Travel Gallery
-          </span>
-        </motion.h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {travelerData.gallery.map((item, index) => (
-            <motion.div
-              key={item.id}
-              className={`relative h-80 md:h-72 rounded-2xl overflow-hidden cursor-pointer bg-gradient-to-br ${item.color}`}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.05 }}
-              onClick={() => openGallery(item)}
-            >
-              {item.photos[0].image && !imageError[`thumb-${item.id}`] ? (
-                <img 
-                  src={item.photos[0].image} 
-                  alt={item.location}
-                  className="w-full h-full object-cover"
-                  onError={() => handleImageError(`thumb-${item.id}`)}
-                />
-              ) : null}
-              <div className={`absolute inset-0 flex flex-col items-center justify-center ${item.photos[0].image && !imageError[`thumb-${item.id}`] ? 'bg-black/40 hover:bg-black/60' : 'bg-black/30'} backdrop-blur-sm transition-all`}>
-                <MapPin size={48} className="text-white mb-3" />
-                <div className="font-bold text-2xl text-white mb-2">{item.location}</div>
-                <div className="text-sm text-white/80">{item.photos.length} Photos</div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        <AnimatePresence>
-          {selected && (
-            <motion.div
-              className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={closeGallery}
-            >
-              <motion.div
-                className="relative w-full max-w-5xl"
-                onClick={(e) => e.stopPropagation()}
-                initial={{ scale: 0.8 }}
-                animate={{ scale: 1 }}
-                exit={{ scale: 0.8 }}
-              >
-                {/* Close Button */}
-                <button
-                  onClick={closeGallery}
-                  className="absolute -top-12 right-0 text-white hover:text-orange-500 transition-colors z-10"
-                >
-                  <X size={32} />
-                </button>
-
-                {/* Photo Counter */}
-                <div className="absolute -top-12 left-0 text-white text-lg z-10">
-                  {currentPhotoIndex + 1} / {selected.photos.length}
-                </div>
-
-                {/* Main Photo Display */}
-                <div className="relative w-full h-96 rounded-3xl overflow-hidden bg-black">
-                  {selected.photos[currentPhotoIndex].image && !imageError[`main-${currentPhotoIndex}`] ? (
-                    <>
-                      <img 
-                        key={`photo-${currentPhotoIndex}`}
-                        src={selected.photos[currentPhotoIndex].image}
-                        alt={selected.photos[currentPhotoIndex].title}
-                        className="w-full h-full object-contain"
-                        onError={() => handleImageError(`main-${currentPhotoIndex}`)}
-                      />
-                      {/* Photo Title Overlay */}
-                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
-                        <div className="text-white text-2xl font-bold">{selected.photos[currentPhotoIndex].title}</div>
-                        <div className="text-white/80">{selected.location}</div>
-                      </div>
-                    </>
-                  ) : (
-                    <div className={`absolute inset-0 bg-gradient-to-br ${selected.photos[currentPhotoIndex].color} flex items-center justify-center`}>
-                      <div className="text-center text-white">
-                        <MapPin size={80} className="mx-auto mb-4" />
-                        <div className="font-bold text-5xl mb-2">{selected.location}</div>
-                        <div className="text-2xl opacity-80">{selected.photos[currentPhotoIndex].title}</div>
-                        <div className="text-sm mt-4 opacity-60">Image placeholder - Add your photo!</div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Navigation Buttons */}
-                <div className="flex items-center justify-between mt-6">
-                  <button
-                    onClick={handlePrev}
-                    disabled={currentPhotoIndex === 0}
-                    className={`px-6 py-3 rounded-full font-bold transition-all ${
-                      currentPhotoIndex === 0
-                        ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                        : 'bg-orange-500 text-white hover:bg-orange-600'
-                    }`}
-                  >
-                    ← Previous
-                  </button>
-
-                  <button
-                    onClick={handleNext}
-                    disabled={currentPhotoIndex === selected.photos.length - 1}
-                    className={`px-6 py-3 rounded-full font-bold transition-all ${
-                      currentPhotoIndex === selected.photos.length - 1
-                        ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
-                        : 'bg-orange-500 text-white hover:bg-orange-600'
-                    }`}
-                  >
-                    Next →
-                  </button>
-                </div>
-
-                {/* Thumbnail Navigation */}
-                <div className="flex gap-2 justify-center mt-6 overflow-x-auto pb-2">
-                  {selected.photos.map((photo, index) => (
-                    <motion.button
-                      key={photo.id}
-                      onClick={() => setCurrentPhotoIndex(index)}
-                      className={`flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden ${
-                        index === currentPhotoIndex ? 'ring-4 ring-orange-500' : 'opacity-50'
-                      }`}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      {photo.image && !imageError[`thumb-${selected.id}-${index}`] ? (
-                        <img 
-                          src={photo.image} 
-                          alt={photo.title}
-                          className="w-full h-full object-cover"
-                          onError={() => handleImageError(`thumb-${selected.id}-${index}`)}
-                        />
-                      ) : (
-                        <div className={`w-full h-full bg-gradient-to-br ${photo.color}`} />
-                      )}
-                    </motion.button>
-                  ))}
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </section>
-  );
-};
-
-// Stories Section with Blog Preview and Full View
-const StoriesSection = () => {
-  const { theme } = useAppContext();
-  const [selectedBlog, setSelectedBlog] = useState(null);
-
-  const openBlog = (blog) => {
-    setSelectedBlog(blog);
-    document.body.style.overflow = 'hidden'; // Prevent background scroll
-  };
-
-  const closeBlog = () => {
-    setSelectedBlog(null);
-    document.body.style.overflow = 'unset';
-  };
-
-  return (
-    <section id="stories" className="min-h-screen flex items-center px-4 py-20">
-      <div className="max-w-6xl mx-auto w-full">
-        <motion.h2
-          className={`text-5xl md:text-6xl font-black mb-16 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-        >
-          <span className="bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
-            Travel Stories
-          </span>
-        </motion.h2>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {travelerData.posts.map((post, index) => (
-            <motion.div
-              key={post.id}
-              className={`rounded-3xl backdrop-blur-xl border overflow-hidden cursor-pointer group ${
-                theme === 'dark'
-                  ? 'bg-pink-500/10 border-pink-500/30 hover:border-pink-500/50'
-                  : 'bg-pink-50 border-pink-300 hover:border-pink-400'
-              }`}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              onClick={() => openBlog(post)}
-            >
-              {/* Cover Image */}
-              <div className="relative h-48 overflow-hidden bg-gradient-to-br from-pink-500 to-purple-500">
-                {post.coverImage ? (
-                  <img
-                    src={post.coverImage}
-                    alt={post.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <Calendar className="text-white/50" size={64} />
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/90 text-pink-600">
-                    {post.category}
-                  </span>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <div className="flex items-center gap-4 mb-3 text-sm">
-                  <span className="text-pink-500 flex items-center gap-1">
-                    <Calendar size={14} />
-                    {post.date}
-                  </span>
-                  <span className={theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}>
-                    {post.readTime}
-                  </span>
-                </div>
-
-                <h3 className={`text-xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
-                  {post.title}
-                </h3>
-
-                <p className={`text-sm mb-4 line-clamp-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
-                  {post.excerpt}
-                </p>
-
-                <button className="text-pink-500 font-semibold flex items-center gap-2 group-hover:gap-3 transition-all">
-                  Read More <ChevronRight size={16} />
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Full Blog Modal */}
-        <AnimatePresence>
-          {selectedBlog && (
-            <motion.div
-              className="fixed inset-0 bg-black/90 z-50 overflow-y-auto"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={closeBlog}
-            >
-              <div className="min-h-screen flex items-start justify-center p-4 py-20">
-                <motion.article
-                  className={`relative w-full max-w-4xl rounded-3xl overflow-hidden ${
-                    theme === 'dark'
-                      ? 'bg-gray-900 border border-gray-800'
-                      : 'bg-white border border-gray-200'
-                  }`}
-                  initial={{ scale: 0.9, y: 50 }}
-                  animate={{ scale: 1, y: 0 }}
-                  exit={{ scale: 0.9, y: 50 }}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  {/* Close Button */}
-                  <button
-                    onClick={closeBlog}
-                    className={`absolute top-6 right-6 z-20 p-3 rounded-full backdrop-blur-xl border transition-all ${
-                      theme === 'dark'
-                        ? 'bg-gray-800/80 border-gray-700 text-white hover:bg-gray-700'
-                        : 'bg-white/80 border-gray-300 text-gray-900 hover:bg-gray-100'
-                    }`}
-                  >
-                    <X size={24} />
-                  </button>
-
-                  {/* Cover Image */}
-                  <div className="relative h-96 overflow-hidden bg-gradient-to-br from-pink-500 to-purple-500">
-                    {selectedBlog.coverImage ? (
-                      <img
-                        src={selectedBlog.coverImage}
-                        alt={selectedBlog.title}
-                        className="w-full h-full object-cover"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center">
-                        <Calendar className="text-white/30" size={120} />
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                    
-                    {/* Title Overlay */}
-                    <div className="absolute bottom-0 left-0 right-0 p-8">
-                      <span className="inline-block px-4 py-2 rounded-full text-sm font-semibold bg-white/90 text-pink-600 mb-4">
-                        {selectedBlog.category}
-                      </span>
-                      <h1 className="text-4xl md:text-5xl font-black text-white mb-4">
-                        {selectedBlog.title}
-                      </h1>
-                      <div className="flex items-center gap-6 text-white/80">
-                        <span className="flex items-center gap-2">
-                          <Calendar size={16} />
-                          {selectedBlog.date}
-                        </span>
-                        <span>{selectedBlog.readTime}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Blog Content */}
-                  <div
-                    className={`p-8 md:p-12 max-w-none ${theme === 'dark'
-                        ? 'text-white'
-                        : 'text-gray-900'
-                      }`}
-                    dangerouslySetInnerHTML={{
-                      __html: selectedBlog.content
-                        .replace(/<h2[^>]*>/g, '<p class="text-white font-bold text-2xl mt-6 mb-3">')
-                        .replace(/<\/h2>/g, '</p>')
-                        .replace(/<h3[^>]*>/g, '<p class="text-white font-semibold text-xl mt-4 mb-2">')
-                        .replace(/<\/h3>/g, '</p>')
-                        .replace(/<ul[^>]*>/g, '<ul class="list-disc pl-6 mt-3 mb-3 text-white">')
-                        .replace(/<li[^>]*>/g, '<li class="mb-1 text-white">')
-                        .replace(/<p[^>]*>/g, '<p class="text-white leading-relaxed mb-3">')
-                    }}
-                  />
-
-                  {/* Footer */}
-                  <div className={`p-8 border-t ${
-                    theme === 'dark' ? 'border-gray-800' : 'border-gray-200'
-                  }`}>
-                    <button
-                      onClick={closeBlog}
-                      className={`w-full md:w-auto px-8 py-3 rounded-full font-bold transition-all ${
-                        theme === 'dark'
-                          ? 'bg-pink-500 text-white hover:bg-pink-600'
-                          : 'bg-pink-600 text-white hover:bg-pink-700'
-                      }`}
-                    >
-                      Close Article
-                    </button>
-                  </div>
-                </motion.article>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-    </section>
-  );
-};
-
-// Contact with Neon Effect
 const ContactSection = () => {
   const { mode, theme } = useAppContext();
 
@@ -1713,7 +2483,7 @@ const ContactSection = () => {
       link: "https://linkedin.com/in/gauravrasane14",
       highlight: mode === 'techie'
     },
-      {
+    {
       icon: <Github size={32} />,
       title: "GitHub",
       value: "@gauravrasane14",
@@ -1745,11 +2515,10 @@ const ContactSection = () => {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <span className={`bg-gradient-to-r ${
-            mode === 'techie'
-              ? 'from-blue-500 to-purple-500'
-              : 'from-orange-500 to-pink-500'
-          } bg-clip-text text-transparent`}>
+          <span className={`bg-gradient-to-r ${mode === 'techie'
+            ? 'from-blue-500 to-purple-500'
+            : 'from-orange-500 to-pink-500'
+            } bg-clip-text text-transparent`}>
             Let's Connect
           </span>
         </motion.h2>
@@ -1768,27 +2537,25 @@ const ContactSection = () => {
                   href={option.link}
                   target={option.link.startsWith('http') ? '_blank' : undefined}
                   rel={option.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-                  className={`block p-5 rounded-2xl backdrop-blur-xl border transition-all group ${
-                    option.highlight
-                      ? theme === 'dark'
-                        ? mode === 'techie'
-                          ? 'bg-blue-500/20 border-blue-500/50 hover:bg-blue-500/30 hover:scale-105'
-                          : 'bg-orange-500/20 border-orange-500/50 hover:bg-orange-500/30 hover:scale-105'
-                        : mode === 'techie'
-                          ? 'bg-blue-100 border-blue-400 hover:bg-blue-200 hover:scale-105'
-                          : 'bg-orange-100 border-orange-400 hover:bg-orange-200 hover:scale-105'
-                      : theme === 'dark'
-                        ? 'bg-gray-800/30 border-gray-700/50 hover:bg-gray-800/50 hover:scale-105'
-                        : 'bg-white/80 border-gray-300 hover:bg-white hover:scale-105'
-                  }`}
+                  className={`block p-5 rounded-2xl backdrop-blur-xl border transition-all group ${option.highlight
+                    ? theme === 'dark'
+                      ? mode === 'techie'
+                        ? 'bg-blue-500/20 border-blue-500/50 hover:bg-blue-500/30 hover:scale-105'
+                        : 'bg-orange-500/20 border-orange-500/50 hover:bg-orange-500/30 hover:scale-105'
+                      : mode === 'techie'
+                        ? 'bg-blue-100 border-blue-400 hover:bg-blue-200 hover:scale-105'
+                        : 'bg-orange-100 border-orange-400 hover:bg-orange-200 hover:scale-105'
+                    : theme === 'dark'
+                      ? 'bg-gray-800/30 border-gray-700/50 hover:bg-gray-800/50 hover:scale-105'
+                      : 'bg-white/80 border-gray-300 hover:bg-white hover:scale-105'
+                    }`}
                   whileHover={{ y: -4 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <div className={`mb-3 ${
-                    option.highlight
-                      ? mode === 'techie' ? 'text-blue-500' : 'text-orange-500'
-                      : theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
+                  <div className={`mb-3 ${option.highlight
+                    ? mode === 'techie' ? 'text-blue-500' : 'text-orange-500'
+                    : theme === 'dark' ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
                     {option.icon}
                   </div>
                   <h3 className={`text-base font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-900'}`}>
@@ -1800,11 +2567,10 @@ const ContactSection = () => {
                 </motion.a>
               ) : (
                 <motion.div
-                  className={`block p-5 rounded-2xl backdrop-blur-xl border ${
-                    theme === 'dark'
-                      ? 'bg-gray-800/30 border-gray-700/50'
-                      : 'bg-white/80 border-gray-300'
-                  }`}
+                  className={`block p-5 rounded-2xl backdrop-blur-xl border ${theme === 'dark'
+                    ? 'bg-gray-800/30 border-gray-700/50'
+                    : 'bg-white/80 border-gray-300'
+                    }`}
                   whileHover={{ y: -4 }}
                 >
                   <div className={`mb-3 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
@@ -1826,7 +2592,6 @@ const ContactSection = () => {
   );
 };
 
-// Main App
 const App = () => {
   const [showWelcome, setShowWelcome] = useState(true);
   const [mode, setMode] = useState('techie');
@@ -1835,9 +2600,8 @@ const App = () => {
 
   return (
     <AppContext.Provider value={{ mode, setMode, theme, setTheme, menuOpen, setMenuOpen }}>
-      <div className={`min-h-screen transition-all duration-500 ${
-        theme === 'dark' ? 'bg-black' : 'bg-gray-50'
-      }`}>
+      <div className={`min-h-screen transition-all duration-500 ${theme === 'dark' ? 'bg-black' : 'bg-gray-50'
+        }`}>
         <AnimatePresence>
           {showWelcome && <WelcomeScreen onComplete={() => setShowWelcome(false)} />}
         </AnimatePresence>
@@ -1849,7 +2613,7 @@ const App = () => {
             <Header />
             <Sidebar />
 
-            <main className="lg:ml-64 transition-all duration-300">
+            <main className="transition-all duration-300">
               <AnimatePresence mode="wait">
                 {mode === 'techie' ? (
                   <motion.div
@@ -1877,7 +2641,8 @@ const App = () => {
                   >
                     <HeroSection />
                     <AboutSection />
-                    <GallerySection />
+                    <InteractiveTravelMap />
+                    <TripHighlights />
                     <StoriesSection />
                     <ContactSection />
                   </motion.div>
@@ -1885,11 +2650,10 @@ const App = () => {
               </AnimatePresence>
             </main>
 
-            <footer className={`lg:ml-64 py-8 text-center border-t ${
-              theme === 'dark'
-                ? 'bg-black/50 border-gray-800 text-gray-500'
-                : 'bg-white/50 border-gray-200 text-gray-600'
-            } backdrop-blur-xl`}>
+            <footer className={`py-8 text-center border-t ${theme === 'dark'
+              ? 'bg-black/50 border-gray-800 text-gray-500'
+              : 'bg-white/50 border-gray-200 text-gray-600'
+              } backdrop-blur-xl`}>
               <p className="mb-2">© 2025 Gaurav Y. Rasane</p>
               <p className="text-sm">Crafted with React + Framer Motion</p>
             </footer>
