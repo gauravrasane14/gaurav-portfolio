@@ -16,8 +16,8 @@ const techieData = {
   education: {
     degree: "Bachelor of Engineering in Computer Engineering",
     university: "Savitribai Phule Pune University",
-    sgpa: "9.70",
-    period: "Nov 2022 - May 2026",
+    cgpa: "9.35",
+    period: "2026",
     location: "Pune, Maharashtra, India",
     hsc: { score: "84.00%", year: "2022" },
     ssc: { score: "94.80%", year: "2020" }
@@ -64,9 +64,9 @@ const techieData = {
   ],
   achievements: [
     { title: "Top 5 at IIT Bombay", desc: "National Entrepreneurship Challenge among 1000+ teams", color: "yellow" },
-    { title: "IIT Madras Selection", desc: "Global Hyperloop Competition", color: "blue" },
-    { title: "SGPA 9.70", desc: "Consistent Top Performer", color: "purple" },
-    { title: "Subject Ranker", desc: "Engineering Physics & Chemistry", color: "green" }
+    { title: "CGPA 9.35", desc: "Consistent Top Performer", color: "purple" },
+    { title: "NSS Certification", desc: "National Service Scheme NSS Unit-A122", color: "green" },
+    { title: "IIT Madras Selection", desc: "Global Hyperloop Competition", color: "blue" }
   ],
   leadership: [
     { role: "Advisor", org: "E-Cell ZCOER" },
@@ -1512,7 +1512,7 @@ const HeroSection = () => {
               <>
                 <StatCard icon={<Code />} value="8+" label="Projects" color={mode} theme={theme} />
                 <StatCard icon={<Award />} value="10+" label="Technologies" color={mode} theme={theme} />
-                <StatCard icon={<Trophy />} value="9.57" label="SGPA" color={mode} theme={theme} />
+                <StatCard icon={<Trophy />} value="9.35" label="CGPA" color={mode} theme={theme} />
               </>
             ) : (
               <>
@@ -1551,85 +1551,6 @@ const StatCard = ({ icon, value, label, color, theme }) => (
     </div>
   </motion.div>
 );
-
-// ── Under Construction Banner ─────────────────────────────────────
-const UnderConstructionBanner = () => {
-  const { theme, setMode } = useAppContext();
-  return (
-    <motion.div
-      className="relative overflow-hidden mx-4 my-6 rounded-2xl"
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      {/* Animated diagonal stripe overlay */}
-      <div
-        className="absolute inset-0 opacity-[0.07] pointer-events-none"
-        style={{
-          backgroundImage: 'repeating-linear-gradient(45deg, #3b82f6 0px, #3b82f6 20px, transparent 20px, transparent 40px)',
-          backgroundSize: '56px 56px',
-          animation: 'uc-stripes 2s linear infinite',
-        }}
-      />
-      <div className={`relative flex flex-wrap items-center justify-between gap-4 px-6 py-5 border-2 rounded-2xl backdrop-blur-xl ${theme === 'dark'
-        ? 'bg-blue-500/10 border-blue-500/40'
-        : 'bg-blue-50 border-blue-400'
-        }`}>
-        <div className="flex items-center gap-4">
-          <motion.span
-            className="text-3xl select-none"
-            animate={{ rotate: [0, -12, 12, -8, 0] }}
-            transition={{ duration: 1.6, repeat: Infinity, repeatDelay: 2 }}
-          >
-            🚧
-          </motion.span>
-          <div>
-            <p className={`font-black text-lg tracking-wide leading-tight ${theme === 'dark' ? 'text-white' : 'text-gray-900'
-              }`}>
-              Techie Section - Under Active Development
-            </p>
-            <p className={`text-sm mt-0.5 ${theme === 'dark' ? 'text-blue-300' : 'text-blue-600'
-              }`}>
-              Some sections may be incomplete. Exciting updates coming soon! 🚀
-            </p>
-            <p className={`text-sm mt-2 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-              Till then, why not explore the other side?
-            </p>
-          </div>
-        </div>
-
-        <div className="flex flex-col items-stretch gap-3 min-w-[200px]">
-          {/* WIP badge */}
-          <motion.div
-            className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-bold shadow-lg shadow-blue-500/30"
-            animate={{ opacity: [1, 0.55, 1] }}
-            transition={{ duration: 1.6, repeat: Infinity }}
-          >
-            <span className="w-2 h-2 rounded-full bg-white inline-block" />
-            Work In Progress
-          </motion.div>
-
-          {/* Explore Traveler CTA */}
-          <motion.button
-            onClick={() => setMode('traveller')}
-            className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-lg shadow-amber-500/30 hover:shadow-amber-500/50 transition-shadow"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            ✈️ Explore Traveler Gaurav
-            <ChevronRight size={15} />
-          </motion.button>
-        </div>
-      </div>
-      <style>{`
-        @keyframes uc-stripes {
-          from { background-position: 0 0; }
-          to   { background-position: 56px 56px; }
-        }
-      `}</style>
-    </motion.div>
-  );
-};
 
 const AboutSection = () => {
   const { mode, theme } = useAppContext();
@@ -1684,7 +1605,7 @@ const AboutSection = () => {
                     icon={<GraduationCap />}
                     title="Current Education"
                     value="B.E. Computer Engineering"
-                    subtitle={`SGPA: ${techieData.education.sgpa}`}
+                    subtitle={`CGPA: ${techieData.education.cgpa}`}
                     theme={theme}
                     mode={mode}
                   />
@@ -2845,7 +2766,7 @@ const EducationSection = () => {
                   {techieData.education.degree}
                 </h3>
                 <p className="text-blue-500 font-semibold text-lg mb-2">
-                  SGPA: {techieData.education.sgpa}
+                  CGPA: {techieData.education.cgpa}
                 </p>
                 <p className={`text-lg font-medium mb-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
                   {techieData.education.university}
@@ -3331,15 +3252,18 @@ const App = () => {
                 {mode === 'techie' ? (
                   <motion.div
                     key="techie"
-                    className="min-h-screen flex items-center justify-center pt-20"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.5 }}
                   >
-                    <div className="w-full max-w-3xl">
-                      <UnderConstructionBanner />
-                    </div>
+                    <HeroSection />
+                    <AboutSection />
+                    <EducationSection />
+                    <SkillsSection />
+                    <ProjectsSection />
+                    <AchievementsSection />
+                    <ContactSection />
                   </motion.div>
                 ) : (
                   <motion.div
